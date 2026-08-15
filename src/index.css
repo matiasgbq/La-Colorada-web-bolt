@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  color: #1A1A1A;
+}
+
+::selection {
+  background-color: #D32F2F;
+  color: #ffffff;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Checkerboard band utility */
+.checker-band {
+  background-image: repeating-conic-gradient(#D32F2F 0% 25%, #f9f0d4 0% 50%);
+  background-size: 20px 20px;
+}
+.checker-band-sm {
+  background-image: repeating-conic-gradient(#D32F2F 0% 25%, #f9f0d4 0% 50%);
+  background-size: 12px 12px;
+}
