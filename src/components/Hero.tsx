@@ -9,38 +9,26 @@ import {
 } from 'lucide-react';
 import { IMG, PHONE_TEL } from '../data';
 import type { Section } from '../types';
-
-const MENU_FLYERS = [
-  {
-    src: '/images/WhatsApp_Image_2026-08-10_at_11.06.25_(2).jpeg',
-    alt: 'Menú de pizzas y empanadas de La Colorada',
-  },
-  {
-    src: '/images/WhatsApp_Image_2026-08-10_at_11.06.25_(1).jpeg',
-    alt: 'Menú de milanesas de La Colorada',
-  },
-  {
-    src: '/images/WhatsApp_Image_2026-08-10_at_11.06.25.jpeg',
-    alt: 'Menú de comidas caseras de La Colorada',
-  },
-];
+import menuFlyers from 'virtual:menu-flyers';
 
 export function Hero({ onNavigate }: { onNavigate: (s: Section) => void }) {
   const [activeFlyer, setActiveFlyer] = useState(0);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setActiveFlyer((current) => (current + 1) % MENU_FLYERS.length);
+      setActiveFlyer((current) => (current + 1) % menuFlyers.length);
     }, 5000);
     return () => window.clearInterval(interval);
   }, []);
 
   const showPreviousFlyer = () => {
-    setActiveFlyer((current) => (current - 1 + MENU_FLYERS.length) % MENU_FLYERS.length);
+    setActiveFlyer(
+      (current) => (current - 1 + menuFlyers.length) % menuFlyers.length,
+    );
   };
 
   const showNextFlyer = () => {
-    setActiveFlyer((current) => (current + 1) % MENU_FLYERS.length);
+    setActiveFlyer((current) => (current + 1) % menuFlyers.length);
   };
   return (
     <section
@@ -137,9 +125,9 @@ export function Hero({ onNavigate }: { onNavigate: (s: Section) => void }) {
               <div className="relative rounded-2xl bg-crimson-700 p-1.5 shadow-2xl ring-4 ring-white/90">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-crimson-700">
                   <img
-                    key={MENU_FLYERS[activeFlyer].src}
-                    src={MENU_FLYERS[activeFlyer].src}
-                    alt={MENU_FLYERS[activeFlyer].alt}
+                    key={menuFlyers[activeFlyer].src}
+                    src={menuFlyers[activeFlyer].src}
+                    alt={menuFlyers[activeFlyer].alt}
                     className="h-full w-full object-contain animate-fadeIn"
                   />
                   <button
@@ -159,7 +147,7 @@ export function Hero({ onNavigate }: { onNavigate: (s: Section) => void }) {
                     <ArrowRight className="h-5 w-5" />
                   </button>
                   <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-ink-900/65 px-3 py-2 backdrop-blur-sm">
-                    {MENU_FLYERS.map((flyer, index) => (
+                    {menuFlyers.map((flyer, index) => (
                       <button
                         key={flyer.src}
                         type="button"
