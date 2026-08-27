@@ -28,6 +28,24 @@ npm run lint
 npm run build
 ```
 
+## Actualizar las fotos del carrusel
+
+El Hero incluye automáticamente todas las imágenes compatibles que encuentre en
+`public/images` durante cada build de Vite. Para actualizarlo desde GitHub:
+
+1. Abrir la carpeta `public/images` en el repositorio.
+2. Usar **Add file → Upload files** para subir una foto nueva, o abrir una foto y
+   usar el ícono de papelera para eliminarla.
+3. Nombrar los archivos con prefijos `01-`, `02-`, `03-` para controlar el orden
+   del carrusel.
+4. Guardar el cambio en una rama `codex/*` y revisar la preview de Vercel antes
+   de integrarlo en `main`.
+
+Formatos admitidos: AVIF, GIF, JPEG, JPG, PNG, SVG y WebP. Para los menús
+actuales se recomienda orientación vertical, aproximadamente `1131 × 1600 px` y
+un peso menor a `500 KB`. No dejar borradores ni duplicados en esa carpeta:
+todo archivo de imagen compatible se publica en el carrusel.
+
 ## Flujo de trabajo
 
 1. Crear o reutilizar una rama `codex/*` basada en `main`.
