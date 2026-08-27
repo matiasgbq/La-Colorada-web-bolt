@@ -21,3 +21,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Exportaciones completas de ChatGPT: pueden contener información privada.
+chatgpt-export*.zip
+conversations*.json
+export/
