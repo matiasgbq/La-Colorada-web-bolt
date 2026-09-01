@@ -23,7 +23,7 @@ export function Location() {
     {
       icon: Clock,
       title: 'Horarios',
-      lines: ['Lunes a Domingos', '11:30 a 14:30 · 19:00 a 23:50'],
+      lines: ['Lunes a Domingos', '11:30 a 14:30 · 19:00 a 23:00'],
     },
     {
       icon: Phone,
