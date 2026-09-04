@@ -1,0 +1,32 @@
+name: Bug
+description: Comportamiento incorrecto o regresión
+title: "BUG-__: "
+labels:
+  - "type: bug"
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema observado
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidencia y pasos para reproducir
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Resultado esperado
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Criterios de aceptación
+      placeholder: "- [ ] Corrección verificada"
+    validations:
+      required: true
+
