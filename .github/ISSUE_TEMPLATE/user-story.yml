@@ -1,0 +1,44 @@
+name: User Story
+description: Nueva necesidad de producto para La Colorada
+title: "US-__: "
+labels:
+  - "type: story"
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: Historia
+      description: "Como... quiero... para..."
+      placeholder: "Como cliente de La Colorada, quiero... para..."
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexto y problema
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Alcance
+      description: Incluí también lo que queda afuera cuando sea relevante.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Criterios de aceptación
+      placeholder: "- [ ] Resultado verificable"
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencias y decisiones pendientes
+  - type: textarea
+    id: estimate
+    attributes:
+      label: Estimación
+      description: Tamaño, consumo Codex esperado, confianza y participación humana.
+
