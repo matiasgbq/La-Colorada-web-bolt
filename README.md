@@ -4,6 +4,23 @@ Sitio de La Colorada mantenido con **Codex**, versionado en **GitHub** y publica
 
 - Producción: https://la-colorada-web-bolt.vercel.app
 - Repositorio: https://github.com/matiasgbq/La-Colorada-web-bolt
+- Backlog: https://github.com/users/matiasgbq/projects/2
+
+## Gestión del producto
+
+El GitHub Project **La Colorada · Backlog** es la fuente única de verdad para
+iniciativas, historias, bugs, spikes, prioridades, estimaciones y estados.
+
+- Matías actúa como Product Owner: define objetivos, prioridades y aprobaciones.
+- Codex actúa como agente coordinador: refina, organiza, ejecuta o delega,
+  verifica resultados y explica las implicancias técnicas.
+- Los Issues contienen el alcance y la trazabilidad de cada trabajo.
+- El Project muestra el estado operativo y la planificación vigente.
+- El tablero anterior de Trello queda únicamente como archivo histórico.
+
+Antes de iniciar trabajo, buscar un Issue existente para evitar duplicados. Las
+ideas nuevas se registran usando las plantillas de User Story, Bug o Spike y se
+incorporan al Project antes de ejecutarlas.
 
 ## Stack
 
@@ -48,10 +65,11 @@ todo archivo de imagen compatible se publica en el carrusel.
 
 ## Flujo de trabajo
 
-1. Crear o reutilizar una rama `codex/*` basada en `main`.
-2. Implementar y verificar localmente con Codex.
-3. Publicar una pull request para obtener una preview de Vercel.
-4. Revisar y aprobar.
-5. Integrar en `main`; Vercel mantiene la publicación de producción.
+1. Elegir y refinar un Issue del GitHub Project.
+2. Crear o reutilizar una rama `codex/*` basada en `main`.
+3. Implementar y verificar localmente con Codex.
+4. Publicar una pull request para obtener una preview de Vercel.
+5. Revisar y aprobar.
+6. Integrar en `main`, verificar producción y actualizar el Issue y el Project.
 
 Bolt ya no es necesario para desarrollar o mantener el proyecto.
