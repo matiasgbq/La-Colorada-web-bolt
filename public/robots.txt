@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+# Referencia al sitemap.xml futuro
+Sitemap: https://la-colorada-web-bolt.vercel.app/sitemap.xml
