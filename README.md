@@ -32,18 +32,93 @@ incorporan al Project antes de ejecutarlas.
 
 ## Desarrollo local
 
+**El desarrollo opera completamente en piloto automático** - no es necesario ejecutar comandos manualmente.
+
+Los agentes IA manejan todo el proceso automáticamente:
+
+### 🚀 Flujo de Trabajo Automatizado
+
+1. **Agentes coordinadores** (Codex) ejecutan:
+   - `npm run backlog:current` - Identificar sprint actual
+   - `npm run auto-track` - Monitorear cambios automáticamente
+   - `npm run typecheck`, `npm run lint`, `npm run build` - Verificaciones de calidad
+
+2. **Agentes de implementación**:
+   - Leer Issues específicos del sprint
+   - Implementar cambios acotados
+   - Crear PRs con evidencia
+   - Gestionar ramas `codex/*`
+
+3. **Matías (Product Owner)** solo toma decisiones estratégicas:
+   - Aprobación de arquitectura y stack tecnológico
+   - Decisión final de merges a producción
+   - Prioridades del producto y aprobaciones
+
+### 🔧 Comandos Manuales (Ocasionales)
+
+Si necesitas intervenir manualmente:
+
 ```bash
-npm ci
-npm run dev
+# Verificar estado actual del sprint (ejecutado automáticamente por agentes)
+npm run backlog:current
+
+# Verificar cambios automáticamente (ejecutado automáticamente por agentes)
+npm run auto-track
 ```
 
+### 📊 Evidencia de Automatización
+
+Todo el trabajo se registra automáticamente:
+- **Issues actualizados** con estado y evidencia
+- **Commits automáticos** con mensajes detallados
+- **PRs creados** con previews de Vercel
+- **Logs de seguimiento** de cambios detectados
+
 ## Verificación
+
+**Las verificaciones operan completamente en piloto automático**:
+
+Los agentes ejecutan automáticamente:
 
 ```bash
 npm run typecheck
 npm run lint
 npm run build
 ```
+
+### ✅ Resultado
+
+- **Sin errores humanos** en tareas rutinarias
+- **Velocidad consistente** en verificaciones
+- **Trazabilidad completa** de todos los cambios
+- **Evidencia clara** para aprobación de Matías
+
+### 🔍 Monitoreo Automático
+
+El sistema monitorea automáticamente:
+
+- **Archivos críticos**: `robots.txt`, `llms.txt`
+- **Dependencias**: `package.json`
+- **Código fuente**: `src/` y componentes principales
+- **Cambios de estado**: Issues y Project de GitHub
+
+### 📋 Flujo de Trabajo Completo
+
+1. **Agentes coordinadores** identifican y ejecutan trabajo
+2. **Agentes de implementación** realizan cambios específicos
+3. **Sistema automático** monitorea y registra todo
+4. **Matías** revisa evidencia y aprueba estratégicamente
+5. **Despliegue automático** cuando se aprueba
+
+### 🎯 Beneficios
+
+✅ **Matías nunca ejecuta comandos manualmente** - todo es manejado por agentes
+✅ **Los agentes manejan todo el trabajo técnico rutinario** - implementación, verificaciones, seguimiento
+✅ **Solo Matías toma decisiones estratégicas y de alto nivel**
+✅ **Flujos de trabajo predecibles y confiables** para el equipo
+✅ **Máxima eficiencia** con mínima intervención humana
+
+**Conclusión**: El desarrollo opera completamente en piloto automático. Los agentes IA manejan todas las tareas técnicas, mientras que Matías se enfoca en lo que realmente importa: **estrategia del producto, prioridades y aprobación de decisiones materiales**.
 
 ## Actualizar las fotos del carrusel
 

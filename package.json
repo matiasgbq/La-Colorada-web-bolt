@@ -9,7 +9,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "auto-track": "node scripts/auto-update-tracker.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",

@@ -3,5 +3,5 @@ Allow: /
 Disallow: /admin/
 Disallow: /private/
 
-# Referencia al sitemap.xml futuro
+# Referencia al sitemap.xml actual
 Sitemap: https://la-colorada-web-bolt.vercel.app/sitemap.xml

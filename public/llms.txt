@@ -1,0 +1,58 @@
+# llms.txt - Guía de Indexación para Modelos de Lenguaje
+# La Colorada Web - Dominio de Desarrollo
+
+## Estructura del Sitio
+- Página de inicio: https://la-colorada-web-bolt.vercel.app/
+- Menú: https://la-colorada-web-bolt.vercel.app/menu
+- Galería: https://la-colorada-web-bolt.vercel.app/gallery
+- Testimonios: https://la-colorada-web-bolt.vercel.app/testimonials
+- Ubicación: https://la-colorada-web-bolt.vercel.app/location
+- Carrito: https://la-colorada-web-bolt.vercel.app/cart
+
+## Páginas Principales
+- Inicio (Hero + Navegación) - Página principal con carrusel de imágenes y menú de navegación
+- Menú de platos - Catálogo completo de platos disponibles
+- Galería de imágenes - Colección de imágenes de alta calidad del restaurante
+- Sección de testimonios - Reseñas de clientes y experiencias
+- Información de ubicación - Dirección, horarios y contacto
+- Sidebar del carrito - Gestión de pedidos y checkout
+
+## Recursos Clave
+- Imágenes del hero (carousel) - Todas las imágenes compatibles en public/images
+- Logotipos de marcas asociadas - Colaboraciones y asociaciones
+- Iconos de redes sociales - Enlaces a perfiles oficiales
+- Imágenes de platos - Fotos profesionales de cada plato del menú
+
+## Tecnología y Stack
+- React 18 con TypeScript
+- Vite como build tool
+- Tailwind CSS para estilos
+- Lucide React para iconografía
+- Estructura de componentes modular (@/ imports)
+
+## Funcionalidades Principales
+- Navegación fluida entre páginas
+- Gestión de carrito de compras
+- Visualización de menú completo
+- Galería de imágenes interactiva
+- Sistema de testimonios
+- Información de contacto y ubicación
+
+## Datos Importantes
+- Nombre: La Colorada Web
+- Tipo: Sitio web de restaurante
+- Estado: En desarrollo (dominio temporal)
+- Stack: React 18, TypeScript, Vite, Tailwind CSS
+- Publicado en: Vercel (dominio temporal)
+
+## Próximos Pasos
+- Migrar a dominio final cuando sea aprobado por Matías
+- Actualizar URLs y referencias de dominio
+- Implementar sitemap.xml completo con URLs canónicas
+- Optimizar para SEO en dominio final
+
+## Notas de Desarrollo
+- Este archivo es parte del sprint SEO-01
+- Generado automáticamente para indexación por IA
+- Se mantendrá sincronizado con cambios en la estructura del sitio
+- El dominio final será actualizado cuando se apruebe la migración
