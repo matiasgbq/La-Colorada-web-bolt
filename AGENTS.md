@@ -7,11 +7,11 @@ this repository, independently of vendor, model, IDE, or runtime.
 
 - Matías is the Product Owner. He owns product intent, priorities, business
   facts, approval of material decisions, and merge approval.
-- Codex is the coordinating agent. It refines scope, identifies dependencies
-  and risks, prepares bounded assignments, verifies delivery, and maintains
-  traceability.
-- Implementation agents execute one bounded assignment and return evidence for
-  review.
+- Codex is the coordinating agent. It refines the backlog and sprint, identifies
+  dependencies and risks, and supports exceptions or reviews where its judgment
+  adds value.
+- Implementation agents independently discover and execute the bounded work
+  selected in the current sprint, then return evidence for human review.
 - The canonical backlog is GitHub Project **La Colorada · Backlog**:
   https://github.com/users/matiasgbq/projects/2
 - GitHub Issues and Project fields define current scope, priority, estimates,
@@ -22,16 +22,17 @@ this repository, independently of vendor, model, IDE, or runtime.
 
 ## Starting an assignment
 
-1. Receive an explicit GitHub Issue number or another bounded assignment from
-   Matías or the coordinating agent.
-2. Read the current Issue, its acceptance criteria, and only the repository
+1. Treat either an explicit GitHub Issue number or the instruction “work on the
+   current sprint” as an assignment.
+2. For current-sprint work, run `npm run backlog:current`. When exactly one Issue
+   is `En curso`, use that Issue as the bounded assignment. Ask Matías for
+   direction when the result has zero or multiple Issues `En curso`.
+3. Read the selected Issue with `gh issue view <number>`, its acceptance
+   criteria, and only the repository
    files needed to understand the work.
-3. Inspect the GitHub Project and search related Issues when proposing scope or
-   priorities.
-   Start with `npm run backlog:current` to obtain the active sprint, work in
-   progress, and blockers through the authenticated GitHub CLI. Then read the
-   selected Issue with `gh issue view <number>`.
-4. Summarize the intended change and the files likely to be affected.
+4. Summarize the intended change and the files likely to be affected, then
+   continue with implementation when the Issue already resolves the required
+   product decisions.
 5. When an adjacent improvement, missing business fact, architectural choice,
    or scope conflict appears, explain it and request approval before
    incorporating it.
@@ -44,10 +45,12 @@ this repository, independently of vendor, model, IDE, or runtime.
   workspace.
 - Prefer the smallest coherent change that satisfies the acceptance criteria.
 - Route proposed changes to product scope, priority, architecture, production
-  data, secrets, or business facts to Matías and the coordinating agent.
+  data, secrets, or business facts to Matías. Involve Codex when refinement,
+  coordination, or additional technical judgment is useful.
 - Deliver implementation through a focused pull request linked to the Issue.
-- Matías decides on merge and publication after review, verification, and any
-  required Vercel Preview evidence.
+- Matías decides on merge and publication after reviewing the report and any
+  required Vercel Preview evidence. Codex review is risk-based rather than a
+  mandatory step for every delivery.
 
 ## Technical conventions
 
