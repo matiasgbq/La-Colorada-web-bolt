@@ -28,6 +28,9 @@ this repository, independently of vendor, model, IDE, or runtime.
    files needed to understand the work.
 3. Inspect the GitHub Project and search related Issues when proposing scope or
    priorities.
+   Start with `npm run backlog:current` to obtain the active sprint, work in
+   progress, and blockers through the authenticated GitHub CLI. Then read the
+   selected Issue with `gh issue view <number>`.
 4. Summarize the intended change and the files likely to be affected.
 5. When an adjacent improvement, missing business fact, architectural choice,
    or scope conflict appears, explain it and request approval before
