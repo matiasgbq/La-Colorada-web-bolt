@@ -18,8 +18,7 @@
   },
   "extensions": {
     "recommendations": [
-      "github.copilot",
-      "github.copilot-chat"
+      "continue.continue"
     ]
   }
 }
