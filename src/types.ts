@@ -1,4 +1,12 @@
-export type Section = 'inicio' | 'menu' | 'galeria' | 'opiniones' | 'ubicacion';
+export const SITE_SECTION_IDS = [
+  'inicio',
+  'menu',
+  'galeria',
+  'opiniones',
+  'ubicacion',
+] as const;
+
+export type Section = (typeof SITE_SECTION_IDS)[number];
 
 export type Dish = {
   id: string;

@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "llms:verify": "npm run build && node scripts/verify-llms.mjs",
     "auto-track": "node scripts/auto-update-tracker.mjs"
   },
   "dependencies": {

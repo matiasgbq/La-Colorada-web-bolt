@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { CartProvider } from './cart';
 import { useActiveSection } from './hooks';
-import type { Section } from './types';
+import { SITE_SECTION_IDS, type Section } from './types';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { MenuSection } from './components/MenuSection';
@@ -11,7 +11,7 @@ import { Testimonials } from './components/Testimonials';
 import { Location } from './components/Location';
 import { Footer } from './components/Footer';
 
-const SECTION_IDS: Section[] = ['inicio', 'menu', 'galeria', 'opiniones', 'ubicacion'];
+const SECTION_IDS: Section[] = [...SITE_SECTION_IDS];
 
 export default function App() {
   const active = useActiveSection(SECTION_IDS);

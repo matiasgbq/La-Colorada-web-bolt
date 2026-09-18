@@ -1,18 +1,19 @@
 import type { Dish, Review } from './types';
 import { Pizza, Flame, UtensilsCrossed, Salad, Sandwich, Soup } from 'lucide-react';
 
-export const PHONE_DISPLAY = '4897-5432';
-export const PHONE_TEL = '+541148975432';
-export const WHATSAPP_NUMBER = '5491154955525';
-export const WHATSAPP_DISPLAY = '+54 9 11 5495-5525';
-export const INSTAGRAM_URL = 'https://www.instagram.com/lacoloradapizzas/';
-export const INSTAGRAM_HANDLE = '@lacoloradapizzas';
-export const ADDRESS = 'Blanco Encalada 2229, Local 15 (Galería Colorada)';
-export const ADDRESS_AREA = 'La Horqueta, Beccar, San Isidro';
-export const MAPS_QUERY = encodeURIComponent(
-  'Galería Colorada, Blanco Encalada 2229, La Horqueta, Beccar, San Isidro, Argentina',
-);
-export const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY}`;
+export {
+  ADDRESS,
+  ADDRESS_AREA,
+  INSTAGRAM_HANDLE,
+  INSTAGRAM_URL,
+  MAPS_QUERY,
+  MAPS_URL,
+  OPENING_HOURS_DISPLAY,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  WHATSAPP_DISPLAY,
+  WHATSAPP_NUMBER,
+} from './site-data';
 
 export const FLYER_IMG = '/images/WhatsApp_Image_2026-07-30_at_10.13.29.jpeg';
 
