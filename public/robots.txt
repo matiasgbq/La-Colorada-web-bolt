@@ -3,5 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /private/
 
-# Referencia al sitemap.xml actual
-Sitemap: https://la-colorada-web-bolt.vercel.app/sitemap.xml
+Sitemap: https://lacoloradacocina.com.ar/sitemap.xml

@@ -204,6 +204,6 @@ export const REVIEWS: Review[] = [
 export const GALLERY = [
   { img: IMG.gallery1, caption: 'Pizza de molde recién salida' },
   { img: IMG.gallery2, caption: 'Empanadas doradas al horno' },
-  { img: IMG.gallery3, caption: 'Milanesas con guarnición' },
+  { img: IMG.gallery3, caption: 'Comidas Caseras' },
   { img: IMG.gallery4, caption: 'El rincón de la Galería' },
 ];

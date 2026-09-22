@@ -74,9 +74,8 @@ export function Hero({ onNavigate }: { onNavigate: (s: Section) => void }) {
               className="mt-6 text-lg text-white/85 max-w-xl leading-relaxed animate-floatUp"
               style={{ animationDelay: '0.16s' }}
             >
-              Desde nuestra clásica pizza de molde hasta las empanadas más
-              jugosas de San Isidro. Directo desde la Galería Colorada a tu
-              mesa.
+              Cocina especializada en pizzas, empanadas y platos reales para
+              gente real.
             </p>
             <div
               className="mt-9 flex flex-wrap gap-4 animate-floatUp"

@@ -51,7 +51,7 @@ export function Navbar({
             La Colorada
           </span>
           <span className="hidden sm:inline text-[9px] uppercase tracking-[0.25em] text-ink-400 font-bold border-l border-ink-200 pl-2.5 ml-1">
-            Pizzas · Empanadas
+            Empanadas, Pizzas y Comidas Caseras
           </span>
         </button>
 
