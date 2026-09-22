@@ -22,12 +22,16 @@ const temporaryDomain = 'la-colorada-web-bolt.vercel.app';
 
 [
   '# La Colorada',
+  'https://lacoloradacocina.com.ar/',
   'Blanco Encalada 2229',
-  '11:30 a 14:30',
+  '11:00 a 15:00',
   '19:00 a 23:00',
   '4897-5432',
   '[Menú](/#menu)',
   '[Ubicación](/#ubicacion)',
+  'Pedidos Programados',
+  'todo el Partido de San Isidro',
+  'Eventos: contactar directamente por WhatsApp',
 ].forEach((requiredText) => {
   assert(llms.includes(requiredText), `llms.txt no contiene: ${requiredText}`);
 });
@@ -39,6 +43,10 @@ assert(
 );
 assert(!llms.includes(temporaryDomain), 'llms.txt contiene el dominio temporal.');
 assert(!html.includes(temporaryDomain), 'El HTML contiene el dominio temporal.');
+assert(
+  html.includes('<link rel="canonical" href="https://lacoloradacocina.com.ar/">'),
+  'El HTML no contiene el canonical del dominio definitivo.',
+);
 
 const internalLinks = [...llms.matchAll(/\]\((\/#[^)]+)\)/g)].map(
   (match) => match[1],
@@ -63,9 +71,18 @@ const jsonLdMatch = html.match(
 assert(jsonLdMatch, 'No se encontró JSON-LD en el HTML compilado.');
 
 const restaurant = JSON.parse(jsonLdMatch[1]);
-assert(restaurant['@type'] === 'Restaurant', 'JSON-LD no describe un Restaurant.');
-assert(restaurant.name === 'La Colorada', 'JSON-LD tiene un nombre incorrecto.');
-assert(restaurant.menu === '/#menu', 'JSON-LD tiene un enlace de menú incorrecto.');
+assert(
+  Array.isArray(restaurant['@type']) && restaurant['@type'].includes('Restaurant'),
+  'JSON-LD no describe un Restaurant.',
+);
+assert(
+  restaurant.name === 'La Colorada Pizza, Empanadas y Comidas Caseras La Horqueta',
+  'JSON-LD tiene un nombre incorrecto.',
+);
+assert(
+  restaurant.menu === 'https://lacoloradacocina.com.ar/#menu',
+  'JSON-LD tiene un enlace de menú incorrecto.',
+);
 assert(
   Array.isArray(restaurant.openingHoursSpecification) &&
     restaurant.openingHoursSpecification.length === 2,

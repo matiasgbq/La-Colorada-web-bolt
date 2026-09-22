@@ -24,9 +24,7 @@ const SITE_SECTIONS: ReadonlyArray<{
 ] as const;
 
 function formatHours() {
-  return SITE.openingHours
-    .map((schedule) => `${schedule.opens} a ${schedule.closes}`)
-    .join(' y ');
+  return 'lunes a sábados de 11:00 a 15:00 y de 19:00 a 23:00; domingos de 19:00 a 23:00';
 }
 
 function buildPriceRange() {
@@ -41,12 +39,13 @@ function buildPriceRange() {
 export function buildRestaurantJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Restaurant',
-    '@id': '/#restaurant',
+    '@type': ['Restaurant', 'FoodEstablishment'],
+    '@id': `${SITE.url}/#restaurant`,
     name: SITE.name,
     description: SITE.metaDescription,
-    url: '/',
-    menu: '/#menu',
+    url: `${SITE.url}/`,
+    menu: `${SITE.url}/#menu`,
+    hasMap: SITE.mapsUrl,
     telephone: SITE.phoneSchema,
     priceRange: buildPriceRange(),
     servesCuisine: SITE.cuisines,
@@ -76,12 +75,16 @@ export function buildLlmsTxt() {
 
 > ${SITE.summary}
 
-${SITE.name} ofrece ${SITE.cuisines.join(', ')} para retirar o pedir por WhatsApp.
+${SITE.shortName} ofrece almuerzos de oficina, pizzas y empanadas premium de recetas tradicionales, y comidas caseras para retirar o pedir por WhatsApp.
 
+- Sitio oficial: ${SITE.url}/.
 - Dirección: ${SITE.address.streetAddress} (${SITE.address.venue}), ${SITE.address.area}.
-- Horarios: todos los días, ${formatHours()}.
+- Horarios: ${formatHours()}.
 - Teléfono: ${SITE.phoneDisplay}.
 - WhatsApp: ${SITE.whatsappDisplay}.
+- Cobertura: envíos a todo el Partido de San Isidro. Los envíos inmediatos cubren un radio de ${SITE.delivery.immediateRadiusKm} km; fuera de ese radio requieren coordinación previa.
+- Pedidos Programados: para oficinas, almuerzos, reuniones y juntadas de mediodía y noche.
+- Eventos: contactar directamente por WhatsApp.
 
 El menú publicado se organiza en: ${categorySummary}. Los precios y la disponibilidad se consultan en la web.
 
@@ -142,6 +145,14 @@ export function llmsTxtPlugin(): Plugin {
           {
             tag: 'link',
             attrs: {
+              rel: 'canonical',
+              href: `${SITE.url}/`,
+            },
+            injectTo: 'head',
+          },
+          {
+            tag: 'link',
+            attrs: {
               rel: 'describedby',
               type: 'text/markdown',
               href: '/llms.txt',
@@ -161,6 +172,11 @@ export function llmsTxtPlugin(): Plugin {
           {
             tag: 'meta',
             attrs: { property: 'og:site_name', content: SITE.name },
+            injectTo: 'head',
+          },
+          {
+            tag: 'meta',
+            attrs: { property: 'og:url', content: `${SITE.url}/` },
             injectTo: 'head',
           },
           {

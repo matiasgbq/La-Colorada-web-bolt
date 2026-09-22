@@ -1,25 +1,29 @@
-const OPENING_DAYS = [
+const WEEKDAYS_AND_SATURDAY = [
   'Monday',
   'Tuesday',
   'Wednesday',
   'Thursday',
   'Friday',
   'Saturday',
-  'Sunday',
 ] as const;
 
+const EVERY_DAY = [...WEEKDAYS_AND_SATURDAY, 'Sunday'] as const;
+const SITE_URL = 'https://lacoloradacocina.com.ar';
+
 const MAPS_QUERY_VALUE = encodeURIComponent(
-  'Galería Colorada, Blanco Encalada 2229, La Horqueta, Beccar, San Isidro, Argentina',
+  'La Colorada Pizza, Empanadas y Comidas Caseras La Horqueta, Blanco Encalada 2229, Beccar, San Isidro, Argentina',
 );
 
 export const SITE = {
-  name: 'La Colorada',
+  name: 'La Colorada Pizza, Empanadas y Comidas Caseras La Horqueta',
+  shortName: 'La Colorada',
+  url: SITE_URL,
   htmlTitle:
-    'La Colorada — Pizzas, Empanadas & Comidas Caseras | La Horqueta, San Isidro',
+    'La Colorada | Empanadas, Pizzas y Comidas Caseras en La Horqueta',
   metaDescription:
-    'La Colorada: pizza de molde, empanadas cruzadas y comida casera en la Galería Colorada, La Horqueta, Beccar, San Isidro. Hacé tu pedido por WhatsApp.',
+    'Almuerzos de oficina, empanadas y pizzas premium de recetas tradicionales, y comidas caseras en La Horqueta. Pedidos programados y eventos por WhatsApp.',
   summary:
-    'Pizza de molde, empanadas cruzadas y comida casera en la Galería Colorada, La Horqueta, San Isidro.',
+    'Cocina especializada en pizzas, empanadas y platos reales para gente real, con almuerzos de oficina y pedidos programados.',
   cuisines: ['Pizza', 'Empanadas', 'Comida casera argentina'],
   phoneDisplay: '4897-5432',
   phoneTel: '+541148975432',
@@ -39,14 +43,22 @@ export const SITE = {
   },
   mapsQuery: MAPS_QUERY_VALUE,
   mapsUrl: `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY_VALUE}`,
+  delivery: {
+    area: 'Todo el Partido de San Isidro',
+    immediateRadiusKm: 3,
+    outsideRadius: 'Requiere coordinación previa por WhatsApp',
+  },
+  scheduledOrders:
+    'Pedidos Programados para oficinas, almuerzos, reuniones y juntadas de mediodía y noche.',
+  events: 'Para organizar eventos, contactar directamente por WhatsApp.',
   openingHours: [
     {
-      days: OPENING_DAYS,
-      opens: '11:30',
-      closes: '14:30',
+      days: WEEKDAYS_AND_SATURDAY,
+      opens: '11:00',
+      closes: '15:00',
     },
     {
-      days: OPENING_DAYS,
+      days: EVERY_DAY,
       opens: '19:00',
       closes: '23:00',
     },
@@ -63,6 +75,5 @@ export const ADDRESS = `${SITE.address.streetAddress} (${SITE.address.venue})`;
 export const ADDRESS_AREA = SITE.address.area;
 export const MAPS_QUERY = SITE.mapsQuery;
 export const MAPS_URL = SITE.mapsUrl;
-export const OPENING_HOURS_DISPLAY = `Lunes a domingos · ${SITE.openingHours
-  .map((schedule) => `${schedule.opens} a ${schedule.closes}`)
-  .join(' · ')}`;
+export const OPENING_HOURS_DISPLAY =
+  'Lunes a sábados · 11:00 a 15:00 · 19:00 a 23:00 | Domingos · 19:00 a 23:00';
