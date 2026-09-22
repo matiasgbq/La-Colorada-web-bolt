@@ -13,6 +13,7 @@ const SITE_URL = 'https://lacoloradacocina.com.ar';
 const MAPS_QUERY_VALUE = encodeURIComponent(
   'La Colorada Pizza, Empanadas y Comidas Caseras La Horqueta, Blanco Encalada 2229, Beccar, San Isidro, Argentina',
 );
+const GOOGLE_PLACE_ID = 'ChIJVxbwP8i6vJURnJyqT_sTvZE';
 
 export const SITE = {
   name: 'La Colorada Pizza, Empanadas y Comidas Caseras La Horqueta',
@@ -42,7 +43,8 @@ export const SITE = {
     countryName: 'Argentina',
   },
   mapsQuery: MAPS_QUERY_VALUE,
-  mapsUrl: `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY_VALUE}`,
+  googlePlaceId: GOOGLE_PLACE_ID,
+  mapsUrl: `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY_VALUE}&query_place_id=${GOOGLE_PLACE_ID}`,
   delivery: {
     area: 'Todo el Partido de San Isidro',
     immediateRadiusKm: 3,

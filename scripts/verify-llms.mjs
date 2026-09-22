@@ -32,6 +32,7 @@ const temporaryDomain = 'la-colorada-web-bolt.vercel.app';
   'Pedidos Programados',
   'todo el Partido de San Isidro',
   'Eventos: contactar directamente por WhatsApp',
+  'ChIJVxbwP8i6vJURnJyqT_sTvZE',
 ].forEach((requiredText) => {
   assert(llms.includes(requiredText), `llms.txt no contiene: ${requiredText}`);
 });
@@ -82,6 +83,10 @@ assert(
 assert(
   restaurant.menu === 'https://lacoloradacocina.com.ar/#menu',
   'JSON-LD tiene un enlace de menú incorrecto.',
+);
+assert(
+  restaurant.hasMap.includes('ChIJVxbwP8i6vJURnJyqT_sTvZE'),
+  'JSON-LD no enlaza la ficha oficial de Google Maps.',
 );
 assert(
   Array.isArray(restaurant.openingHoursSpecification) &&
