@@ -22,14 +22,10 @@ export const IMG = {
   placeholderPizza: '/images/menu/placeholder-pizza.svg',
   placeholderEmpanada: '/images/menu/placeholder-empanada.svg',
   placeholderPlato: '/images/menu/placeholder-plato.svg',
-  gallery1:
-    'https://images.pexels.com/photos/6223177/pexels-photo-6223177.jpeg?auto=compress&cs=tinysrgb&h=700&w=900',
-  gallery2:
-    'https://images.pexels.com/photos/12917897/pexels-photo-12917897.jpeg?auto=compress&cs=tinysrgb&h=700&w=900',
-  gallery3:
-    'https://images.pexels.com/photos/31372332/pexels-photo-31372332.jpeg?auto=compress&cs=tinysrgb&h=700&w=900',
-  gallery4:
-    'https://images.pexels.com/photos/17626467/pexels-photo-17626467.jpeg?auto=compress&cs=tinysrgb&h=700&w=900',
+  gallery1: '/images/gallery/pizzas.webp',
+  gallery2: '/images/gallery/empanadas.webp',
+  gallery3: '/images/gallery/comidas-caseras.webp',
+  gallery4: '/images/gallery/el-rincon-de-la-galeria.webp',
 };
 
 export const CATEGORIES = [
@@ -157,7 +153,7 @@ export const REVIEWS: Review[] = [
 ];
 
 export const GALLERY = [
-  { img: IMG.gallery1, caption: 'Pizza de molde recién salida' },
+  { img: IMG.gallery1, caption: 'Pizzas de La Colorada' },
   { img: IMG.gallery2, caption: 'Empanadas doradas al horno' },
   { img: IMG.gallery3, caption: 'Comidas Caseras' },
   { img: IMG.gallery4, caption: 'El rincón de la Galería' },
