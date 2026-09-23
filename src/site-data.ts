@@ -26,9 +26,18 @@ export const SITE = {
   summary:
     'Cocina especializada en pizzas, empanadas y platos reales para gente real, con almuerzos de oficina y pedidos programados.',
   cuisines: ['Pizza', 'Empanadas', 'Comida casera argentina'],
-  phoneDisplay: '4897-5432',
-  phoneTel: '+541148975432',
-  phoneSchema: '+54 11 4897-5432',
+  phones: [
+    {
+      display: '4897-5432',
+      tel: '+541148975432',
+      schema: '+54 11 4897-5432',
+    },
+    {
+      display: '4798-5433',
+      tel: '+541147985433',
+      schema: '+54 11 4798-5433',
+    },
+  ],
   whatsappNumber: '5491154955525',
   whatsappDisplay: '+54 9 11 5495-5525',
   instagramUrl: 'https://www.instagram.com/lacoloradapizzas/',
@@ -67,8 +76,9 @@ export const SITE = {
   ],
 } as const;
 
-export const PHONE_DISPLAY = SITE.phoneDisplay;
-export const PHONE_TEL = SITE.phoneTel;
+export const PHONES = SITE.phones;
+export const PHONE_DISPLAY = PHONES[0].display;
+export const PHONE_TEL = PHONES[0].tel;
 export const WHATSAPP_NUMBER = SITE.whatsappNumber;
 export const WHATSAPP_DISPLAY = SITE.whatsappDisplay;
 export const INSTAGRAM_URL = SITE.instagramUrl;

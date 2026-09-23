@@ -13,13 +13,18 @@ const LINKS: { id: Section; label: string }[] = [
 export function Navbar({
   active,
   onNavigate,
+  showInteractiveMenu,
 }: {
   active: string;
   onNavigate: (s: Section) => void;
+  showInteractiveMenu: boolean;
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { count, setOpen: setCartOpen } = useCart();
+  const links = showInteractiveMenu
+    ? LINKS
+    : LINKS.filter((link) => link.id !== 'menu');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -56,7 +61,7 @@ export function Navbar({
         </button>
 
         <nav className="hidden md:flex items-center gap-1">
-          {LINKS.map((l) => (
+          {links.map((l) => (
             <button
               key={l.id}
               onClick={() => go(l.id)}
@@ -72,18 +77,20 @@ export function Navbar({
         </nav>
 
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setCartOpen(true)}
-            className="relative w-11 h-11 rounded-full bg-ink-800 text-white flex items-center justify-center hover:bg-crimson-500 transition-colors"
-            aria-label="Carrito"
-          >
-            <ShoppingBag className="w-5 h-5" />
-            {count > 0 && (
-              <span className="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-crimson-500 text-white text-[11px] font-bold flex items-center justify-center ring-2 ring-white animate-pop">
-                {count}
-              </span>
-            )}
-          </button>
+          {showInteractiveMenu && (
+            <button
+              onClick={() => setCartOpen(true)}
+              className="relative w-11 h-11 rounded-full bg-ink-800 text-white flex items-center justify-center hover:bg-crimson-500 transition-colors"
+              aria-label="Carrito"
+            >
+              <ShoppingBag className="w-5 h-5" />
+              {count > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-crimson-500 text-white text-[11px] font-bold flex items-center justify-center ring-2 ring-white animate-pop">
+                  {count}
+                </span>
+              )}
+            </button>
+          )}
 
           <button
             className="md:hidden w-11 h-11 rounded-full bg-ink-800 text-white flex items-center justify-center"
@@ -103,7 +110,7 @@ export function Navbar({
         }`}
       >
         <div className="bg-white px-5 pb-6 pt-2 flex flex-col gap-1 shadow-lg">
-          {LINKS.map((l) => (
+          {links.map((l) => (
             <button
               key={l.id}
               onClick={() => go(l.id)}

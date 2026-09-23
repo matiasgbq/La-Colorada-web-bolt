@@ -4,14 +4,21 @@ import {
   ArrowRight,
   Bike,
   Flame,
+  MessageCircle,
   Phone,
   Star,
 } from 'lucide-react';
-import { IMG, PHONE_TEL } from '../data';
+import { IMG, PHONE_TEL, WHATSAPP_NUMBER } from '../data';
 import type { Section } from '../types';
 import menuFlyers from 'virtual:menu-flyers';
 
-export function Hero({ onNavigate }: { onNavigate: (s: Section) => void }) {
+export function Hero({
+  onNavigate,
+  showInteractiveMenu,
+}: {
+  onNavigate: (s: Section) => void;
+  showInteractiveMenu: boolean;
+}) {
   const [activeFlyer, setActiveFlyer] = useState(0);
 
   useEffect(() => {
@@ -81,13 +88,26 @@ export function Hero({ onNavigate }: { onNavigate: (s: Section) => void }) {
               className="mt-9 flex flex-wrap gap-4 animate-floatUp"
               style={{ animationDelay: '0.24s' }}
             >
-              <button
-                onClick={() => onNavigate('menu')}
-                className="group flex items-center gap-2 px-7 py-3.5 rounded-full bg-crimson-500 text-white font-bold shadow-xl shadow-crimson-900/30 hover:bg-crimson-600 transition-colors"
-              >
-                Ver Menú / Hacer Pedido
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              {showInteractiveMenu ? (
+                <button
+                  onClick={() => onNavigate('menu')}
+                  className="group flex items-center gap-2 px-7 py-3.5 rounded-full bg-crimson-500 text-white font-bold shadow-xl shadow-crimson-900/30 hover:bg-crimson-600 transition-colors"
+                >
+                  Ver Menú / Hacer Pedido
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              ) : (
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-center gap-2 px-7 py-3.5 rounded-full bg-crimson-500 text-white font-bold shadow-xl shadow-crimson-900/30 hover:bg-crimson-600 transition-colors"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Hacer pedido por WhatsApp
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+              )}
               <a
                 href={`tel:${PHONE_TEL}`}
                 className="flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/40 text-white font-bold hover:bg-white/20 transition-colors"

@@ -6,7 +6,8 @@ opiniones, ubicación y opciones de contacto y pedido.
 
 ## Enlaces
 
-- Producción: https://la-colorada-web-bolt.vercel.app
+- Producción objetivo: https://lacoloradacocina.com.ar
+- Desarrollo y previews: Vercel
 - Repositorio: https://github.com/matiasgbq/La-Colorada-web-bolt
 - Backlog: https://github.com/users/matiasgbq/projects/2
 
@@ -94,6 +95,30 @@ una imagen compatible.
 
 ## Preview y despliegue
 
-Las ramas y pull requests conectadas a Vercel permiten revisar los cambios antes
-de integrarlos. El despliegue a producción se realiza después de la aprobación;
-la preview no reemplaza la verificación del sitio publicado.
+El mismo código genera dos variantes mediante `VITE_SITE_MODE`:
+
+- `full`: sitio completo con menú interactivo y carrito. Es el valor seguro por
+  defecto y el utilizado para desarrollo y previews de Vercel.
+- `landing`: Landing MVP sin menú interactivo ni carrito. Conserva Hero,
+  carrusel visual, galería, opiniones, ubicación, contactos y footer. Es el modo
+  de producción inicial en Cloudflare Pages.
+
+Cloudflare Pages se conecta a este repositorio con:
+
+```text
+Production branch: main
+Build command: npm run build
+Build output directory: dist
+Environment variable: VITE_SITE_MODE=landing
+```
+
+Para publicar el sitio completo en Cloudflare, cambiar la variable de producción
+a `VITE_SITE_MODE=full` y volver a desplegar el último commit de `main`.
+
+Vercel no necesita una variable para conservar el modo `full`, aunque puede
+configurarse explícitamente con `VITE_SITE_MODE=full`. Sus ramas y pull requests
+siguen siendo el entorno de desarrollo y preview.
+
+El estado completo anterior a la Landing MVP está protegido por el tag
+`full-site-before-landing-mvp-2026-09-23`. El modo `full` conserva esa
+funcionalidad sin necesidad de volver al tag; el tag es un respaldo adicional.
