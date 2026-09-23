@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title">
+  <title id="title">Ilustración de pizza de La Colorada</title>
+  <rect width="1200" height="800" fill="#fff8ed"/>
+  <path d="M405 590 610 190c20-40 79-40 100 0l205 400c17 34-8 74-46 74H451c-38 0-63-40-46-74Z" fill="#d62f2f"/>
+  <path d="M468 573 627 263c13-25 49-25 62 0l159 310H468Z" fill="#ffd38f"/>
+  <path d="M448 602h427" stroke="#7d1d1d" stroke-width="54" stroke-linecap="round"/>
+  <g fill="#b42121"><circle cx="610" cy="420" r="33"/><circle cx="717" cy="518" r="33"/><circle cx="745" cy="362" r="33"/></g>
+  <text x="600" y="735" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#7d1d1d">LA COLORADA</text>
+</svg>

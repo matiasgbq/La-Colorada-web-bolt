@@ -1,0 +1,1189 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revisión de fotos · La Colorada</title>
+  <style>
+    :root { color-scheme: light; font-family: Inter, system-ui, sans-serif; color: #251b18; background: #f6f0e8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { padding: 42px clamp(20px, 5vw, 72px) 28px; background: #a91616; color: white; }
+    header h1 { margin: 0 0 10px; font-size: clamp(30px, 5vw, 56px); }
+    header p { max-width: 820px; margin: 0; line-height: 1.55; color: #ffe9df; }
+    .summary { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .summary span { padding: 8px 12px; border-radius: 999px; background: #ffffff18; border: 1px solid #ffffff38; }
+    .toolbar { position: sticky; top: 0; z-index: 3; display: flex; gap: 8px; overflow-x: auto; padding: 14px clamp(20px, 5vw, 72px); background: #fffdf9ee; backdrop-filter: blur(10px); border-bottom: 1px solid #ded3c8; }
+    button { border: 1px solid #d6c8bb; border-radius: 999px; padding: 8px 13px; background: white; color: #5d4037; cursor: pointer; text-transform: capitalize; white-space: nowrap; }
+    button.active { background: #a91616; color: white; border-color: #a91616; }
+    main { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 22px; padding: 30px clamp(20px, 5vw, 72px) 70px; }
+    .card { overflow: hidden; border-radius: 18px; background: white; border: 1px solid #e3d8ce; box-shadow: 0 10px 30px #542b1612; }
+    .previews { display: grid; grid-template-columns: 1fr 1fr; height: 190px; background: #ede3d8; }
+    figure { position: relative; margin: 0; overflow: hidden; }
+    figure img { width: 100%; height: 100%; object-fit: contain; }
+    figure.crop img { object-fit: cover; }
+    figcaption { position: absolute; left: 8px; bottom: 8px; padding: 4px 7px; border-radius: 999px; color: white; background: #231815bb; font-size: 11px; }
+    .missing { height: 190px; display: grid; place-content: center; justify-items: center; gap: 5px; background: #fff8ed; color: #a91616; }
+    .missing span { font-size: 46px; }
+    .missing small { color: #7a6257; }
+    .content { padding: 18px; }
+    .status { display: inline-block; padding: 5px 9px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+    .status-sin-foto { color: #8b1d1d; background: #ffe0dc; }
+    .status-dudosa { color: #715300; background: #fff0b8; }
+    .status-necesita-edición { color: #214d65; background: #dff3ff; }
+    h2 { margin: 12px 0 5px; font-size: 20px; }
+    .path { margin: 0 0 14px; color: #7c6a61; font: 12px ui-monospace, monospace; overflow-wrap: anywhere; }
+    dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; }
+    dl div { padding: 8px; border-radius: 9px; background: #f8f3ed; }
+    dt { color: #8a7469; font-size: 10px; text-transform: uppercase; }
+    dd { margin: 3px 0 0; font-size: 12px; font-weight: 700; }
+    .reason { margin: 14px 0 0; color: #5d4c44; font-size: 13px; line-height: 1.45; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Revisión de fotos</h1>
+    <p>Vista de trabajo: compara el archivo original con el recorte horizontal aproximado de las tarjetas. Los originales permanecen intactos y ninguna foto está conectada todavía al sitio.</p>
+    <div class="summary">
+      <span>68 archivos</span>
+      <span>57 imágenes válidas</span>
+      <span>11 faltantes</span>
+      <span>23 duplicadas o dudosas</span>
+    </div>
+  </header>
+  <nav class="toolbar"><button data-filter="todas">todas</button><button data-filter="empanadas">empanadas</button><button data-filter="ensaladas">ensaladas</button><button data-filter="guarniciones">guarniciones</button><button data-filter="milanesas">milanesas</button><button data-filter="minutas">minutas</button><button data-filter="omelettes">omelettes</button><button data-filter="pastas">pastas</button><button data-filter="pizzas">pizzas</button><button data-filter="tartas-comidas-caseras">tartas comidas caseras</button></nav>
+  <main><article class="card" data-category="empanadas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/01-empanada-de-carne-suave.jpg" alt="Empanada De Carne Suave"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/01-empanada-de-carne-suave.jpg" alt="Recorte web de Empanada De Carne Suave"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Empanada De Carne Suave</h2>
+        <p class="path">01-empanada-de-carne-suave.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 347 px</dd></div>
+          <div><dt>Peso</dt><dd>20 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="empanadas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/02-empanada-de-carne-picante.jpg" alt="Empanada De Carne Picante"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/02-empanada-de-carne-picante.jpg" alt="Recorte web de Empanada De Carne Picante"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Empanada De Carne Picante</h2>
+        <p class="path">02-empanada-de-carne-picante.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>18 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="empanadas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/03-empanada-de-pollo.jpg" alt="Empanada De Pollo"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/03-empanada-de-pollo.jpg" alt="Recorte web de Empanada De Pollo"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Empanada De Pollo</h2>
+        <p class="path">03-empanada-de-pollo.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>362 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="empanadas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/04-empanada-de-verdura.jpg" alt="Empanada De Verdura"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/04-empanada-de-verdura.jpg" alt="Recorte web de Empanada De Verdura"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Empanada De Verdura</h2>
+        <p class="path">04-empanada-de-verdura.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 347 px</dd></div>
+          <div><dt>Peso</dt><dd>22 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="empanadas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/05-empanada-de-humita.jpg" alt="Empanada De Humita"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/05-empanada-de-humita.jpg" alt="Recorte web de Empanada De Humita"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Empanada De Humita</h2>
+        <p class="path">05-empanada-de-humita.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>20 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="empanadas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/06-empanada-de-jamon-y-queso.jpg" alt="Empanada De Jamon Y Queso"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/06-empanada-de-jamon-y-queso.jpg" alt="Recorte web de Empanada De Jamon Y Queso"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Empanada De Jamon Y Queso</h2>
+        <p class="path">06-empanada-de-jamon-y-queso.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 347 px</dd></div>
+          <div><dt>Peso</dt><dd>18 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="empanadas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/07-empanada-de-queso-y-cebolla.jpg" alt="Empanada De Queso Y Cebolla"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/07-empanada-de-queso-y-cebolla.jpg" alt="Recorte web de Empanada De Queso Y Cebolla"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Empanada De Queso Y Cebolla</h2>
+        <p class="path">07-empanada-de-queso-y-cebolla.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>342 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="empanadas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/08-empanada-capresce.jpg" alt="Empanada Capresce"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/08-empanada-capresce.jpg" alt="Recorte web de Empanada Capresce"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Empanada Capresce</h2>
+        <p class="path">08-empanada-capresce.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>17 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="empanadas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/09-empanadas-de-crudo-y-queso.jpg" alt="Empanadas De Crudo Y Queso"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/09-empanadas-de-crudo-y-queso.jpg" alt="Recorte web de Empanadas De Crudo Y Queso"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Empanadas De Crudo Y Queso</h2>
+        <p class="path">09-empanadas-de-crudo-y-queso.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>14 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="empanadas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/10-empanada-de-roquefort.jpg" alt="Empanada De Roquefort"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/10-empanada-de-roquefort.jpg" alt="Recorte web de Empanada De Roquefort"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Empanada De Roquefort</h2>
+        <p class="path">10-empanada-de-roquefort.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>355 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="ensaladas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/ensaladas/01-ensalada.jpg" alt="Ensalada"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/ensaladas/01-ensalada.jpg" alt="Recorte web de Ensalada"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Ensalada</h2>
+        <p class="path">ensaladas/01-ensalada.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>79 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 3 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="ensaladas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/ensaladas/02-ensalada-del-dia.jpg" alt="Ensalada Del Dia"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/ensaladas/02-ensalada-del-dia.jpg" alt="Recorte web de Ensalada Del Dia"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Ensalada Del Dia</h2>
+        <p class="path">ensaladas/02-ensalada-del-dia.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>31 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="ensaladas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/ensaladas/03-ensalada-cesar.jpg" alt="Ensalada Cesar"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/ensaladas/03-ensalada-cesar.jpg" alt="Recorte web de Ensalada Cesar"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Ensalada Cesar</h2>
+        <p class="path">ensaladas/03-ensalada-cesar.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>30 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="ensaladas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/ensaladas/04-ensalada-vegetariana.jpg" alt="Ensalada Vegetariana"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/ensaladas/04-ensalada-vegetariana.jpg" alt="Recorte web de Ensalada Vegetariana"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Ensalada Vegetariana</h2>
+        <p class="path">ensaladas/04-ensalada-vegetariana.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>36 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="guarniciones" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/guarniciones/01-arroz.jpg" alt="Arroz"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/guarniciones/01-arroz.jpg" alt="Recorte web de Arroz"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Arroz</h2>
+        <p class="path">guarniciones/01-arroz.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>63 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="guarniciones" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/guarniciones/02-ensalada.jpg" alt="Ensalada"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/guarniciones/02-ensalada.jpg" alt="Recorte web de Ensalada"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Ensalada</h2>
+        <p class="path">guarniciones/02-ensalada.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>79 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 3 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="guarniciones" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/guarniciones/03-ensalada-del-dia.jpg" alt="Ensalada Del Dia"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/guarniciones/03-ensalada-del-dia.jpg" alt="Recorte web de Ensalada Del Dia"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Ensalada Del Dia</h2>
+        <p class="path">guarniciones/03-ensalada-del-dia.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>31 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="guarniciones" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/guarniciones/04-ensalada-cesar.jpg" alt="Ensalada Cesar"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/guarniciones/04-ensalada-cesar.jpg" alt="Recorte web de Ensalada Cesar"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Ensalada Cesar</h2>
+        <p class="path">guarniciones/04-ensalada-cesar.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>30 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="guarniciones" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/guarniciones/05-ensalada-vegetariana.jpg" alt="Ensalada Vegetariana"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/guarniciones/05-ensalada-vegetariana.jpg" alt="Recorte web de Ensalada Vegetariana"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Ensalada Vegetariana</h2>
+        <p class="path">guarniciones/05-ensalada-vegetariana.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>36 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="milanesas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/milanesas/01-milanesa-de-zucchini-gratinada.jpg" alt="Milanesa De Zucchini Gratinada"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/milanesas/01-milanesa-de-zucchini-gratinada.jpg" alt="Recorte web de Milanesa De Zucchini Gratinada"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Milanesa De Zucchini Gratinada</h2>
+        <p class="path">milanesas/01-milanesa-de-zucchini-gratinada.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>87 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="milanesas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/milanesas/02-milas-de-berenjena-gratinadas.jpg" alt="Milas De Berenjena Gratinadas"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/milanesas/02-milas-de-berenjena-gratinadas.jpg" alt="Recorte web de Milas De Berenjena Gratinadas"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Milas De Berenjena Gratinadas</h2>
+        <p class="path">milanesas/02-milas-de-berenjena-gratinadas.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>35 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="milanesas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/milanesas/03-suprema-de-pollo.jpg" alt="Suprema De Pollo"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/milanesas/03-suprema-de-pollo.jpg" alt="Recorte web de Suprema De Pollo"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Suprema De Pollo</h2>
+        <p class="path">milanesas/03-suprema-de-pollo.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>39 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="milanesas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/milanesas/04-milanesa-de-ternera-gratinada.jpg" alt="Milanesa De Ternera Gratinada"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/milanesas/04-milanesa-de-ternera-gratinada.jpg" alt="Recorte web de Milanesa De Ternera Gratinada"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Milanesa De Ternera Gratinada</h2>
+        <p class="path">milanesas/04-milanesa-de-ternera-gratinada.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>20 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="milanesas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/milanesas/05-suprema-de-pollo-gratinada.jpg" alt="Suprema De Pollo Gratinada"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/milanesas/05-suprema-de-pollo-gratinada.jpg" alt="Recorte web de Suprema De Pollo Gratinada"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Suprema De Pollo Gratinada</h2>
+        <p class="path">milanesas/05-suprema-de-pollo-gratinada.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>74 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="milanesas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/milanesas/06-milanesa-de-ternera-napolitana.jpg" alt="Milanesa De Ternera Napolitana"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/milanesas/06-milanesa-de-ternera-napolitana.jpg" alt="Recorte web de Milanesa De Ternera Napolitana"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Milanesa De Ternera Napolitana</h2>
+        <p class="path">milanesas/06-milanesa-de-ternera-napolitana.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>27 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="milanesas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/milanesas/07-milanesa-de-ternera.jpg" alt="Milanesa De Ternera"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/milanesas/07-milanesa-de-ternera.jpg" alt="Recorte web de Milanesa De Ternera"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Milanesa De Ternera</h2>
+        <p class="path">milanesas/07-milanesa-de-ternera.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>41 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="milanesas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/milanesas/08-mlanesas-de-berenjena-fuga.jpg" alt="Mlanesas De Berenjena Fuga"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/milanesas/08-mlanesas-de-berenjena-fuga.jpg" alt="Recorte web de Mlanesas De Berenjena Fuga"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Mlanesas De Berenjena Fuga</h2>
+        <p class="path">milanesas/08-mlanesas-de-berenjena-fuga.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>20 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="milanesas" data-status="Sin foto">
+      <div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>
+      <div class="content">
+        <span class="status status-sin-foto">Sin foto</span>
+        <h2>Milas De Berenjena Con Morron</h2>
+        <p class="path">milanesas/09-milas-de-berenjena-con-morron.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JSON inválido</dd></div>
+          <div><dt>Dimensiones</dt><dd>—</dd></div>
+          <div><dt>Peso</dt><dd>0 KB</dd></div>
+        </dl>
+        <p class="reason">El archivo contiene JSON y no una imagen.</p>
+      </div>
+    </article>
+<article class="card" data-category="milanesas" data-status="Sin foto">
+      <div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>
+      <div class="content">
+        <span class="status status-sin-foto">Sin foto</span>
+        <h2>Mila De Beren Rucula Y Cherry</h2>
+        <p class="path">milanesas/10-mila-de-beren-rucula-y-cherry.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JSON inválido</dd></div>
+          <div><dt>Dimensiones</dt><dd>—</dd></div>
+          <div><dt>Peso</dt><dd>0 KB</dd></div>
+        </dl>
+        <p class="reason">El archivo contiene JSON y no una imagen.</p>
+      </div>
+    </article>
+<article class="card" data-category="minutas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/minutas/01-pastel-de-papa.jpg" alt="Pastel De Papa"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/minutas/01-pastel-de-papa.jpg" alt="Recorte web de Pastel De Papa"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Pastel De Papa</h2>
+        <p class="path">minutas/01-pastel-de-papa.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>37 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="minutas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/minutas/02-pastel-de-calabaza.jpg" alt="Pastel De Calabaza"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/minutas/02-pastel-de-calabaza.jpg" alt="Recorte web de Pastel De Calabaza"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Pastel De Calabaza</h2>
+        <p class="path">minutas/02-pastel-de-calabaza.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>40 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="minutas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/minutas/03-arroz.jpg" alt="Arroz"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/minutas/03-arroz.jpg" alt="Recorte web de Arroz"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Arroz</h2>
+        <p class="path">minutas/03-arroz.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>63 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="minutas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/minutas/04-ensalada.jpg" alt="Ensalada"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/minutas/04-ensalada.jpg" alt="Recorte web de Ensalada"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Ensalada</h2>
+        <p class="path">minutas/04-ensalada.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>79 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 3 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="omelettes" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/omelettes/01-omelette-de-jamon-y-queso.jpg" alt="Omelette De Jamon Y Queso"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/omelettes/01-omelette-de-jamon-y-queso.jpg" alt="Recorte web de Omelette De Jamon Y Queso"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Omelette De Jamon Y Queso</h2>
+        <p class="path">omelettes/01-omelette-de-jamon-y-queso.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>64 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 4 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="omelettes" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/omelettes/02-omelette-caprese.jpg" alt="Omelette Caprese"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/omelettes/02-omelette-caprese.jpg" alt="Recorte web de Omelette Caprese"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Omelette Caprese</h2>
+        <p class="path">omelettes/02-omelette-caprese.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>64 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 4 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/pastas/01-canelones-de-calabaza.jpg" alt="Canelones De Calabaza"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pastas/01-canelones-de-calabaza.jpg" alt="Recorte web de Canelones De Calabaza"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Canelones De Calabaza</h2>
+        <p class="path">pastas/01-canelones-de-calabaza.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>40 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 4 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/pastas/01-lasagna-de-carne.jpg" alt="Lasagna De Carne"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pastas/01-lasagna-de-carne.jpg" alt="Recorte web de Lasagna De Carne"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Lasagna De Carne</h2>
+        <p class="path">pastas/01-lasagna-de-carne.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 343 px</dd></div>
+          <div><dt>Peso</dt><dd>49 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/pastas/02-canelones-de-verdura.jpg" alt="Canelones De Verdura"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pastas/02-canelones-de-verdura.jpg" alt="Recorte web de Canelones De Verdura"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Canelones De Verdura</h2>
+        <p class="path">pastas/02-canelones-de-verdura.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>40 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 4 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/pastas/02-lasagna-de-verdura.jpg" alt="Lasagna De Verdura"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pastas/02-lasagna-de-verdura.jpg" alt="Recorte web de Lasagna De Verdura"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Lasagna De Verdura</h2>
+        <p class="path">pastas/02-lasagna-de-verdura.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 343 px</dd></div>
+          <div><dt>Peso</dt><dd>47 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/pastas/03-canelones-de-calabaza.jpg" alt="Canelones De Calabaza"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pastas/03-canelones-de-calabaza.jpg" alt="Recorte web de Canelones De Calabaza"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Canelones De Calabaza</h2>
+        <p class="path">pastas/03-canelones-de-calabaza.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>40 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 4 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/pastas/04-canelones-de-verdura.jpg" alt="Canelones De Verdura"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pastas/04-canelones-de-verdura.jpg" alt="Recorte web de Canelones De Verdura"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Canelones De Verdura</h2>
+        <p class="path">pastas/04-canelones-de-verdura.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>40 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 4 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/pastas/05-pastel-de-papa.jpg" alt="Pastel De Papa"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pastas/05-pastel-de-papa.jpg" alt="Recorte web de Pastel De Papa"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Pastel De Papa</h2>
+        <p class="path">pastas/05-pastel-de-papa.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>37 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/pastas/06-pastel-de-calabaza.jpg" alt="Pastel De Calabaza"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pastas/06-pastel-de-calabaza.jpg" alt="Recorte web de Pastel De Calabaza"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Pastel De Calabaza</h2>
+        <p class="path">pastas/06-pastel-de-calabaza.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>40 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 2 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/pastas/07-omelette-de-jamon-y-queso.jpg" alt="Omelette De Jamon Y Queso"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pastas/07-omelette-de-jamon-y-queso.jpg" alt="Recorte web de Omelette De Jamon Y Queso"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Omelette De Jamon Y Queso</h2>
+        <p class="path">pastas/07-omelette-de-jamon-y-queso.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>64 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 4 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Dudosa">
+      <div class="previews">
+          <figure><img src="../platos/pastas/08-omelette-caprese.jpg" alt="Omelette Caprese"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pastas/08-omelette-caprese.jpg" alt="Recorte web de Omelette Caprese"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-dudosa">Dudosa</span>
+        <h2>Omelette Caprese</h2>
+        <p class="path">pastas/08-omelette-caprese.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>64 KB</dd></div>
+        </dl>
+        <p class="reason">La misma imagen aparece 4 veces.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Sin foto">
+      <div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>
+      <div class="content">
+        <span class="status status-sin-foto">Sin foto</span>
+        <h2>Falafel</h2>
+        <p class="path">pastas/09-falafel.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JSON inválido</dd></div>
+          <div><dt>Dimensiones</dt><dd>—</dd></div>
+          <div><dt>Peso</dt><dd>0 KB</dd></div>
+        </dl>
+        <p class="reason">El archivo contiene JSON y no una imagen.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Sin foto">
+      <div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>
+      <div class="content">
+        <span class="status status-sin-foto">Sin foto</span>
+        <h2>Medallones Vegetarianos</h2>
+        <p class="path">pastas/10-medallones-vegetarianos.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JSON inválido</dd></div>
+          <div><dt>Dimensiones</dt><dd>—</dd></div>
+          <div><dt>Peso</dt><dd>0 KB</dd></div>
+        </dl>
+        <p class="reason">El archivo contiene JSON y no una imagen.</p>
+      </div>
+    </article>
+<article class="card" data-category="pastas" data-status="Sin foto">
+      <div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>
+      <div class="content">
+        <span class="status status-sin-foto">Sin foto</span>
+        <h2>Ensalada</h2>
+        <p class="path">pastas/11-ensalada.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JSON inválido</dd></div>
+          <div><dt>Dimensiones</dt><dd>—</dd></div>
+          <div><dt>Peso</dt><dd>0 KB</dd></div>
+        </dl>
+        <p class="reason">El archivo contiene JSON y no una imagen.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/pizzas/01-pizza-de-muzzarella.jpg" alt="Pizza De Muzzarella"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pizzas/01-pizza-de-muzzarella.jpg" alt="Recorte web de Pizza De Muzzarella"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Pizza De Muzzarella</h2>
+        <p class="path">pizzas/01-pizza-de-muzzarella.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 347 px</dd></div>
+          <div><dt>Peso</dt><dd>33 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/pizzas/02-pizza-de-muzza-y-albahaca.jpg" alt="Pizza De Muzza Y Albahaca"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pizzas/02-pizza-de-muzza-y-albahaca.jpg" alt="Recorte web de Pizza De Muzza Y Albahaca"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Pizza De Muzza Y Albahaca</h2>
+        <p class="path">pizzas/02-pizza-de-muzza-y-albahaca.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>27 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/pizzas/03-pizza-de-muzza-y-rucula.jpg" alt="Pizza De Muzza Y Rucula"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pizzas/03-pizza-de-muzza-y-rucula.jpg" alt="Recorte web de Pizza De Muzza Y Rucula"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Pizza De Muzza Y Rucula</h2>
+        <p class="path">pizzas/03-pizza-de-muzza-y-rucula.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 344 px</dd></div>
+          <div><dt>Peso</dt><dd>430 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/pizzas/04-pizza-de-muzza-y-huevo.jpg" alt="Pizza De Muzza Y Huevo"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pizzas/04-pizza-de-muzza-y-huevo.jpg" alt="Recorte web de Pizza De Muzza Y Huevo"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Pizza De Muzza Y Huevo</h2>
+        <p class="path">pizzas/04-pizza-de-muzza-y-huevo.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>401 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/pizzas/05-pizza-de-muzza-y-jamon.jpg" alt="Pizza De Muzza Y Jamon"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pizzas/05-pizza-de-muzza-y-jamon.jpg" alt="Recorte web de Pizza De Muzza Y Jamon"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Pizza De Muzza Y Jamon</h2>
+        <p class="path">pizzas/05-pizza-de-muzza-y-jamon.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>365 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/pizzas/06-pizza-de-muzza-jamon-y-huevo.jpg" alt="Pizza De Muzza Jamon Y Huevo"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pizzas/06-pizza-de-muzza-jamon-y-huevo.jpg" alt="Recorte web de Pizza De Muzza Jamon Y Huevo"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Pizza De Muzza Jamon Y Huevo</h2>
+        <p class="path">pizzas/06-pizza-de-muzza-jamon-y-huevo.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>47 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/pizzas/07-pizza-de-muzza-jamon-y-morron.jpg" alt="Pizza De Muzza Jamon Y Morron"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pizzas/07-pizza-de-muzza-jamon-y-morron.jpg" alt="Recorte web de Pizza De Muzza Jamon Y Morron"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Pizza De Muzza Jamon Y Morron</h2>
+        <p class="path">pizzas/07-pizza-de-muzza-jamon-y-morron.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 346 px</dd></div>
+          <div><dt>Peso</dt><dd>397 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/pizzas/08-pizza-4-quesos.jpg" alt="Pizza 4 Quesos"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pizzas/08-pizza-4-quesos.jpg" alt="Recorte web de Pizza 4 Quesos"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Pizza 4 Quesos</h2>
+        <p class="path">pizzas/08-pizza-4-quesos.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>97 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/pizzas/09-pizza-de-provolone.jpg" alt="Pizza De Provolone"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pizzas/09-pizza-de-provolone.jpg" alt="Recorte web de Pizza De Provolone"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Pizza De Provolone</h2>
+        <p class="path">pizzas/09-pizza-de-provolone.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>28 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Sin foto">
+      <div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>
+      <div class="content">
+        <span class="status status-sin-foto">Sin foto</span>
+        <h2>Pizza Calabresa</h2>
+        <p class="path">pizzas/10-pizza-calabresa.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JSON inválido</dd></div>
+          <div><dt>Dimensiones</dt><dd>—</dd></div>
+          <div><dt>Peso</dt><dd>0 KB</dd></div>
+        </dl>
+        <p class="reason">El archivo contiene JSON y no una imagen.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Sin foto">
+      <div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>
+      <div class="content">
+        <span class="status status-sin-foto">Sin foto</span>
+        <h2>Pizza Napolitana</h2>
+        <p class="path">pizzas/11-pizza-napolitana.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JSON inválido</dd></div>
+          <div><dt>Dimensiones</dt><dd>—</dd></div>
+          <div><dt>Peso</dt><dd>0 KB</dd></div>
+        </dl>
+        <p class="reason">El archivo contiene JSON y no una imagen.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Sin foto">
+      <div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>
+      <div class="content">
+        <span class="status status-sin-foto">Sin foto</span>
+        <h2>Pizza Napolitana Con Jamon</h2>
+        <p class="path">pizzas/12-pizza-napolitana-con-jamon.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JSON inválido</dd></div>
+          <div><dt>Dimensiones</dt><dd>—</dd></div>
+          <div><dt>Peso</dt><dd>0 KB</dd></div>
+        </dl>
+        <p class="reason">El archivo contiene JSON y no una imagen.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Sin foto">
+      <div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>
+      <div class="content">
+        <span class="status status-sin-foto">Sin foto</span>
+        <h2>Pizza Jamon Crudo Y Rucula</h2>
+        <p class="path">pizzas/13-pizza-jamon-crudo-y-rucula.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JSON inválido</dd></div>
+          <div><dt>Dimensiones</dt><dd>—</dd></div>
+          <div><dt>Peso</dt><dd>0 KB</dd></div>
+        </dl>
+        <p class="reason">El archivo contiene JSON y no una imagen.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Sin foto">
+      <div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>
+      <div class="content">
+        <span class="status status-sin-foto">Sin foto</span>
+        <h2>Pizza Palmitos</h2>
+        <p class="path">pizzas/14-pizza-palmitos.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JSON inválido</dd></div>
+          <div><dt>Dimensiones</dt><dd>—</dd></div>
+          <div><dt>Peso</dt><dd>0 KB</dd></div>
+        </dl>
+        <p class="reason">El archivo contiene JSON y no una imagen.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Sin foto">
+      <div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>
+      <div class="content">
+        <span class="status status-sin-foto">Sin foto</span>
+        <h2>Pizza Fugazeta</h2>
+        <p class="path">pizzas/15-pizza-fugazeta.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JSON inválido</dd></div>
+          <div><dt>Dimensiones</dt><dd>—</dd></div>
+          <div><dt>Peso</dt><dd>0 KB</dd></div>
+        </dl>
+        <p class="reason">El archivo contiene JSON y no una imagen.</p>
+      </div>
+    </article>
+<article class="card" data-category="tartas-comidas-caseras" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/tartas-comidas-caseras/01-tarta-de-zapallitos.jpg" alt="Tarta De Zapallitos"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/tartas-comidas-caseras/01-tarta-de-zapallitos.jpg" alt="Recorte web de Tarta De Zapallitos"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Tarta De Zapallitos</h2>
+        <p class="path">tartas-comidas-caseras/01-tarta-de-zapallitos.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>27 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="tartas-comidas-caseras" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/tartas-comidas-caseras/02-tarta-de-calabaza.jpg" alt="Tarta De Calabaza"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/tartas-comidas-caseras/02-tarta-de-calabaza.jpg" alt="Recorte web de Tarta De Calabaza"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Tarta De Calabaza</h2>
+        <p class="path">tartas-comidas-caseras/02-tarta-de-calabaza.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>54 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="tartas-comidas-caseras" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/tartas-comidas-caseras/03-tarta-de-humita.jpg" alt="Tarta De Humita"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/tartas-comidas-caseras/03-tarta-de-humita.jpg" alt="Recorte web de Tarta De Humita"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Tarta De Humita</h2>
+        <p class="path">tartas-comidas-caseras/03-tarta-de-humita.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>25 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="tartas-comidas-caseras" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/tartas-comidas-caseras/04-tarta-de-verdura.jpg" alt="Tarta De Verdura"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/tartas-comidas-caseras/04-tarta-de-verdura.jpg" alt="Recorte web de Tarta De Verdura"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Tarta De Verdura</h2>
+        <p class="path">tartas-comidas-caseras/04-tarta-de-verdura.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>28 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="tartas-comidas-caseras" data-status="Necesita edición">
+      <div class="previews">
+          <figure><img src="../platos/tartas-comidas-caseras/05-tarta-de-jamon-y-queso.jpg" alt="Tarta De Jamon Y Queso"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/tartas-comidas-caseras/05-tarta-de-jamon-y-queso.jpg" alt="Recorte web de Tarta De Jamon Y Queso"><figcaption>Recorte de tarjeta</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-necesita-edición">Necesita edición</span>
+        <h2>Tarta De Jamon Y Queso</h2>
+        <p class="path">tartas-comidas-caseras/05-tarta-de-jamon-y-queso.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>461 × 345 px</dd></div>
+          <div><dt>Peso</dt><dd>24 KB</dd></div>
+        </dl>
+        <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article></main>
+  <script>
+    const buttons = [...document.querySelectorAll('[data-filter]')];
+    const cards = [...document.querySelectorAll('.card')];
+    buttons[0].classList.add('active');
+    buttons.forEach((button) => button.addEventListener('click', () => {
+      buttons.forEach((item) => item.classList.toggle('active', item === button));
+      cards.forEach((card) => card.classList.toggle('hidden', button.dataset.filter !== 'todas' && card.dataset.category !== button.dataset.filter));
+    }));
+  </script>
+</body>
+</html>

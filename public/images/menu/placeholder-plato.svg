@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title">
+  <title id="title">Ilustración de plato con cubiertos de La Colorada</title>
+  <rect width="1200" height="800" fill="#fff8ed"/>
+  <circle cx="600" cy="390" r="220" fill="#fff" stroke="#d62f2f" stroke-width="28"/>
+  <circle cx="600" cy="390" r="138" fill="#ffe1bd" stroke="#b42121" stroke-width="18"/>
+  <g fill="#7d1d1d"><rect x="270" y="190" width="24" height="420" rx="12"/><rect x="220" y="190" width="20" height="150" rx="10"/><rect x="270" y="190" width="20" height="150" rx="10"/><rect x="320" y="190" width="20" height="150" rx="10"/><path d="M915 190c70 80 70 185 0 258v162h-26V190h26Z"/></g>
+  <text x="600" y="735" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#7d1d1d">LA COLORADA</text>
+</svg>
