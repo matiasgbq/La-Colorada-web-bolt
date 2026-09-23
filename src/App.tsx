@@ -10,8 +10,11 @@ import { Gallery } from './components/Gallery';
 import { Testimonials } from './components/Testimonials';
 import { Location } from './components/Location';
 import { Footer } from './components/Footer';
+import { IS_FULL_SITE } from './site-mode';
 
-const SECTION_IDS: Section[] = [...SITE_SECTION_IDS];
+const SECTION_IDS: Section[] = SITE_SECTION_IDS.filter(
+  (section) => IS_FULL_SITE || section !== 'menu',
+);
 
 export default function App() {
   const active = useActiveSection(SECTION_IDS);
@@ -24,14 +27,18 @@ export default function App() {
   return (
     <CartProvider>
       <div className="min-h-screen bg-white">
-        <Navbar active={active} onNavigate={navigate} />
-        <Hero onNavigate={navigate} />
-        <MenuSection />
+        <Navbar
+          active={active}
+          onNavigate={navigate}
+          showInteractiveMenu={IS_FULL_SITE}
+        />
+        <Hero onNavigate={navigate} showInteractiveMenu={IS_FULL_SITE} />
+        {IS_FULL_SITE && <MenuSection />}
         <Gallery />
         <Testimonials />
         <Location />
         <Footer />
-        <CartSidebar />
+        {IS_FULL_SITE && <CartSidebar />}
       </div>
     </CartProvider>
   );

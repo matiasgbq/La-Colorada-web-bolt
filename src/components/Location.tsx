@@ -4,8 +4,7 @@ import {
   ADDRESS_AREA,
   MAPS_URL,
   OPENING_HOURS_DISPLAY,
-  PHONE_DISPLAY,
-  PHONE_TEL,
+  PHONES,
   WHATSAPP_DISPLAY,
   WHATSAPP_NUMBER,
   INSTAGRAM_URL,
@@ -21,7 +20,7 @@ export function Location() {
       icon: MapPin,
       title: 'Dónde estamos',
       lines: [ADDRESS, ADDRESS_AREA],
-      action: { label: 'Cómo llegar', href: MAPS_URL, icon: Navigation },
+      actions: [{ label: 'Cómo llegar', href: MAPS_URL, icon: Navigation }],
     },
     {
       icon: Clock,
@@ -31,12 +30,15 @@ export function Location() {
     {
       icon: Phone,
       title: 'Contacto',
-      lines: [`Tel: ${PHONE_DISPLAY}`, `WhatsApp: ${WHATSAPP_DISPLAY}`],
-      action: {
-        label: 'Llamar ahora',
-        href: PHONE_TEL,
+      lines: [
+        `Teléfonos: ${PHONES.map((phone) => phone.display).join(' · ')}`,
+        `WhatsApp: ${WHATSAPP_DISPLAY}`,
+      ],
+      actions: PHONES.map((phone) => ({
+        label: `Llamar al ${phone.display}`,
+        href: `tel:${phone.tel}`,
         icon: Phone,
-      },
+      })),
     },
   ];
 
@@ -75,16 +77,21 @@ export function Location() {
                   {l}
                 </p>
               ))}
-              {c.action && (
-                <a
-                  href={c.action.href}
-                  target={c.action.href.startsWith('http') ? '_blank' : undefined}
-                  rel="noreferrer"
-                  className="mt-4 inline-flex items-center gap-1.5 text-crimson-400 text-sm font-bold hover:text-crimson-300 transition-colors"
-                >
-                  {c.action.label}
-                  <ArrowRight className="w-4 h-4" />
-                </a>
+              {c.actions && (
+                <div className="mt-4 flex flex-col items-start gap-2">
+                  {c.actions.map((action) => (
+                    <a
+                      key={action.href}
+                      href={action.href}
+                      target={action.href.startsWith('http') ? '_blank' : undefined}
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-crimson-400 text-sm font-bold hover:text-crimson-300 transition-colors"
+                    >
+                      {action.label}
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  ))}
+                </div>
               )}
             </div>
           ))}

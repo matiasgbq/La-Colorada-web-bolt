@@ -46,7 +46,7 @@ export function buildRestaurantJsonLd() {
     url: `${SITE.url}/`,
     menu: `${SITE.url}/#menu`,
     hasMap: SITE.mapsUrl,
-    telephone: SITE.phoneSchema,
+    telephone: SITE.phones.map((phone) => phone.schema),
     priceRange: buildPriceRange(),
     servesCuisine: SITE.cuisines,
     address: {
@@ -80,7 +80,7 @@ ${SITE.shortName} ofrece almuerzos de oficina, pizzas y empanadas premium de rec
 - Sitio oficial: ${SITE.url}/.
 - Dirección: ${SITE.address.streetAddress} (${SITE.address.venue}), ${SITE.address.area}.
 - Horarios: ${formatHours()}.
-- Teléfono: ${SITE.phoneDisplay}.
+- Teléfonos: ${SITE.phones.map((phone) => phone.display).join(' y ')}.
 - WhatsApp: ${SITE.whatsappDisplay}.
 - Cobertura: envíos a todo el Partido de San Isidro. Los envíos inmediatos cubren un radio de ${SITE.delivery.immediateRadiusKm} km; fuera de ese radio requieren coordinación previa.
 - Pedidos Programados: para oficinas, almuerzos, reuniones y juntadas de mediodía y noche.
