@@ -19,62 +19,9 @@ export const FLYER_IMG = '/images/WhatsApp_Image_2026-07-30_at_10.13.29.jpeg';
 
 export const IMG = {
   hero: 'https://images.pexels.com/photos/9685234/pexels-photo-9685234.jpeg?auto=compress&cs=tinysrgb&h=1200&w=1800',
-  muzzarella:
-    'https://images.pexels.com/photos/12314142/pexels-photo-12314142.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  cuatroQuesos:
-    'https://images.pexels.com/photos/33458021/pexels-photo-33458021.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  fugazzeta:
-    'https://images.pexels.com/photos/31094832/pexels-photo-31094832.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  calabresa:
-    'https://images.pexels.com/photos/16677742/pexels-photo-16677742.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  napolitana:
-    'https://images.pexels.com/photos/6223177/pexels-photo-6223177.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  empanadaCarne:
-    'https://images.pexels.com/photos/36905236/pexels-photo-36905236.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  empanadaJamon:
-    'https://images.pexels.com/photos/8279711/pexels-photo-8279711.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  empanadaPollo:
-    'https://images.pexels.com/photos/13689920/pexels-photo-13689920.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  empanadaQueso:
-    'https://images.pexels.com/photos/13689919/pexels-photo-13689919.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  empanadaHumita:
-    'https://images.pexels.com/photos/12917897/pexels-photo-12917897.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  empanadaCapresse:
-    'https://images.pexels.com/photos/19711352/pexels-photo-19711352.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  ensaladaDia:
-    'https://images.pexels.com/photos/31212423/pexels-photo-31212423.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  ensaladaCesar:
-    'https://images.pexels.com/photos/20150371/pexels-photo-20150371.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  ensaladaMix:
-    'https://images.pexels.com/photos/4553029/pexels-photo-4553029.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  tartaVerdura:
-    'https://images.pexels.com/photos/288264/pexels-photo-288264.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  tartaCalabaza:
-    'https://images.pexels.com/photos/9166298/pexels-photo-9166298.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  tartaCapresse:
-    'https://images.pexels.com/photos/109836/pexels-photo-109836.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  milanesa:
-    'https://images.pexels.com/photos/1352270/pexels-photo-1352270.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  milanesaPollo:
-    'https://images.pexels.com/photos/31372332/pexels-photo-31372332.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  polloGrille:
-    'https://images.pexels.com/photos/8697537/pexels-photo-8697537.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  polloPataMuslo:
-    'https://images.pexels.com/photos/36936952/pexels-photo-36936952.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  lasagna:
-    'https://images.pexels.com/photos/4078163/pexels-photo-4078163.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  canelones:
-    'https://images.pexels.com/photos/34278827/pexels-photo-34278827.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  fideos:
-    'https://images.pexels.com/photos/1438676/pexels-photo-1438676.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  pastelPapas:
-    'https://images.pexels.com/photos/5724557/pexels-photo-5724557.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  omelette:
-    'https://images.pexels.com/photos/26847293/pexels-photo-26847293.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  falafel:
-    'https://images.pexels.com/photos/4958944/pexels-photo-4958944.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
-  medallones:
-    'https://images.pexels.com/photos/25440682/pexels-photo-25440682.jpeg?auto=compress&cs=tinysrgb&h=600&w=800',
+  placeholderPizza: '/images/menu/placeholder-pizza.svg',
+  placeholderEmpanada: '/images/menu/placeholder-empanada.svg',
+  placeholderPlato: '/images/menu/placeholder-plato.svg',
   gallery1:
     'https://images.pexels.com/photos/6223177/pexels-photo-6223177.jpeg?auto=compress&cs=tinysrgb&h=700&w=900',
   gallery2:
@@ -98,79 +45,87 @@ export type CategoryId = (typeof CATEGORIES)[number]['id'];
 
 export const MENU: Record<CategoryId, Dish[]> = {
   pizzas: [
-    { id: 'muzzarella', name: 'Muzzarella', desc: 'Salsa de tomate, mozzarella derretida y orégano.', price: 18000, tag: 'La más pedida', img: IMG.muzzarella },
-    { id: 'muzz-albahaca', name: 'Muzzarella y Albahaca', desc: 'Mozzarella con hojas de albahaca fresca.', price: 18000, img: IMG.muzzarella },
-    { id: 'muzz-rucula-huevo', name: 'Muzzarella, Rúcula y Huevo', desc: 'Mozzarella, rúcula fresca y huevo.', price: 20000, img: IMG.muzzarella },
-    { id: 'muzz-jamon-huevo', name: 'Muzzarella, Jamón y Huevo', desc: 'Mozzarella, jamón cocido y huevo.', price: 23000, img: IMG.muzzarella },
-    { id: 'muzz-jamon-morron', name: 'Muzzarella, Jamón y Morrón', desc: 'Mozzarella, jamón cocido y morrón asado.', price: 25000, img: IMG.muzzarella },
-    { id: 'muzz-anchoas', name: 'Muzzarella y Anchoas', desc: 'Mozzarella con anchoas marinadas.', price: 25000, img: IMG.muzzarella },
-    { id: '4-quesos', name: '4 Quesos', desc: 'Mozzarella, provolone, parmesano y fontina.', price: 29000, tag: 'Especialidad', img: IMG.cuatroQuesos },
-    { id: 'provolone', name: 'Provolone', desc: 'Queso provolone derretido con orégano.', price: 24000, img: IMG.cuatroQuesos },
-    { id: 'calabresa', name: 'Calabresa', desc: 'Longaniza calabresa, mozzarella y morrón.', price: 25000, img: IMG.calabresa },
-    { id: 'napolitana', name: 'Napolitana', desc: 'Mozzarella, tomate en rodajas, ajo y perejil.', price: 24000, img: IMG.napolitana },
-    { id: 'napolitana-jamon', name: 'Napolitana con Jamón', desc: 'Napolitana con jamón cocido.', price: 26000, img: IMG.napolitana },
-    { id: 'jamon-crudo-rucula', name: 'Jamón Crudo y Rúcula', desc: 'Jamón crudo, rúcula y mozzarella.', price: 29000, img: IMG.napolitana },
-    { id: 'palmitos', name: 'Palmitos', desc: 'Palmitos, salsa golf y mozzarella.', price: 29000, img: IMG.napolitana },
-    { id: 'fugazeta', name: 'Fugazeta', desc: 'Masa rellena de mozzarella cubierta con cebolla.', price: 19000, img: IMG.fugazzeta },
-    { id: 'faina', name: 'Fainá', desc: 'Clásica fainá de garbanzo al horno.', price: 2000, img: IMG.fugazzeta },
+    { id: 'muzzarella', name: 'Muzzarella', desc: 'Salsa de tomate, mozzarella y orégano.', price: 20000, tag: 'La más pedida', img: '/images/menu/pizzas/01-pizza-de-muzzarella.webp' },
+    { id: 'muzz-albahaca', name: 'Muzzarella y Albahaca', desc: 'Mozzarella con albahaca.', price: 22000, img: '/images/menu/pizzas/02-pizza-de-muzza-y-albahaca.webp' },
+    { id: 'muzz-rucula-huevo', name: 'Muzzarella, Rúcula y Huevo', desc: 'Mozzarella, rúcula y huevo.', price: 22000, img: '/images/menu/pizzas/03-pizza-de-muzza-y-rucula.webp' },
+    { id: 'muzz-jamon-huevo', name: 'Muzzarella, Jamón y Huevo', desc: 'Mozzarella, jamón y huevo.', price: 25000, img: '/images/menu/pizzas/06-pizza-de-muzza-jamon-y-huevo.webp' },
+    { id: 'muzz-jamon-morron', name: 'Muzzarella, Jamón y Morrón', desc: 'Mozzarella, jamón y morrón.', price: 28000, img: '/images/menu/pizzas/07-pizza-de-muzza-jamon-y-morron.webp' },
+    { id: 'muzz-anchoas', name: 'Muzzarella y Anchoas', desc: 'Mozzarella y anchoas.', price: 29000, img: IMG.placeholderPizza },
+    { id: '4-quesos', name: '4 Quesos', desc: 'Pizza de cuatro quesos.', price: 29000, tag: 'Especialidad', img: '/images/menu/pizzas/08-pizza-4-quesos.webp' },
+    { id: 'provolone', name: 'Provolone', desc: 'Mozzarella y provolone.', price: 27000, img: '/images/menu/pizzas/09-pizza-de-provolone.webp' },
+    { id: 'calabresa', name: 'Calabresa', desc: 'Mozzarella y longaniza calabresa.', price: 26000, img: IMG.placeholderPizza },
+    { id: 'napolitana', name: 'Napolitana', desc: 'Mozzarella, tomate, ajo y perejil.', price: 25000, img: IMG.placeholderPizza },
+    { id: 'napolitana-jamon', name: 'Napolitana con Jamón', desc: 'Napolitana con jamón.', price: 28000, img: IMG.placeholderPizza },
+    { id: 'jamon-crudo-rucula', name: 'Jamón Crudo y Rúcula', desc: 'Mozzarella, jamón crudo y rúcula.', price: 28000, img: IMG.placeholderPizza },
+    { id: 'palmitos', name: 'Palmitos', desc: 'Mozzarella, palmitos y salsa golf.', price: 29000, img: IMG.placeholderPizza },
+    { id: 'fugazeta', name: 'Fugazeta', desc: 'Pizza rellena de mozzarella y cebolla.', price: 22000, img: IMG.placeholderPizza },
+    { id: 'faina', name: 'Fainá', desc: 'Fainá de garbanzo al horno.', price: 2000, img: IMG.placeholderPizza },
   ],
   empanadas: [
-    { id: 'carne-suave', name: 'Carne Suave', desc: 'Carne picada, cebolla, morrón y especias suaves.', price: 3000, img: IMG.empanadaCarne },
-    { id: 'carne-picante', name: 'Carne Picante', desc: 'Carne picada con un toque de ají molido.', price: 3000, img: IMG.empanadaCarne },
-    { id: 'carne-cuchillo', name: 'Carne Cortada a Cuchillo', desc: 'Carne cortada a cuchillo, cebolla, huevo y aceituna.', price: 3000, tag: 'Favorita', img: IMG.empanadaCarne },
-    { id: 'pollo', name: 'Pollo', desc: 'Pollo desmenuzado con cebolla, morrón y especias.', price: 3000, img: IMG.empanadaPollo },
-    { id: 'verdura', name: 'Verdura', desc: 'Espinaca, acelga y queso. Vegetariana.', price: 3000, img: IMG.empanadaHumita },
-    { id: 'humita', name: 'Humita', desc: 'Choclo cremoso con queso y especias.', price: 3000, img: IMG.empanadaHumita },
-    { id: 'jamon-queso', name: 'Jamón y Queso', desc: 'Jamón cocido natural y mozzarella.', price: 3000, img: IMG.empanadaJamon },
-    { id: 'roquefort', name: 'Roquefort', desc: 'Queso roquefort con mozzarella.', price: 3000, img: IMG.empanadaQueso },
-    { id: 'queso-cebolla', name: 'Queso y Cebolla', desc: 'Mozzarella y cebolla blanca. Vegetariana.', price: 3000, img: IMG.empanadaQueso },
-    { id: 'capresse', name: 'Capresse', desc: 'Tomate, mozzarella y albahaca.', price: 3000, tag: 'Novedad', img: IMG.empanadaCapresse },
-    { id: 'crudo-queso', name: 'Crudo y Queso', desc: 'Jamón crudo y mozzarella.', price: 3000, img: IMG.empanadaJamon },
+    { id: 'carne-suave', name: 'Carne Suave', desc: 'Carne, cebolla, morrón y especias suaves.', price: 3000, img: '/images/menu/01-empanada-de-carne-suave.webp' },
+    { id: 'carne-picante', name: 'Carne Picante', desc: 'Carne con un toque picante.', price: 3000, img: '/images/menu/02-empanada-de-carne-picante.webp' },
+    { id: 'carne-cuchillo', name: 'Carne Cortada a Cuchillo', desc: 'Carne cortada a cuchillo.', price: 3500, tag: 'Especial', img: IMG.placeholderEmpanada },
+    { id: 'pollo', name: 'Pollo', desc: 'Pollo, cebolla, morrón y especias.', price: 3000, img: '/images/menu/03-empanada-de-pollo.webp' },
+    { id: 'verdura', name: 'Verdura', desc: 'Verdura y queso.', price: 3000, img: '/images/menu/04-empanada-de-verdura.webp' },
+    { id: 'humita', name: 'Humita', desc: 'Choclo cremoso y queso.', price: 3000, img: '/images/menu/05-empanada-de-humita.webp' },
+    { id: 'jamon-queso', name: 'Jamón y Queso', desc: 'Jamón y mozzarella.', price: 3000, img: '/images/menu/06-empanada-de-jamon-y-queso.webp' },
+    { id: 'roquefort', name: 'Roquefort', desc: 'Roquefort y mozzarella.', price: 3000, img: '/images/menu/10-empanada-de-roquefort.webp' },
+    { id: 'queso-cebolla', name: 'Queso y Cebolla', desc: 'Mozzarella y cebolla.', price: 3000, img: '/images/menu/07-empanada-de-queso-y-cebolla.webp' },
+    { id: 'capresse', name: 'Capresse', desc: 'Tomate, mozzarella y albahaca.', price: 3000, img: '/images/menu/08-empanada-capresce.webp' },
+    { id: 'crudo-queso', name: 'Crudo y Queso', desc: 'Jamón crudo y mozzarella.', price: 3000, img: '/images/menu/09-empanadas-de-crudo-y-queso.webp' },
   ],
   ensaladas: [
-    { id: 'ensalada-dia', name: 'Ensalada del Día', desc: 'Lechuga, rúcula, tomate, zanahoria, queso, huevo, pollo rebozado o sin rebozar.', price: 10000, tag: 'La más pedida', img: IMG.ensaladaDia },
-    { id: 'ensalada-dia-veg', name: 'Ensalada del Día Vegetariana', desc: 'Lechuga, rúcula, tomate, zanahoria, queso, huevo (mila de berenjena, zucchini o choclo).', price: 9000, img: IMG.ensaladaDia },
-    { id: 'mix-verdes', name: 'Mix Verdes', desc: 'Lechuga, rúcula, cherrys, zanahoria y pollo sin rebozar.', price: 9500, img: IMG.ensaladaMix },
-    { id: 'cesar', name: 'César', desc: 'Lechuga, lechuga morada, queso, crutones caseros, pollo y aderezo.', price: 10000, img: IMG.ensaladaCesar },
+    { id: 'ensalada-dia', name: 'Ensalada del Día', desc: 'Lechuga, rúcula, tomate, zanahoria, queso, huevo y pollo grillé.', price: 10000, tag: 'La más pedida', img: '/images/menu/ensaladas/02-ensalada-del-dia.webp' },
+    { id: 'ensalada-dia-veg', name: 'Ensalada del Día Vegetariana', desc: 'Con berenjena, zucchini o choclo.', price: 9000, img: '/images/menu/ensaladas/04-ensalada-vegetariana.webp' },
+    { id: 'mix-verdes', name: 'Mix Verdes', desc: 'Lechuga, rúcula, tomates cherry, zanahoria, huevo y pollo grillé.', price: 10000, img: '/images/menu/ensaladas/01-ensalada.webp' },
+    { id: 'cesar', name: 'César', desc: 'Lechuga, lechuga morada, queso, croutones caseros, pollo grillé y aderezo.', price: 10000, img: '/images/menu/ensaladas/03-ensalada-cesar.webp' },
   ],
   tartas: [
-    { id: 'tarta-verdura', name: 'Tarta de Verdura', desc: 'Espinaca y acelga con queso.', price: 8000, img: IMG.tartaVerdura },
-    { id: 'tarta-calabaza', name: 'Tarta de Calabaza', desc: 'Calabaza cremosa con queso.', price: 8000, img: IMG.tartaCalabaza },
-    { id: 'tarta-humita', name: 'Tarta de Humita', desc: 'Choclo cremoso con queso.', price: 8000, img: IMG.tartaCalabaza },
-    { id: 'tarta-zapallito', name: 'Tarta de Zapallito', desc: 'Zapallito verde con queso y especias.', price: 8000, img: IMG.tartaVerdura },
-    { id: 'tarta-jamon-queso', name: 'Tarta de Jamón y Queso', desc: 'Jamón cocido y mozzarella.', price: 8500, img: IMG.tartaVerdura },
-    { id: 'tarta-capresse', name: 'Tarta Capresse', desc: 'Tomate, mozzarella y albahaca.', price: 8500, tag: 'Novedad', img: IMG.tartaCapresse },
+    { id: 'tarta-verdura', name: 'Tarta de Verdura', desc: 'Porción de tarta casera de verdura.', price: 8500, img: '/images/menu/tartas-comidas-caseras/04-tarta-de-verdura.webp' },
+    { id: 'tarta-calabaza', name: 'Tarta de Calabaza', desc: 'Porción de tarta casera de calabaza.', price: 8500, img: '/images/menu/tartas-comidas-caseras/02-tarta-de-calabaza.webp' },
+    { id: 'tarta-humita', name: 'Tarta de Humita', desc: 'Porción de tarta casera de humita.', price: 8500, img: '/images/menu/tartas-comidas-caseras/03-tarta-de-humita.webp' },
+    { id: 'tarta-zapallito', name: 'Tarta de Zapallito', desc: 'Porción de tarta casera de zapallito.', price: 8500, img: '/images/menu/tartas-comidas-caseras/01-tarta-de-zapallitos.webp' },
+    { id: 'tarta-jamon-queso', name: 'Tarta de Jamón y Queso', desc: 'Porción de tarta casera de jamón y queso.', price: 9000, img: '/images/menu/tartas-comidas-caseras/05-tarta-de-jamon-y-queso.webp' },
+    { id: 'tarta-capresse', name: 'Tarta Capresse', desc: 'Porción de tarta casera capresse.', price: 9000, img: IMG.placeholderPlato },
+    { id: 'guarnicion-ensalada', name: 'Guarnición de Ensalada para Tarta', desc: 'Opcional para acompañar una porción de tarta.', price: 2500, img: '/images/menu/ensaladas/01-ensalada.webp' },
   ],
   milanesas: [
-    { id: 'suprema-guarnicion', name: 'Suprema de Pollo + Guarnición', desc: 'Suprema de pollo con guarnición a elección.', price: 11000, img: IMG.milanesaPollo },
-    { id: 'suprema-gratinada', name: 'Suprema de Pollo Gratinada + Guarnición', desc: 'Suprema gratinada con mozzarella y guarnición.', price: 12500, img: IMG.milanesaPollo },
-    { id: 'mila-ternera', name: 'Milanesa de Ternera + Guarnición', desc: 'Milanesa de ternera con guarnición a elección.', price: 13000, tag: 'La más pedida', img: IMG.milanesa },
-    { id: 'mila-gratinada', name: 'Milanesa de Ternera Gratinada + Guarnición', desc: 'Milanesa gratinada con mozzarella y guarnición.', price: 15000, img: IMG.milanesa },
-    { id: 'mila-napolitana', name: 'Milanesa de Ternera a la Napolitana + Guarnición', desc: 'Con jamón, mozzarella y tomate. Guarnición a elección.', price: 17000, img: IMG.milanesa },
-    { id: 'mila-muzz-albahaca', name: 'Milanesa con Muzzarella y Albahaca', desc: 'Milanesa de ternera con mozzarella y albahaca fresca.', price: 15500, img: IMG.milanesa },
-    { id: 'mila-rucula-huevo', name: 'Milanesa Rúcula y Huevo', desc: 'Milanesa de ternera con rúcula y huevo.', price: 16000, img: IMG.milanesa },
-    { id: 'mila-jamon-huevo', name: 'Milanesa Jamón y Huevo', desc: 'Milanesa de ternera con jamón y huevo.', price: 18000, img: IMG.milanesa },
-    { id: 'mila-jamon-morron', name: 'Milanesa Jamón y Morrón', desc: 'Milanesa de ternera con jamón y morrón asado.', price: 20000, img: IMG.milanesa },
-    { id: 'mila-4-quesos', name: 'Milanesa 4 Quesos', desc: 'Milanesa de ternera con cuatro quesos.', price: 23000, tag: 'Especialidad', img: IMG.milanesa },
-    { id: 'mila-provolone', name: 'Milanesa con Provolone', desc: 'Milanesa de ternera con queso provolone derretido.', price: 21000, img: IMG.milanesa },
-    { id: 'mila-crudo-rucula', name: 'Milanesa Jamón Crudo y Rúcula', desc: 'Milanesa de ternera con jamón crudo y rúcula.', price: 20000, img: IMG.milanesa },
-    { id: 'mila-fugazeta', name: 'Milanesa a la Fugazeta', desc: 'Milanesa de ternera cubierta con cebolla y queso.', price: 16000, img: IMG.milanesa },
-    { id: 'mila-berenjena-napo', name: 'Milanesa de Berenjena o Zucchini a la Napolitana + Guarnición', desc: 'Opción vegetariana con jamón, mozzarella y tomate.', price: 10000, img: IMG.milanesa },
-    { id: 'mila-zucchini-gratinada', name: 'Milanesas de Zucchini Gratinadas + Guarnición', desc: 'Zucchini gratinado con mozzarella y guarnición.', price: 10000, img: IMG.milanesa },
-    { id: 'pechuga-grille', name: 'Pechuga Grillé + Guarnición', desc: 'Pechuga de pollo a la plancha con guarnición.', price: 12500, img: IMG.polloGrille },
-    { id: 'pata-muslo', name: 'Pata y Muslo + Guarnición', desc: 'Pata y muslo de pollo al horno con guarnición.', price: 11500, img: IMG.polloPataMuslo },
+    { id: 'mila-ternera', name: 'Milanesa de Ternera al Horno', desc: 'Milanesa de ternera.', price: 13000, tag: 'La más pedida', img: '/images/menu/milanesas/07-milanesa-de-ternera.webp' },
+    { id: 'mila-gratinada', name: 'Milanesa con Muzzarella', desc: 'Milanesa de ternera con mozzarella.', price: 15000, img: '/images/menu/milanesas/04-milanesa-de-ternera-gratinada.webp' },
+    { id: 'mila-muzz-albahaca', name: 'Milanesa con Muzzarella y Albahaca', desc: 'Milanesa de ternera con mozzarella y albahaca.', price: 15500, img: IMG.placeholderPlato },
+    { id: 'mila-rucula-huevo', name: 'Milanesa con Muzzarella, Rúcula y Huevo', desc: 'Milanesa con mozzarella, rúcula y huevo.', price: 16000, img: IMG.placeholderPlato },
+    { id: 'mila-napolitana', name: 'Milanesa a la Napolitana', desc: 'Milanesa napolitana.', price: 17000, img: '/images/menu/milanesas/06-milanesa-de-ternera-napolitana.webp' },
+    { id: 'mila-napolitana-jamon', name: 'Milanesa Napolitana con Jamón', desc: 'Milanesa napolitana con jamón.', price: 18500, img: IMG.placeholderPlato },
+    { id: 'mila-crudo-rucula', name: 'Milanesa con Jamón Crudo y Rúcula', desc: 'Milanesa con jamón crudo y rúcula.', price: 20000, img: IMG.placeholderPlato },
+    { id: 'mila-jamon-morron', name: 'Milanesa con Muzzarella, Jamón y Morrón', desc: 'Milanesa con mozzarella, jamón y morrón.', price: 20000, img: IMG.placeholderPlato },
+    { id: 'mila-provolone', name: 'Milanesa al Provolone', desc: 'Milanesa con provolone.', price: 21000, img: IMG.placeholderPlato },
+    { id: 'mila-4-quesos', name: 'Milanesa 4 Quesos', desc: 'Milanesa con cuatro quesos.', price: 23000, tag: 'Especialidad', img: IMG.placeholderPlato },
+    { id: 'veg-fugazetta', name: 'Berenjena o Zucchini Fugazetta', desc: 'Milanesa vegetariana al horno estilo fugazetta.', price: 9500, img: '/images/menu/milanesas/08-mlanesas-de-berenjena-fuga.webp' },
+    { id: 'veg-muzzarella', name: 'Berenjena o Zucchini con Muzzarella', desc: 'Milanesa vegetariana con mozzarella.', price: 10000, img: '/images/menu/milanesas/01-milanesa-de-zucchini-gratinada.webp' },
+    { id: 'veg-napolitana', name: 'Berenjena o Zucchini a la Napolitana', desc: 'Milanesa vegetariana a la napolitana.', price: 10000, img: IMG.placeholderPlato },
+    { id: 'veg-rucula-huevo', name: 'Berenjena o Zucchini con Muzzarella, Rúcula y Huevo', desc: 'Con mozzarella, rúcula y huevo.', price: 11000, img: IMG.placeholderPlato },
+    { id: 'veg-napolitana-jamon', name: 'Berenjena o Zucchini Napolitana con Jamón', desc: 'Napolitana con jamón.', price: 13000, img: IMG.placeholderPlato },
+    { id: 'veg-jamon-huevo', name: 'Berenjena o Zucchini con Muzzarella, Jamón y Huevo', desc: 'Con mozzarella, jamón y huevo.', price: 13000, img: IMG.placeholderPlato },
+    { id: 'veg-jamon-morron', name: 'Berenjena o Zucchini con Muzzarella, Jamón y Morrón', desc: 'Con mozzarella, jamón y morrón.', price: 15000, img: IMG.placeholderPlato },
+    { id: 'veg-provolone', name: 'Berenjena o Zucchini al Provolone', desc: 'Milanesa vegetariana con provolone.', price: 16000, img: IMG.placeholderPlato },
+    { id: 'veg-4-quesos', name: 'Berenjena o Zucchini 4 Quesos', desc: 'Milanesa vegetariana con cuatro quesos.', price: 17000, img: IMG.placeholderPlato },
+    { id: 'veg-crudo-rucula', name: 'Berenjena o Zucchini con Jamón Crudo y Rúcula', desc: 'Con jamón crudo y rúcula.', price: 17000, img: IMG.placeholderPlato },
+    { id: 'suprema-pollo', name: 'Suprema de Pollo', desc: 'Suprema de pollo al horno.', price: 11000, img: '/images/menu/milanesas/03-suprema-de-pollo.webp' },
+    { id: 'suprema-gratinada', name: 'Suprema de Pollo Gratinada', desc: 'Suprema de pollo gratinada.', price: 12500, img: '/images/menu/milanesas/05-suprema-de-pollo-gratinada.webp' },
+    { id: 'pechuga-grille', name: 'Pechuga Grillé', desc: 'Pechuga de pollo grillada.', price: 12500, img: IMG.placeholderPlato },
+    { id: 'grille-gratinado', name: 'Grillé Gratinado', desc: 'Pechuga grillada y gratinada.', price: 14000, img: IMG.placeholderPlato },
   ],
   pastas: [
-    { id: 'lasagna-carne', name: 'Lasagna de Carne', desc: 'Capas de pasta, ragú de carne casero, bechamel y mozzarella.', price: 11000, tag: 'La más pedida', img: IMG.lasagna },
-    { id: 'lasagna-verdura', name: 'Lasagna de Verdura', desc: 'Capas de pasta con verduras y queso gratinado.', price: 10000, img: IMG.lasagna },
-    { id: 'canelones-verdura', name: 'Canelones de Verdura', desc: 'Canelones rellenos de espinaca y ricota con salsa.', price: 9500, img: IMG.canelones },
-    { id: 'canelones-calabaza', name: 'Canelones de Calabaza', desc: 'Canelones rellenos de calabaza con salsa gratinada.', price: 9500, img: IMG.canelones },
-    { id: 'pastel-papas', name: 'Pastel de Papas', desc: 'Pure de papas con carne y queso gratinado.', price: 10000, img: IMG.pastelPapas },
-    { id: 'pastel-calabaza', name: 'Pastel de Calabaza', desc: 'Pure de calabaza con carne y queso gratinado.', price: 10000, img: IMG.pastelPapas },
-    { id: 'omelette-jamon-queso', name: 'Omelette de Jamón y Queso + Guarnición', desc: 'Omelette relleno de jamón y mozzarella con guarnición.', price: 9500, img: IMG.omelette },
-    { id: 'omelette-capresse', name: 'Omelette Capresse + Guarnición', desc: 'Omelette con tomate, mozzarella y albahaca con guarnición.', price: 9500, img: IMG.omelette },
-    { id: 'falafel', name: 'Falafel con Salsa Tai + Guarnición', desc: 'Falafel casero con salsa tai y guarnición.', price: 9500, tag: 'Veggie', img: IMG.falafel },
-    { id: 'medallones-veg', name: 'Medallones Vegetarianos Gratinados + Guarnición', desc: 'Medallones de vegetales gratinados con queso.', price: 9000, img: IMG.medallones },
+    { id: 'lasagna-carne', name: 'Lasagna de Carne', desc: 'Lasagna casera de carne.', price: 12000, tag: 'La más pedida', img: '/images/menu/pastas/01-lasagna-de-carne.webp' },
+    { id: 'lasagna-verdura', name: 'Lasagna de Verdura', desc: 'Lasagna casera de verdura.', price: 10000, img: '/images/menu/pastas/02-lasagna-de-verdura.webp' },
+    { id: 'lasagna-carne-verdura', name: 'Lasagna de Carne y Verdura', desc: 'Lasagna casera mixta.', price: 11000, img: IMG.placeholderPlato },
+    { id: 'canelones-verdura', name: 'Canelones de Verdura', desc: 'Canelones caseros de verdura.', price: 10000, img: '/images/menu/pastas/02-canelones-de-verdura.webp' },
+    { id: 'canelones-calabaza', name: 'Canelones de Calabaza', desc: 'Canelones caseros de calabaza.', price: 10000, img: '/images/menu/pastas/01-canelones-de-calabaza.webp' },
+    { id: 'pastel-papas', name: 'Pastel de Papas', desc: 'Pastel de papas casero.', price: 10000, img: '/images/menu/pastas/05-pastel-de-papa.webp' },
+    { id: 'omelette-jamon-queso', name: 'Omelette de Jamón y Queso', desc: 'Omelette de jamón y queso.', price: 10000, img: '/images/menu/omelettes/01-omelette-de-jamon-y-queso.webp' },
+    { id: 'omelette-capresse', name: 'Omelette Capresse', desc: 'Omelette de tomate, mozzarella y albahaca.', price: 9500, img: '/images/menu/omelettes/02-omelette-caprese.webp' },
+    { id: 'falafel', name: 'Falafel con Salsa Tai', desc: 'Falafel casero con salsa tai.', price: 10000, tag: 'Veggie', img: IMG.placeholderPlato },
+    { id: 'medallones-veg', name: 'Medallones Vegetarianos Gratinados', desc: 'De lentejas, garbanzos, quinoa al curry, porotos colorados o mijo.', price: 10000, img: IMG.placeholderPlato },
   ],
 };
 

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title">
+  <title id="title">Ilustración de empanada de La Colorada</title>
+  <rect width="1200" height="800" fill="#fff8ed"/>
+  <path d="M286 520c60-263 568-263 628 0-114 154-514 154-628 0Z" fill="#ffd38f" stroke="#b42121" stroke-width="30"/>
+  <path d="M312 515c70 70 126 88 187 97m-118-183c34 54 69 92 118 117m415-31c-70 70-126 88-187 97m118-183c-34 54-69 92-118 117M499 546c35 36 67 57 101 69 34-12 66-33 101-69" fill="none" stroke="#b42121" stroke-width="22" stroke-linecap="round"/>
+  <text x="600" y="735" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#7d1d1d">LA COLORADA</text>
+</svg>
