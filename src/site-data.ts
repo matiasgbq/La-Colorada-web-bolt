@@ -8,7 +8,7 @@ const WEEKDAYS = [
 
 const EVERY_DAY = [...WEEKDAYS, 'Saturday', 'Sunday'] as const;
 const SITE_URL = 'https://lacoloradacocina.com.ar';
-const SOCIAL_IMAGE = `${SITE_URL}/images/gallery/comidas-caseras.webp`;
+const SOCIAL_IMAGE = `${SITE_URL}/images/la-colorada-og-1200x630.jpg`;
 
 const MAPS_QUERY_VALUE = encodeURIComponent(
   'La Colorada Pizza, Empanadas y Comidas Caseras La Horqueta, Blanco Encalada 2229, Beccar, San Isidro, Argentina',
