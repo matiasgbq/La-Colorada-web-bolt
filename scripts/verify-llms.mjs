@@ -25,7 +25,8 @@ const temporaryDomain = 'la-colorada-web-bolt.vercel.app';
   '# La Colorada',
   'https://lacoloradacocina.com.ar/',
   'Blanco Encalada 2229',
-  '11:00 a 15:00',
+  '10:30 a 15:00',
+  'sábados de 11:00 a 15:00',
   '19:00 a 23:00',
   '4897-5432',
   '[Ubicación](/#ubicacion)',
@@ -101,8 +102,8 @@ assert(
 );
 assert(
   Array.isArray(restaurant.openingHoursSpecification) &&
-    restaurant.openingHoursSpecification.length === 2,
-  'JSON-LD no contiene los dos rangos horarios canónicos.',
+    restaurant.openingHoursSpecification.length === 3,
+  'JSON-LD no contiene los tres rangos horarios canónicos.',
 );
 
 console.log(

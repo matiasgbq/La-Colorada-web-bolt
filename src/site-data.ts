@@ -1,13 +1,12 @@
-const WEEKDAYS_AND_SATURDAY = [
+const WEEKDAYS = [
   'Monday',
   'Tuesday',
   'Wednesday',
   'Thursday',
   'Friday',
-  'Saturday',
 ] as const;
 
-const EVERY_DAY = [...WEEKDAYS_AND_SATURDAY, 'Sunday'] as const;
+const EVERY_DAY = [...WEEKDAYS, 'Saturday', 'Sunday'] as const;
 const SITE_URL = 'https://lacoloradacocina.com.ar';
 const SOCIAL_IMAGE = `${SITE_URL}/images/gallery/comidas-caseras.webp`;
 
@@ -73,7 +72,12 @@ export const SITE = {
   events: 'Para organizar eventos, contactar directamente por WhatsApp.',
   openingHours: [
     {
-      days: WEEKDAYS_AND_SATURDAY,
+      days: WEEKDAYS,
+      opens: '10:30',
+      closes: '15:00',
+    },
+    {
+      days: ['Saturday'],
       opens: '11:00',
       closes: '15:00',
     },
@@ -97,4 +101,4 @@ export const ADDRESS_AREA = SITE.address.area;
 export const MAPS_QUERY = SITE.mapsQuery;
 export const MAPS_URL = SITE.mapsUrl;
 export const OPENING_HOURS_DISPLAY =
-  'Lunes a sábados · 11:00 a 15:00 · 19:00 a 23:00 | Domingos · 19:00 a 23:00';
+  'Lunes a viernes · 10:30 a 15:00 · 19:00 a 23:00 | Sábados · 11:00 a 15:00 · 19:00 a 23:00 | Domingos · 19:00 a 23:00';

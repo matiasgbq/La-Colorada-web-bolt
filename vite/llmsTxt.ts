@@ -25,7 +25,7 @@ const SITE_SECTIONS: ReadonlyArray<{
 ] as const;
 
 function formatHours() {
-  return 'lunes a sábados de 11:00 a 15:00 y de 19:00 a 23:00; domingos de 19:00 a 23:00';
+  return 'lunes a viernes de 10:30 a 15:00 y de 19:00 a 23:00; sábados de 11:00 a 15:00 y de 19:00 a 23:00; domingos de 19:00 a 23:00';
 }
 
 function buildPriceRange() {
