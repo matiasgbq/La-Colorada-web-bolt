@@ -1,14 +1,14 @@
-const WEEKDAYS_AND_SATURDAY = [
+const WEEKDAYS = [
   'Monday',
   'Tuesday',
   'Wednesday',
   'Thursday',
   'Friday',
-  'Saturday',
 ] as const;
 
-const EVERY_DAY = [...WEEKDAYS_AND_SATURDAY, 'Sunday'] as const;
+const EVERY_DAY = [...WEEKDAYS, 'Saturday', 'Sunday'] as const;
 const SITE_URL = 'https://lacoloradacocina.com.ar';
+const SOCIAL_IMAGE = `${SITE_URL}/images/gallery/comidas-caseras.webp`;
 
 const MAPS_QUERY_VALUE = encodeURIComponent(
   'La Colorada Pizza, Empanadas y Comidas Caseras La Horqueta, Blanco Encalada 2229, Beccar, San Isidro, Argentina',
@@ -22,10 +22,17 @@ export const SITE = {
   htmlTitle:
     'La Colorada | Empanadas, Pizzas y Comidas Caseras en La Horqueta',
   metaDescription:
-    'Almuerzos de oficina, empanadas y pizzas premium de recetas tradicionales, y comidas caseras en La Horqueta. Pedidos programados y eventos por WhatsApp.',
+    'Pizzas, empanadas, comidas caseras y opciones vegetarianas y veganas en La Horqueta, San Isidro. Almuerzos de oficina y pedidos programados por WhatsApp.',
   summary:
-    'Cocina especializada en pizzas, empanadas y platos reales para gente real, con almuerzos de oficina y pedidos programados.',
-  cuisines: ['Pizza', 'Empanadas', 'Comida casera argentina'],
+    'Pizzas, empanadas y comida casera en La Horqueta, con opciones vegetarianas y veganas, ensaladas a medida y pedidos programados.',
+  socialImage: SOCIAL_IMAGE,
+  cuisines: [
+    'Pizza',
+    'Empanadas',
+    'Comida casera argentina',
+    'Comida vegetariana',
+    'Comida vegana',
+  ],
   phones: [
     {
       display: '4897-5432',
@@ -56,6 +63,7 @@ export const SITE = {
   mapsUrl: `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY_VALUE}&query_place_id=${GOOGLE_PLACE_ID}`,
   delivery: {
     area: 'Todo el Partido de San Isidro',
+    structuredArea: 'Partido de San Isidro',
     immediateRadiusKm: 3,
     outsideRadius: 'Requiere coordinación previa por WhatsApp',
   },
@@ -64,7 +72,12 @@ export const SITE = {
   events: 'Para organizar eventos, contactar directamente por WhatsApp.',
   openingHours: [
     {
-      days: WEEKDAYS_AND_SATURDAY,
+      days: WEEKDAYS,
+      opens: '10:30',
+      closes: '15:00',
+    },
+    {
+      days: ['Saturday'],
       opens: '11:00',
       closes: '15:00',
     },
@@ -88,4 +101,4 @@ export const ADDRESS_AREA = SITE.address.area;
 export const MAPS_QUERY = SITE.mapsQuery;
 export const MAPS_URL = SITE.mapsUrl;
 export const OPENING_HOURS_DISPLAY =
-  'Lunes a sábados · 11:00 a 15:00 · 19:00 a 23:00 | Domingos · 19:00 a 23:00';
+  'Lunes a viernes · 10:30 a 15:00 · 19:00 a 23:00 | Sábados · 11:00 a 15:00 · 19:00 a 23:00 | Domingos · 19:00 a 23:00';

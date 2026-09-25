@@ -9,14 +9,22 @@ const menuImagesDirectory = fileURLToPath(
 );
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [menuFlyersPlugin(menuImagesDirectory), llmsTxtPlugin(), react()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+export default defineConfig(() => {
+  const siteMode = process.env.VITE_SITE_MODE === 'landing' ? 'landing' : 'full';
+
+  return {
+    plugins: [
+      menuFlyersPlugin(menuImagesDirectory),
+      llmsTxtPlugin(siteMode),
+      react(),
+    ],
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
     },
-  },
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
+    optimizeDeps: {
+      exclude: ['lucide-react'],
+    },
+  };
 });

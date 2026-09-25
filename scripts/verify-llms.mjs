@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 
-const distDirectory = 'dist';
+const distDirectory = process.env.DIST_DIR ?? 'dist';
+const siteMode = process.env.SITE_MODE === 'landing' ? 'landing' : 'full';
 const llmsPath = `${distDirectory}/llms.txt`;
 const indexPath = `${distDirectory}/index.html`;
 
@@ -24,10 +25,10 @@ const temporaryDomain = 'la-colorada-web-bolt.vercel.app';
   '# La Colorada',
   'https://lacoloradacocina.com.ar/',
   'Blanco Encalada 2229',
-  '11:00 a 15:00',
+  '10:30 a 15:00',
+  'sábados de 11:00 a 15:00',
   '19:00 a 23:00',
   '4897-5432',
-  '[Menú](/#menu)',
   '[Ubicación](/#ubicacion)',
   'Pedidos Programados',
   'todo el Partido de San Isidro',
@@ -36,6 +37,16 @@ const temporaryDomain = 'la-colorada-web-bolt.vercel.app';
 ].forEach((requiredText) => {
   assert(llms.includes(requiredText), `llms.txt no contiene: ${requiredText}`);
 });
+
+if (siteMode === 'full') {
+  assert(llms.includes('[Menú](/#menu)'), 'llms.txt full no enlaza el menú.');
+} else {
+  assert(!llms.includes('[Menú](/#menu)'), 'llms.txt landing enlaza el menú oculto.');
+  assert(
+    llms.includes('menú interactivo todavía no está publicado'),
+    'llms.txt landing no describe correctamente la web pública.',
+  );
+}
 
 assert(!llms.includes('$'), 'llms.txt no debe publicar precios.');
 assert(
@@ -72,26 +83,29 @@ const jsonLdMatch = html.match(
 assert(jsonLdMatch, 'No se encontró JSON-LD en el HTML compilado.');
 
 const restaurant = JSON.parse(jsonLdMatch[1]);
-assert(
-  Array.isArray(restaurant['@type']) && restaurant['@type'].includes('Restaurant'),
-  'JSON-LD no describe un Restaurant.',
-);
+assert(restaurant['@type'] === 'Restaurant', 'JSON-LD no describe un Restaurant.');
 assert(
   restaurant.name === 'La Colorada Pizza, Empanadas y Comidas Caseras La Horqueta',
   'JSON-LD tiene un nombre incorrecto.',
 );
-assert(
-  restaurant.menu === 'https://lacoloradacocina.com.ar/#menu',
-  'JSON-LD tiene un enlace de menú incorrecto.',
-);
+if (siteMode === 'full') {
+  assert(
+    restaurant.menu === 'https://lacoloradacocina.com.ar/#menu',
+    'JSON-LD full tiene un enlace de menú incorrecto.',
+  );
+} else {
+  assert(!('menu' in restaurant), 'JSON-LD landing publica un menú oculto.');
+}
 assert(
   restaurant.hasMap.includes('ChIJVxbwP8i6vJURnJyqT_sTvZE'),
   'JSON-LD no enlaza la ficha oficial de Google Maps.',
 );
 assert(
   Array.isArray(restaurant.openingHoursSpecification) &&
-    restaurant.openingHoursSpecification.length === 2,
-  'JSON-LD no contiene los dos rangos horarios canónicos.',
+    restaurant.openingHoursSpecification.length === 3,
+  'JSON-LD no contiene los tres rangos horarios canónicos.',
 );
 
-console.log('✅ llms.txt y JSON-LD compilados son coherentes y no usan el dominio temporal.');
+console.log(
+  `✅ llms.txt y JSON-LD (${siteMode}) son coherentes y no usan el dominio temporal.`,
+);
