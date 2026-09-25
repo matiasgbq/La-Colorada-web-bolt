@@ -81,8 +81,9 @@ export function Hero({
               className="mt-6 text-lg text-white/85 max-w-xl leading-relaxed animate-floatUp"
               style={{ animationDelay: '0.16s' }}
             >
-              Cocina especializada en pizzas, empanadas y platos reales para
-              gente real.
+              Pizzas, empanadas y comidas caseras en La Horqueta, con opciones
+              vegetarianas y veganas. Coordinamos almuerzos de oficina,
+              ensaladas a medida y pedidos programados.
             </p>
             <div
               className="mt-9 flex flex-wrap gap-4 animate-floatUp"

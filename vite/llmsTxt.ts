@@ -1,6 +1,7 @@
 import type { Plugin } from 'vite';
 import { CATEGORIES, MENU } from '../src/data';
 import { SITE } from '../src/site-data';
+import type { SiteMode } from '../src/site-mode';
 import { SITE_SECTION_IDS, type Section } from '../src/types';
 
 const SITE_SECTIONS: ReadonlyArray<{
@@ -36,19 +37,29 @@ function buildPriceRange() {
   return `$${Math.min(...prices)}–$${Math.max(...prices)} ARS`;
 }
 
-export function buildRestaurantJsonLd() {
-  return {
+export function buildRestaurantJsonLd(siteMode: SiteMode) {
+  const restaurant = {
     '@context': 'https://schema.org',
-    '@type': ['Restaurant', 'FoodEstablishment'],
+    '@type': 'Restaurant',
     '@id': `${SITE.url}/#restaurant`,
     name: SITE.name,
     description: SITE.metaDescription,
     url: `${SITE.url}/`,
-    menu: `${SITE.url}/#menu`,
+    image: SITE.socialImage,
     hasMap: SITE.mapsUrl,
     telephone: SITE.phones.map((phone) => phone.schema),
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: SITE.whatsappDisplay,
+      contactType: 'Pedidos por WhatsApp',
+      availableLanguage: 'Spanish',
+    },
     priceRange: buildPriceRange(),
     servesCuisine: SITE.cuisines,
+    areaServed: {
+      '@type': 'AdministrativeArea',
+      name: SITE.delivery.structuredArea,
+    },
     address: {
       '@type': 'PostalAddress',
       streetAddress: SITE.address.streetAddress,
@@ -64,9 +75,13 @@ export function buildRestaurantJsonLd() {
     })),
     sameAs: [SITE.instagramUrl],
   };
+
+  return siteMode === 'full'
+    ? { ...restaurant, menu: `${SITE.url}/#menu` }
+    : restaurant;
 }
 
-export function buildLlmsTxt() {
+export function buildLlmsTxt(siteMode: SiteMode) {
   const categorySummary = CATEGORIES.map(
     (category) => `${category.label} (${MENU[category.id].length} variedades)`,
   ).join('; ');
@@ -75,7 +90,7 @@ export function buildLlmsTxt() {
 
 > ${SITE.summary}
 
-${SITE.shortName} ofrece almuerzos de oficina, pizzas y empanadas premium de recetas tradicionales, y comidas caseras para retirar o pedir por WhatsApp.
+${SITE.shortName} ofrece pizzas, empanadas y comidas caseras para retirar o pedir por WhatsApp. También prepara opciones vegetarianas y veganas, ensaladas a medida, almuerzos de oficina y pedidos programados.
 
 - Sitio oficial: ${SITE.url}/.
 - Dirección: ${SITE.address.streetAddress} (${SITE.address.venue}), ${SITE.address.area}.
@@ -86,11 +101,15 @@ ${SITE.shortName} ofrece almuerzos de oficina, pizzas y empanadas premium de rec
 - Pedidos Programados: para oficinas, almuerzos, reuniones y juntadas de mediodía y noche.
 - Eventos: contactar directamente por WhatsApp.
 
-El menú publicado se organiza en: ${categorySummary}. Los precios y la disponibilidad se consultan en la web.
+${
+  siteMode === 'full'
+    ? `El menú interactivo se organiza en: ${categorySummary}. Los precios y la disponibilidad se consultan en la web.`
+    : 'La versión pública actual es una landing informativa. El menú interactivo todavía no está publicado; la disponibilidad y los pedidos se coordinan por WhatsApp.'
+}
 
 ## Secciones del sitio
 
-${SITE_SECTIONS.map(
+${SITE_SECTIONS.filter((section) => siteMode === 'full' || section.id !== 'menu').map(
   (section) =>
     `- [${section.label}](/#${section.id}): ${section.description}`,
 ).join('\n')}
@@ -103,11 +122,11 @@ ${SITE_SECTIONS.map(
 `;
 }
 
-export function llmsTxtPlugin(): Plugin {
+export function llmsTxtPlugin(siteMode: SiteMode): Plugin {
   return {
     name: 'la-colorada-llms-txt',
     configureServer(server) {
-      const content = buildLlmsTxt();
+      const content = buildLlmsTxt(siteMode);
 
       server.middlewares.use((request, response, next) => {
         const pathname = (request.url ?? '/').split('?')[0];
@@ -138,7 +157,9 @@ export function llmsTxtPlugin(): Plugin {
             tag: 'meta',
             attrs: {
               name: 'la-colorada:sections',
-              content: SITE_SECTION_IDS.join(' '),
+              content: SITE_SECTION_IDS.filter(
+                (section) => siteMode === 'full' || section !== 'menu',
+              ).join(' '),
             },
             injectTo: 'head',
           },
@@ -194,7 +215,12 @@ export function llmsTxtPlugin(): Plugin {
           },
           {
             tag: 'meta',
-            attrs: { name: 'twitter:card', content: 'summary' },
+            attrs: { property: 'og:image', content: SITE.socialImage },
+            injectTo: 'head',
+          },
+          {
+            tag: 'meta',
+            attrs: { name: 'twitter:card', content: 'summary_large_image' },
             injectTo: 'head',
           },
           {
@@ -211,16 +237,21 @@ export function llmsTxtPlugin(): Plugin {
             injectTo: 'head',
           },
           {
+            tag: 'meta',
+            attrs: { name: 'twitter:image', content: SITE.socialImage },
+            injectTo: 'head',
+          },
+          {
             tag: 'script',
             attrs: { type: 'application/ld+json' },
-            children: JSON.stringify(buildRestaurantJsonLd(), null, 2),
+            children: JSON.stringify(buildRestaurantJsonLd(siteMode), null, 2),
             injectTo: 'head',
           },
         ],
       };
     },
     generateBundle(_options, bundle) {
-      const content = buildLlmsTxt();
+      const content = buildLlmsTxt(siteMode);
       const existingFile = bundle['llms.txt'];
 
       if (existingFile?.type === 'asset') {
