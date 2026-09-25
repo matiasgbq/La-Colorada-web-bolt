@@ -97,7 +97,7 @@ ${SITE.shortName} ofrece pizzas, empanadas y comidas caseras para retirar o pedi
 - Horarios: ${formatHours()}.
 - Teléfonos: ${SITE.phones.map((phone) => phone.display).join(' y ')}.
 - WhatsApp: ${SITE.whatsappDisplay}.
-- Cobertura: envíos a todo el Partido de San Isidro. Los envíos inmediatos cubren un radio de ${SITE.delivery.immediateRadiusKm} km; fuera de ese radio requieren coordinación previa.
+- Cobertura: delivery sin cargo en la zona de cobertura. Envíos a todo el Partido de San Isidro; los envíos inmediatos cubren un radio de ${SITE.delivery.immediateRadiusKm} km y fuera de ese radio requieren coordinación previa.
 - Pedidos Programados: para oficinas, almuerzos, reuniones y juntadas de mediodía y noche.
 - Eventos: contactar directamente por WhatsApp.
 
