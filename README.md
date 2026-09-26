@@ -1,109 +1,48 @@
 # La Colorada — Web
 
-La Colorada Web es el sitio del restaurante La Colorada, ubicado en la Galería
-Colorada de La Horqueta, San Isidro. Incluye presentación, menú, galería,
-opiniones, ubicación y opciones de contacto y pedido.
+Sitio oficial de La Colorada, en la Galería Colorada de La Horqueta, San Isidro. Presenta el negocio, menú, galería, opiniones, ubicación y canales de pedido.
 
-## Enlaces
+## Enlaces y gobierno
 
-- Producción objetivo: https://lacoloradacocina.com.ar
+- Producción: https://lacoloradacocina.com.ar
 - Desarrollo y previews: Vercel
 - Repositorio: https://github.com/matiasgbq/La-Colorada-web-bolt
 - Backlog: https://github.com/users/matiasgbq/projects/2
 
-## Gobierno del producto
+Matías es el Product Owner. GitHub Issues define alcance y aceptación; GitHub Project, prioridad y estado; las pull requests, trazabilidad, evidencia y preview. Trello es histórico.
 
-El GitHub Project **La Colorada · Backlog** es la fuente de verdad para
-iniciativas, historias, bugs, spikes, prioridades, estimaciones y estados.
+## Fuentes canónicas
 
-- Matías es el Product Owner: define objetivos, prioridades y aprobaciones.
-- Los Issues definen el alcance, los criterios de aceptación y la trazabilidad
-  de cada trabajo.
-- El Project refleja la planificación y el estado operativo.
-- Las pull requests vinculan los cambios con su revisión, evidencia y preview.
-- Los cambios se integran en `main` después de la aprobación correspondiente.
-- Trello conserva únicamente información histórica cuando un Issue enlaza a él.
+- `src/site-data.ts`: datos oficiales y URL canónica.
+- `src/data.ts`: menú, galería y opiniones.
+- `public/images/`: imágenes publicadas y carrusel.
+- `repo-fotos/`: originales, inventario y revisión.
+- `vite/siteArtifacts.ts`: metadatos, JSON-LD, `robots.txt`, `sitemap.xml` y `llms.txt` derivados.
 
-Antes de comenzar, buscar un Issue existente para evitar duplicados. Las ideas
-nuevas se registran con las plantillas de User Story, Bug o Spike y se
-incorporan al Project antes de iniciar su implementación.
-
-## Stack
-
-- React 18
-- TypeScript
-- Vite
-- Tailwind CSS
-- Lucide React
+Stack: React 18, TypeScript, Vite, Tailwind CSS y Lucide React.
 
 ## Comandos
 
-- `npm run dev` — inicia el servidor local de Vite.
-- `npm run build` — genera la compilación de producción en `dist/`.
-- `npm run preview` — sirve localmente la compilación generada.
-- `npm run typecheck` — ejecuta la validación de tipos de TypeScript.
-- `npm run lint` — ejecuta ESLint sobre el proyecto.
-- `npm run backlog:current` — muestra los items `En curso`, `Bloqueado` o
-  asociados a un sprint del Project. Requiere una sesión local autenticada de
-  GitHub CLI.
-- `npm run auto-track` — detecta cambios en `public/robots.txt`,
-  `public/llms.txt` y las dependencias de `package.json`; registra los cambios
-  detectados en `update-log.json`. Se ejecuta cuando se invoca el comando.
+- `npm run dev` — servidor local.
+- `npm run build` — compilación en `dist/`.
+- `npm run preview` — sirve la compilación.
+- `npm run typecheck` — TypeScript.
+- `npm run lint` — ESLint.
+- `npm run verify` — valida código y los modos `full` y `landing`.
+- `npm run backlog:current` — muestra el trabajo activo; requiere GitHub CLI autenticado.
 
-## Verificación
+## Carrusel
 
-Antes de integrar un cambio, ejecutar:
+El Hero incorpora en cada build todas las imágenes compatibles ubicadas directamente en `public/images/`, ordenadas alfabéticamente con comparación numérica. Para actualizarlo, agregar o eliminar archivos y usar prefijos `01-`, `02-`, etc.
 
-```bash
-npm run typecheck
-npm run lint
-npm run build
-```
+Admite AVIF, GIF, JPEG, JPG, PNG, SVG y WebP. Para menús se recomienda orientación vertical cercana a `1131 × 1600 px` y menos de `500 KB`. Las carpetas internas (`gallery/`, `menu/`, `social/`) no forman parte del carrusel.
 
-La pull request debe incluir la evidencia necesaria para revisar el alcance y
-permitir la aprobación antes de integrar en `main`.
+## Modos y despliegue
 
-## Flujo de trabajo
+- `full`: sitio completo con menú y carrito; valor por defecto y previews de Vercel.
+- `landing`: producción actual en Cloudflare Pages, sin menú ni carrito y con pedido por WhatsApp.
 
-1. Elegir y refinar un Issue del GitHub Project.
-2. Crear o reutilizar una rama de trabajo basada en `main`.
-3. Implementar el alcance definido y mantener su trazabilidad con el Issue.
-4. Ejecutar las verificaciones del proyecto.
-5. Publicar una pull request para revisión y preview de Vercel.
-6. Tras la aprobación, integrar en `main` y verificar el despliegue.
-7. Actualizar el Issue y el Project con el resultado y la evidencia.
-
-## Carrusel de imágenes
-
-El Hero obtiene durante cada build las imágenes compatibles de `public/images`
-y las ordena alfabéticamente con comparación numérica. El carrusel cambia cada
-5 segundos e incluye controles para navegar y seleccionar una imagen.
-
-Para actualizarlo:
-
-1. Agregar o eliminar archivos en `public/images`.
-2. Usar prefijos `01-`, `02-`, `03-`, etc., para controlar el orden.
-3. Revisar la preview de Vercel antes de integrar el cambio en `main`.
-
-Formatos admitidos: AVIF, GIF, JPEG, JPG, PNG, SVG y WebP. Para los menús se
-recomienda orientación vertical, aproximadamente `1131 × 1600 px`, y un peso
-menor a `500 KB`.
-
-Toda imagen compatible de `public/images` forma parte del carrusel, por lo que
-no deben permanecer allí borradores ni duplicados. La build requiere al menos
-una imagen compatible.
-
-## Preview y despliegue
-
-El mismo código genera dos variantes mediante `VITE_SITE_MODE`:
-
-- `full`: sitio completo con menú interactivo y carrito. Es el valor seguro por
-  defecto y el utilizado para desarrollo y previews de Vercel.
-- `landing`: Landing MVP sin menú interactivo ni carrito. Conserva Hero,
-  carrusel visual, galería, opiniones, ubicación, contactos y footer. Es el modo
-  de producción inicial en Cloudflare Pages.
-
-Cloudflare Pages se conecta a este repositorio con:
+Cloudflare Pages:
 
 ```text
 Production branch: main
@@ -112,13 +51,4 @@ Build output directory: dist
 Environment variable: VITE_SITE_MODE=landing
 ```
 
-Para publicar el sitio completo en Cloudflare, cambiar la variable de producción
-a `VITE_SITE_MODE=full` y volver a desplegar el último commit de `main`.
-
-Vercel no necesita una variable para conservar el modo `full`, aunque puede
-configurarse explícitamente con `VITE_SITE_MODE=full`. Sus ramas y pull requests
-siguen siendo el entorno de desarrollo y preview.
-
-El estado completo anterior a la Landing MVP está protegido por el tag
-`full-site-before-landing-mvp-2026-09-23`. El modo `full` conserva esa
-funcionalidad sin necesidad de volver al tag; el tag es un respaldo adicional.
+Para publicar `full`, cambiar esa variable y desplegar el último `main`. El tag `full-site-before-landing-mvp-2026-09-23` conserva un respaldo adicional.

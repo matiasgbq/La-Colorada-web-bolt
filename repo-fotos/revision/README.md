@@ -1,32 +1,15 @@
 # Revisión de fotos del menú
 
-## Objetivo
+Esta carpeta permite revisar visualmente la biblioteca antes de publicar assets.
 
-Revisar y aprobar visualmente las fotos reales antes de conectarlas con el menú publicado.
+- Fuente de originales: `repo-fotos/platos/`.
+- Generación: `node scripts/generate-photo-review.mjs`.
+- Vista: `repo-fotos/revision/index.html`.
+- Inventario técnico: `repo-fotos/revision/inventario.json`.
+- Seguimiento funcional: Issue #27.
 
-## Estado reiniciable
+Los originales válidos se preservan aunque estén duplicados o su asociación sea dudosa. La vista compara original y recorte aproximado; aprobar una foto y convertirla a WebP es una decisión posterior.
 
-- Issue: #45.
-- Rama: `codex/photo-audit-review`.
-- Los originales permanecen en `repo-fotos/platos/` sin modificaciones.
-- La galería se genera con `node scripts/generate-photo-review.mjs`.
-- Abrir `repo-fotos/revision/index.html` para comparar original y recorte de tarjeta.
-- `inventario.json` contiene el estado técnico de cada archivo.
+## Faltantes conocidos
 
-## Estados iniciales
-
-- **Necesita edición:** imagen válida pendiente de aprobación, encuadre y WebP.
-- **Dudosa:** el mismo archivo aparece asignado a varios platos o categorías.
-- **Sin foto:** el archivo con extensión `.jpg` contiene JSON y no una imagen.
-- **Lista:** se asignará después de la revisión humana.
-
-## Implementación candidata
-
-La rama `codex/photo-audit-review` incluye una propuesta no destructiva para validar en Preview:
-
-- copias WebP optimizadas en `public/images/menu/`;
-- placeholders de marca cuando no existe una foto inequívoca del plato;
-- menú y precios alineados con las dos imágenes vigentes del carrusel;
-- originales preservados en `repo-fotos/platos/`.
-
-El siguiente paso es la aprobación visual del Preview de Vercel antes de mezclar la rama a `main`.
+Se eliminaron once archivos de 69 bytes que tenían extensión `.jpg` pero contenían una respuesta JSON `Image not found`: seis pizzas, dos milanesas y tres platos de pastas. El faltante queda registrado sin conservar archivos engañosos.

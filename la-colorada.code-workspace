@@ -15,10 +15,5 @@
       "**/node_modules": true,
       "**/dist": true
     }
-  },
-  "extensions": {
-    "recommendations": [
-      "continue.continue"
-    ]
   }
 }

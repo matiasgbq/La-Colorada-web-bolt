@@ -10,8 +10,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
-    "llms:verify": "npm run build && node scripts/verify-llms.mjs",
-    "auto-track": "node scripts/auto-update-tracker.mjs"
+    "verify:full": "VITE_SITE_MODE=full vite build --outDir .verify-dist/full && SITE_MODE=full DIST_DIR=.verify-dist/full node scripts/verify-product.mjs",
+    "verify:landing": "VITE_SITE_MODE=landing vite build --outDir .verify-dist/landing && SITE_MODE=landing DIST_DIR=.verify-dist/landing node scripts/verify-product.mjs",
+    "verify": "npm run typecheck && npm run lint && npm run verify:full && npm run verify:landing"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",

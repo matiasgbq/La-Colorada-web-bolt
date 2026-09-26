@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
-import { llmsTxtPlugin } from './vite/llmsTxt';
+import { siteArtifactsPlugin } from './vite/siteArtifacts';
 import { menuFlyersPlugin } from './vite/menuFlyers';
 
 const menuImagesDirectory = fileURLToPath(
@@ -15,7 +15,7 @@ export default defineConfig(() => {
   return {
     plugins: [
       menuFlyersPlugin(menuImagesDirectory),
-      llmsTxtPlugin(siteMode),
+      siteArtifactsPlugin(siteMode),
       react(),
     ],
     resolve: {
