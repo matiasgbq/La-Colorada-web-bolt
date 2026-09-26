@@ -34,9 +34,10 @@ assert(robots === `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`
 assert(sitemap.includes(`<loc>${siteUrl}/</loc>`), 'sitemap.xml sin URL canónica.');
 assert(!sitemap.includes('<lastmod>'), 'sitemap.xml no debe inventar lastmod.');
 
-['# La Colorada', `${siteUrl}/`, 'Blanco Encalada 2229', '10:30 a 15:00', '4897-5432', '[Ubicación](/#ubicacion)', 'Pedidos Programados', 'todo el Partido de San Isidro', 'Eventos: contactar directamente por WhatsApp', 'ChIJVxbwP8i6vJURnJyqT_sTvZE'].forEach((text) => {
+['# La Colorada', `${siteUrl}/`, 'Blanco Encalada 2229', '10:30 a 15:00', '4897-5432', '[Ubicación](/#ubicacion)', 'Pedidos Programados', 'opciones para vegetarianos o veganos', 'todo el Partido de San Isidro', 'Eventos: contactar directamente por WhatsApp', 'ChIJVxbwP8i6vJURnJyqT_sTvZE'].forEach((text) => {
   assert(llms.includes(text), `llms.txt no contiene: ${text}`);
 });
+assert(html.includes('opciones para vegetarianos o veganos'), 'La metadata no contiene el copy aprobado.');
 
 if (siteMode === 'full') {
   assert(llms.includes('[Menú](/#menu)'), 'El modo full no enlaza el menú.');

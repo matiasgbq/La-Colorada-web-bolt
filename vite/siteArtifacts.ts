@@ -99,7 +99,7 @@ export function buildLlmsTxt(siteMode: SiteMode) {
 
 > ${SITE.summary}
 
-${SITE.shortName} ofrece pizzas, empanadas y comidas caseras para retirar o pedir por WhatsApp. También prepara opciones vegetarianas y veganas, ensaladas a medida, almuerzos de oficina y pedidos programados.
+${SITE.shortName} ofrece pizzas, empanadas y comidas caseras para retirar o pedir por WhatsApp. También prepara opciones para vegetarianos o veganos, ensaladas a medida, almuerzos de oficina y pedidos programados.
 
 - Sitio oficial: ${SITE.url}/.
 - Dirección: ${SITE.address.streetAddress} (${SITE.address.venue}), ${SITE.address.area}.

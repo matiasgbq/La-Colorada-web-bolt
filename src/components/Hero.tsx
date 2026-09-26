@@ -82,7 +82,7 @@ export function Hero({
               style={{ animationDelay: '0.16s' }}
             >
               Pizzas, empanadas y comidas caseras en La Horqueta, con opciones
-              vegetarianas y veganas. Delivery sin cargo en la zona de
+              para vegetarianos o veganos. Delivery sin cargo en la zona de
               cobertura. Coordinamos almuerzos de oficina, ensaladas a medida y
               pedidos programados.
             </p>

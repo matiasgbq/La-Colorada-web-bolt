@@ -22,9 +22,9 @@ export const SITE = {
   htmlTitle:
     'La Colorada | Empanadas, Pizzas y Comidas Caseras en La Horqueta',
   metaDescription:
-    'Pizzas, empanadas y comidas caseras en La Horqueta. Delivery sin cargo en zona de cobertura, retiro y pedidos por WhatsApp. Almuerzos programados.',
+    'Pizzas, empanadas y comidas caseras en La Horqueta. Delivery sin cargo en la zona, opciones para vegetarianos o veganos y pedidos programados.',
   summary:
-    'Pizzas, empanadas y comida casera en La Horqueta, con delivery sin cargo en la zona de cobertura, opciones vegetarianas y veganas, ensaladas a medida y pedidos programados.',
+    'Pizzas, empanadas y comida casera en La Horqueta, con delivery sin cargo en la zona de cobertura, opciones para vegetarianos o veganos, ensaladas a medida y pedidos programados.',
   socialImage: SOCIAL_IMAGE,
   cuisines: [
     'Pizza',
