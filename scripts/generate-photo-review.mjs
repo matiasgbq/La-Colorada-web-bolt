@@ -180,7 +180,7 @@ const html = `<!doctype html>
 <body>
   <header>
     <h1>Revisión de fotos</h1>
-    <p>Vista de trabajo: compara el archivo original con el recorte horizontal aproximado de las tarjetas. Los originales permanecen intactos y ninguna foto está conectada todavía al sitio.</p>
+    <p>Vista de trabajo: compara la biblioteca original con un recorte horizontal aproximado. Esta carpeta no se publica directamente; la web utiliza copias aprobadas y optimizadas desde public/images/menu/.</p>
     <div class="summary">
       <span>${records.length} archivos</span>
       <span>${records.filter((record) => record.validImage).length} imágenes válidas</span>

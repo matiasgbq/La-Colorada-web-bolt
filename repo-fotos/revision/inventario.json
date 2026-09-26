@@ -378,28 +378,6 @@
     "reason": "Original válido; falta aprobar encuadre y generar WebP."
   },
   {
-    "path": "milanesas/09-milas-de-berenjena-con-morron.jpg",
-    "category": "milanesas",
-    "name": "Milas De Berenjena Con Morron",
-    "bytes": 69,
-    "hash": "0e994ce36f271d2010d4e74cfe54a6a78bbd4054c5f9100a7ec636d19373c72e",
-    "validImage": false,
-    "duplicateCount": 11,
-    "status": "Sin foto",
-    "reason": "El archivo contiene JSON y no una imagen."
-  },
-  {
-    "path": "milanesas/10-mila-de-beren-rucula-y-cherry.jpg",
-    "category": "milanesas",
-    "name": "Mila De Beren Rucula Y Cherry",
-    "bytes": 69,
-    "hash": "0e994ce36f271d2010d4e74cfe54a6a78bbd4054c5f9100a7ec636d19373c72e",
-    "validImage": false,
-    "duplicateCount": 11,
-    "status": "Sin foto",
-    "reason": "El archivo contiene JSON y no una imagen."
-  },
-  {
     "path": "minutas/01-pastel-de-papa.jpg",
     "category": "minutas",
     "name": "Pastel De Papa",
@@ -624,39 +602,6 @@
     "reason": "La misma imagen aparece 4 veces."
   },
   {
-    "path": "pastas/09-falafel.jpg",
-    "category": "pastas",
-    "name": "Falafel",
-    "bytes": 69,
-    "hash": "0e994ce36f271d2010d4e74cfe54a6a78bbd4054c5f9100a7ec636d19373c72e",
-    "validImage": false,
-    "duplicateCount": 11,
-    "status": "Sin foto",
-    "reason": "El archivo contiene JSON y no una imagen."
-  },
-  {
-    "path": "pastas/10-medallones-vegetarianos.jpg",
-    "category": "pastas",
-    "name": "Medallones Vegetarianos",
-    "bytes": 69,
-    "hash": "0e994ce36f271d2010d4e74cfe54a6a78bbd4054c5f9100a7ec636d19373c72e",
-    "validImage": false,
-    "duplicateCount": 11,
-    "status": "Sin foto",
-    "reason": "El archivo contiene JSON y no una imagen."
-  },
-  {
-    "path": "pastas/11-ensalada.jpg",
-    "category": "pastas",
-    "name": "Ensalada",
-    "bytes": 69,
-    "hash": "0e994ce36f271d2010d4e74cfe54a6a78bbd4054c5f9100a7ec636d19373c72e",
-    "validImage": false,
-    "duplicateCount": 11,
-    "status": "Sin foto",
-    "reason": "El archivo contiene JSON y no una imagen."
-  },
-  {
     "path": "pizzas/01-pizza-de-muzzarella.jpg",
     "category": "pizzas",
     "name": "Pizza De Muzzarella",
@@ -781,72 +726,6 @@
     "duplicateCount": 1,
     "status": "Necesita edición",
     "reason": "Original válido; falta aprobar encuadre y generar WebP."
-  },
-  {
-    "path": "pizzas/10-pizza-calabresa.jpg",
-    "category": "pizzas",
-    "name": "Pizza Calabresa",
-    "bytes": 69,
-    "hash": "0e994ce36f271d2010d4e74cfe54a6a78bbd4054c5f9100a7ec636d19373c72e",
-    "validImage": false,
-    "duplicateCount": 11,
-    "status": "Sin foto",
-    "reason": "El archivo contiene JSON y no una imagen."
-  },
-  {
-    "path": "pizzas/11-pizza-napolitana.jpg",
-    "category": "pizzas",
-    "name": "Pizza Napolitana",
-    "bytes": 69,
-    "hash": "0e994ce36f271d2010d4e74cfe54a6a78bbd4054c5f9100a7ec636d19373c72e",
-    "validImage": false,
-    "duplicateCount": 11,
-    "status": "Sin foto",
-    "reason": "El archivo contiene JSON y no una imagen."
-  },
-  {
-    "path": "pizzas/12-pizza-napolitana-con-jamon.jpg",
-    "category": "pizzas",
-    "name": "Pizza Napolitana Con Jamon",
-    "bytes": 69,
-    "hash": "0e994ce36f271d2010d4e74cfe54a6a78bbd4054c5f9100a7ec636d19373c72e",
-    "validImage": false,
-    "duplicateCount": 11,
-    "status": "Sin foto",
-    "reason": "El archivo contiene JSON y no una imagen."
-  },
-  {
-    "path": "pizzas/13-pizza-jamon-crudo-y-rucula.jpg",
-    "category": "pizzas",
-    "name": "Pizza Jamon Crudo Y Rucula",
-    "bytes": 69,
-    "hash": "0e994ce36f271d2010d4e74cfe54a6a78bbd4054c5f9100a7ec636d19373c72e",
-    "validImage": false,
-    "duplicateCount": 11,
-    "status": "Sin foto",
-    "reason": "El archivo contiene JSON y no una imagen."
-  },
-  {
-    "path": "pizzas/14-pizza-palmitos.jpg",
-    "category": "pizzas",
-    "name": "Pizza Palmitos",
-    "bytes": 69,
-    "hash": "0e994ce36f271d2010d4e74cfe54a6a78bbd4054c5f9100a7ec636d19373c72e",
-    "validImage": false,
-    "duplicateCount": 11,
-    "status": "Sin foto",
-    "reason": "El archivo contiene JSON y no una imagen."
-  },
-  {
-    "path": "pizzas/15-pizza-fugazeta.jpg",
-    "category": "pizzas",
-    "name": "Pizza Fugazeta",
-    "bytes": 69,
-    "hash": "0e994ce36f271d2010d4e74cfe54a6a78bbd4054c5f9100a7ec636d19373c72e",
-    "validImage": false,
-    "duplicateCount": 11,
-    "status": "Sin foto",
-    "reason": "El archivo contiene JSON y no una imagen."
   },
   {
     "path": "tartas-comidas-caseras/01-tarta-de-zapallitos.jpg",
