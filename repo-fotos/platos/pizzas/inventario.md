@@ -14,7 +14,7 @@
 | 6 | 06-pizza-de-muzza-jamon-y-huevo.jpg | Pizza de muzza, jamon y huevo | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 48 KB | ✅ Descargada |
 | 14 | 14-pizza-palmitos.jpg | Pizza con palmitos | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 407 KB | ✅ Reasignada tras validación visual |
 | 8 | 08-pizza-4-quesos.jpg | Pizza 4 quesos | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 99 KB | ✅ Descargada |
-| 9 | 09-pizza-de-provolone.jpg | Pizza de provolone | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 29 KB | ✅ Descargada |
+| 15 | 15-pizza-fugazeta.jpg | Fugazeta | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 29 KB | ✅ Reasignada tras validación visual |
 
 ### Fotos pendientes (URLs no disponibles en el DOM):
 
@@ -24,7 +24,7 @@
 | 11 | 11-pizza-napolitana.jpg | Pizza napolitana | ⏸ Pendiente |
 | 12 | 12-pizza-napolitana-con-jamon.jpg | Pizza napolitana con jamon | ⏸ Pendiente |
 | 13 | 13-pizza-jamon-crudo-y-rucula.jpg | Pizza de crudo y rucula | ⏸ Pendiente |
-| 15 | 15-pizza-fugazeta.jpg | Fugazzeta | ⏸ Pendiente |
+| 9 | 09-pizza-de-provolone.jpg | Pizza de provolone | ⏸ Pendiente |
 
 ### Notas:
 - Las fotos se descargaron con calidad 90 y ancho 461px (resolución original de PedidosYa).
@@ -34,7 +34,7 @@
 - Las 5 fotos restantes requieren acceso manual o captura de pantalla porque sus URLs no se exponen directamente en el DOM de la página.
 
 ### Próximos pasos:
-- Completar las 5 fotos restantes de pizzas (calabresa, napolitana, napolitana con jamón, jamón crudo y rúcula, fugazeta).
+- Completar las 5 fotos restantes de pizzas (provolone, calabresa, napolitana, napolitana con jamón, jamón crudo y rúcula).
 - Evaluar calidad y resolución de cada foto.
 - Detectar duplicados con fotos existentes en `public/images/`.
 - Preparar inventario completo para aprobación final.

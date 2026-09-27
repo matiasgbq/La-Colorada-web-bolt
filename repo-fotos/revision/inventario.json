@@ -750,21 +750,6 @@
     "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
-    "path": "pizzas/09-pizza-de-provolone.jpg",
-    "category": "pizzas",
-    "name": "Pizza De Provolone",
-    "bytes": 28938,
-    "hash": "902aec5111d3a5d1ef0b2231a2788330d3e4947456d39663ea6c8dba1aa2bd2a",
-    "validImage": true,
-    "width": 461,
-    "height": 345,
-    "format": "JPEG",
-    "duplicateCount": 1,
-    "candidate": "./candidates/pizzas/09-pizza-de-provolone.png",
-    "status": "Candidata",
-    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
-  },
-  {
     "path": "pizzas/14-pizza-palmitos.jpg",
     "category": "pizzas",
     "name": "Pizza Palmitos",
@@ -776,6 +761,21 @@
     "format": "PNG",
     "duplicateCount": 1,
     "candidate": "./candidates/pizzas/14-pizza-palmitos.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
+  },
+  {
+    "path": "pizzas/15-pizza-fugazeta.jpg",
+    "category": "pizzas",
+    "name": "Pizza Fugazeta",
+    "bytes": 28938,
+    "hash": "902aec5111d3a5d1ef0b2231a2788330d3e4947456d39663ea6c8dba1aa2bd2a",
+    "validImage": true,
+    "width": 461,
+    "height": 345,
+    "format": "JPEG",
+    "duplicateCount": 1,
+    "candidate": "./candidates/pizzas/15-pizza-fugazeta.png",
     "status": "Candidata",
     "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
