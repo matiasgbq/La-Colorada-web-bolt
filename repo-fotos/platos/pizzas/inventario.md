@@ -1,6 +1,6 @@
 # Repositorio de fotos de platos - La Colorada
 
-## Estado: Pizzas - 9 fotos descargadas + 6 pendientes
+## Estado: Pizzas - 9 fotos reales disponibles + 5 pendientes
 
 ### Fotos descargadas (de PedidosYa - Pizzas y Empanadas):
 
@@ -12,9 +12,9 @@
 | 4 | 04-pizza-de-muzza-y-huevo.jpg | Pizza de muzza y huevo | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 411 KB | ✅ Descargada |
 | 5 | 05-pizza-de-muzza-y-jamon.jpg | Pizza de muzza y jamon | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 373 KB | ✅ Descargada |
 | 6 | 06-pizza-de-muzza-jamon-y-huevo.jpg | Pizza de muzza, jamon y huevo | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 48 KB | ✅ Descargada |
-| 7 | 07-pizza-de-muzza-jamon-y-morron.jpg | Pizza de muzza, jamon y morron | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 407 KB | ✅ Descargada |
+| 14 | 14-pizza-palmitos.jpg | Pizza con palmitos | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 407 KB | ✅ Reasignada tras validación visual |
 | 8 | 08-pizza-4-quesos.jpg | Pizza 4 quesos | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 99 KB | ✅ Descargada |
-| 9 | 09-pizza-de-provolone.jpg | Pizza de provolone | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 29 KB | ✅ Descargada |
+| 15 | 15-pizza-fugazeta.jpg | Fugazeta | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 29 KB | ✅ Reasignada tras validación visual |
 
 ### Fotos pendientes (URLs no disponibles en el DOM):
 
@@ -24,18 +24,17 @@
 | 11 | 11-pizza-napolitana.jpg | Pizza napolitana | ⏸ Pendiente |
 | 12 | 12-pizza-napolitana-con-jamon.jpg | Pizza napolitana con jamon | ⏸ Pendiente |
 | 13 | 13-pizza-jamon-crudo-y-rucula.jpg | Pizza de crudo y rucula | ⏸ Pendiente |
-| 14 | 14-pizza-palmitos.jpg | Pizza con palmitos | ⏸ Pendiente |
-| 15 | 15-pizza-fugazeta.jpg | Fugazzeta | ⏸ Pendiente |
+| 9 | 09-pizza-de-provolone.jpg | Pizza de provolone | ⏸ Pendiente |
 
 ### Notas:
 - Las fotos se descargaron con calidad 90 y ancho 461px (resolución original de PedidosYa).
 - El nombre del archivo corresponde al nombre del plato según aparece en PedidosYa.
 - Las fotos están autorizadas para uso (confirmado por Matías).
 - El repositorio está en: `/repo-fotos/platos/pizzas/`
-- Las 6 fotos restantes requieren acceso manual o captura de pantalla porque sus URLs no se exponen directamente en el DOM de la página.
+- Las 5 fotos restantes requieren acceso manual o captura de pantalla porque sus URLs no se exponen directamente en el DOM de la página.
 
 ### Próximos pasos:
-- Completar las 6 fotos restantes de pizzas (calabresa, napolitana, napolitana con jamón, crudo y rúcala, palmitos, fugazeta).
+- Completar las 5 fotos restantes de pizzas (provolone, calabresa, napolitana, napolitana con jamón, jamón crudo y rúcula).
 - Evaluar calidad y resolución de cada foto.
 - Detectar duplicados con fotos existentes en `public/images/`.
 - Preparar inventario completo para aprobación final.
