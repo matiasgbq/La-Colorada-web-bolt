@@ -37,8 +37,8 @@ export function MenuSection() {
 
   return (
     <section id="menu" className="py-20 sm:py-28 bg-white">
-      <div ref={ref} className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-12">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div ref={ref} className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-crimson-500 font-bold uppercase tracking-widest text-sm">
             Hacé tu pedido
           </span>
