@@ -1,6 +1,6 @@
 # Repositorio de fotos de platos - La Colorada
 
-## Estado: Tanda completa (10 fotos de empanadas) + inventario actualizado
+## Estado: Tanda completa (11 fotos de empanadas) + inventario actualizado
 
 ### Fotos descargadas (de PedidosYa - Pizzas y Empanadas):
 
@@ -16,6 +16,7 @@
 | 8 | 08-empanada-capresce.jpg | Empanada capresce | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 17 KB | ✅ Descargada |
 | 9 | 09-empanadas-de-crudo-y-queso.jpg | Empanadas de crudo y queso | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 15 KB | ✅ Descargada |
 | 10 | 10-empanada-de-roquefort.jpg | Empanada de roquefort | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 354 KB | ✅ Descargada |
+| 11 | 11-empanada-de-carne-cortada-a-cuchillo.jpeg | Empanada de carne cortada a cuchillo | Aporte directo de Matías | Original preservado | ✅ Incorporada |
 
 ### Fotos de tartas/comidas caseras (de PedidosYa - Comidas Caseras):
 
@@ -34,7 +35,6 @@
 - El repositorio está en: `/repo-fotos/platos/` (empanadas) y `/repo-fotos/platos/tartas-comidas-caseras/` (tartas/comidas caseras)
 
 ### Próximos pasos:
-- Continuar con la segunda tanda de fotos (si se requiere más).
-- Evaluar calidad y resolución de cada foto.
-- Detectar duplicados con fotos existentes en `public/images/`.
-- Preparar inventario completo para aprobación final.
+- Revisar las once candidatas estandarizadas en `repo-fotos/revision/candidates/empanadas/`.
+- Aprobar o corregir cada asociación de sabor antes de publicar.
+- Convertir únicamente las aprobadas a WebP para `public/images/menu/`.

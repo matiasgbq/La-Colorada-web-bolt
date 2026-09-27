@@ -10,9 +10,9 @@
     "height": 347,
     "format": "JPEG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/empanadas/01-empanada-de-carne-suave.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "02-empanada-de-carne-picante.jpg",
@@ -25,9 +25,9 @@
     "height": 345,
     "format": "JPEG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/empanadas/02-empanada-de-carne-picante.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "03-empanada-de-pollo.jpg",
@@ -40,9 +40,9 @@
     "height": 346,
     "format": "PNG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/empanadas/03-empanada-de-pollo.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "04-empanada-de-verdura.jpg",
@@ -55,9 +55,9 @@
     "height": 347,
     "format": "JPEG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/empanadas/04-empanada-de-verdura.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "05-empanada-de-humita.jpg",
@@ -70,9 +70,9 @@
     "height": 346,
     "format": "JPEG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/empanadas/05-empanada-de-humita.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "06-empanada-de-jamon-y-queso.jpg",
@@ -85,9 +85,9 @@
     "height": 347,
     "format": "JPEG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/empanadas/06-empanada-de-jamon-y-queso.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "07-empanada-de-queso-y-cebolla.jpg",
@@ -100,9 +100,9 @@
     "height": 346,
     "format": "PNG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/empanadas/07-empanada-de-queso-y-cebolla.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "08-empanada-capresce.jpg",
@@ -115,9 +115,9 @@
     "height": 345,
     "format": "JPEG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/empanadas/08-empanada-capresce.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "09-empanadas-de-crudo-y-queso.jpg",
@@ -130,9 +130,9 @@
     "height": 345,
     "format": "JPEG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/empanadas/09-empanadas-de-crudo-y-queso.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "10-empanada-de-roquefort.jpg",
@@ -145,9 +145,24 @@
     "height": 346,
     "format": "PNG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/empanadas/10-empanada-de-roquefort.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
+  },
+  {
+    "path": "11-empanada-de-carne-cortada-a-cuchillo.jpeg",
+    "category": "empanadas",
+    "name": "Empanada De Carne Cortada A Cuchillo",
+    "bytes": 121140,
+    "hash": "e5e1abeb27886cb468ba7cef908071ec528eee0d44c04c5ff49234d4d2b8d142",
+    "validImage": true,
+    "width": 1122,
+    "height": 1402,
+    "format": "JPEG",
+    "duplicateCount": 1,
+    "candidate": "./candidates/empanadas/11-empanada-de-carne-cortada-a-cuchillo.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "ensaladas/01-ensalada.jpg",

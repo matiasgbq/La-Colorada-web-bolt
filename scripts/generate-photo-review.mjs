@@ -89,7 +89,10 @@ const records = files.map((filePath) => {
 });
 
 for (const record of records) {
-  const candidateRelativePath = record.path.replace(/\.[^.]+$/, '.png');
+  const candidateFilename = record.path.replace(/\.[^.]+$/, '.png');
+  const candidateRelativePath = record.category === 'empanadas'
+    ? join('empanadas', candidateFilename)
+    : candidateFilename;
   const candidateFilePath = join(candidateDirectory, candidateRelativePath);
   const manualNote = manualReview[record.path];
 
