@@ -62,7 +62,7 @@ export const MENU: Record<CategoryId, Dish[]> = {
   empanadas: [
     { id: 'carne-suave', name: 'Carne Suave', desc: 'Carne, cebolla, morrón y especias suaves.', price: 3000, img: '/images/menu/01-empanada-de-carne-suave.webp' },
     { id: 'carne-picante', name: 'Carne Picante', desc: 'Carne con un toque picante.', price: 3000, img: '/images/menu/02-empanada-de-carne-picante.webp' },
-    { id: 'carne-cuchillo', name: 'Carne Cortada a Cuchillo', desc: 'Carne cortada a cuchillo.', price: 3500, tag: 'Especial', img: IMG.placeholderEmpanada },
+    { id: 'carne-cuchillo', name: 'Carne Cortada a Cuchillo', desc: 'Carne cortada a cuchillo.', price: 3500, tag: 'Especial', img: '/images/menu/11-empanada-de-carne-cortada-a-cuchillo.webp' },
     { id: 'pollo', name: 'Pollo', desc: 'Pollo, cebolla, morrón y especias.', price: 3000, img: '/images/menu/03-empanada-de-pollo.webp' },
     { id: 'verdura', name: 'Verdura', desc: 'Verdura y queso.', price: 3000, img: '/images/menu/04-empanada-de-verdura.webp' },
     { id: 'humita', name: 'Humita', desc: 'Choclo cremoso y queso.', price: 3000, img: '/images/menu/05-empanada-de-humita.webp' },
