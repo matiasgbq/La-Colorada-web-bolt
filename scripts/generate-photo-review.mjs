@@ -1,10 +1,15 @@
 import { createHash } from 'node:crypto';
-import { mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { basename, dirname, extname, join, relative, sep } from 'node:path';
 
 const root = 'repo-fotos/platos';
 const outputDirectory = 'repo-fotos/revision';
+const candidateDirectory = join(outputDirectory, 'candidates');
+const manualReviewPath = join(outputDirectory, 'manual-review.json');
 const imageExtensions = new Set(['.jpg', '.jpeg', '.png']);
+const manualReview = existsSync(manualReviewPath)
+  ? JSON.parse(readFileSync(manualReviewPath, 'utf8'))
+  : {};
 
 function walk(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -84,17 +89,28 @@ const records = files.map((filePath) => {
 });
 
 for (const record of records) {
+  const candidateRelativePath = record.path.replace(/\.[^.]+$/, '.png');
+  const candidateFilePath = join(candidateDirectory, candidateRelativePath);
+  const manualNote = manualReview[record.path];
+
   record.duplicateCount = hashCounts.get(record.hash);
-  record.status = !record.validImage
+  record.candidate = existsSync(candidateFilePath)
+    ? `./candidates/${candidateRelativePath}`
+    : null;
+  record.status = manualNote?.status ?? (record.candidate
+    ? 'Candidata'
+    : !record.validImage
     ? 'Sin foto'
     : record.duplicateCount > 1
       ? 'Dudosa'
-      : 'Necesita edición';
-  record.reason = !record.validImage
+      : 'Necesita edición');
+  record.reason = manualNote?.reason ?? (record.candidate
+    ? 'Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse.'
+    : !record.validImage
     ? 'El archivo contiene JSON y no una imagen.'
     : record.duplicateCount > 1
       ? `La misma imagen aparece ${record.duplicateCount} veces.`
-      : 'Original válido; falta aprobar encuadre y generar WebP.';
+      : 'Original válido; falta aprobar encuadre y generar WebP.');
 }
 
 const counts = records.reduce((result, record) => {
@@ -106,9 +122,10 @@ const cards = records
   .map((record) => {
     const source = `../platos/${record.path}`;
     const media = record.validImage
-      ? `<div class="previews">
+      ? `<div class="previews${record.candidate ? ' has-candidate' : ''}">
           <figure><img src="${htmlEscape(source)}" alt="${htmlEscape(record.name)}"><figcaption>Original</figcaption></figure>
           <figure class="crop"><img src="${htmlEscape(source)}" alt="Recorte web de ${htmlEscape(record.name)}"><figcaption>Recorte de tarjeta</figcaption></figure>
+          ${record.candidate ? `<figure class="candidate"><img src="${htmlEscape(record.candidate)}" alt="Candidata estandarizada de ${htmlEscape(record.name)}"><figcaption>Candidata de laboratorio</figcaption></figure>` : ''}
         </div>`
       : `<div class="missing" aria-label="Sin foto"><span>🍽️</span><strong>Sin foto válida</strong><small>Se usará placeholder</small></div>`;
 
@@ -155,9 +172,13 @@ const html = `<!doctype html>
     main { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 22px; padding: 30px clamp(20px, 5vw, 72px) 70px; }
     .card { overflow: hidden; border-radius: 18px; background: white; border: 1px solid #e3d8ce; box-shadow: 0 10px 30px #542b1612; }
     .previews { display: grid; grid-template-columns: 1fr 1fr; height: 190px; background: #ede3d8; }
+    .previews.has-candidate { grid-template-columns: 1fr 1fr; height: auto; }
     figure { position: relative; margin: 0; overflow: hidden; }
+    .previews.has-candidate > figure:not(.candidate) { height: 190px; }
     figure img { width: 100%; height: 100%; object-fit: contain; }
     figure.crop img { object-fit: cover; }
+    figure.candidate { grid-column: 1 / -1; aspect-ratio: 4 / 3; border-top: 1px solid #e3d8ce; }
+    figure.candidate img { object-fit: contain; background: #f6f0e8; }
     figcaption { position: absolute; left: 8px; bottom: 8px; padding: 4px 7px; border-radius: 999px; color: white; background: #231815bb; font-size: 11px; }
     .missing { height: 190px; display: grid; place-content: center; justify-items: center; gap: 5px; background: #fff8ed; color: #a91616; }
     .missing span { font-size: 46px; }
@@ -167,6 +188,7 @@ const html = `<!doctype html>
     .status-sin-foto { color: #8b1d1d; background: #ffe0dc; }
     .status-dudosa { color: #715300; background: #fff0b8; }
     .status-necesita-edición { color: #214d65; background: #dff3ff; }
+    .status-candidata { color: #24532a; background: #dff4df; }
     h2 { margin: 12px 0 5px; font-size: 20px; }
     .path { margin: 0 0 14px; color: #7c6a61; font: 12px ui-monospace, monospace; overflow-wrap: anywhere; }
     dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; }
@@ -180,7 +202,7 @@ const html = `<!doctype html>
 <body>
   <header>
     <h1>Revisión de fotos</h1>
-    <p>Vista de trabajo: compara la biblioteca original con un recorte horizontal aproximado. Esta carpeta no se publica directamente; la web utiliza copias aprobadas y optimizadas desde public/images/menu/.</p>
+    <p>Laboratorio visual: compara originales, recortes y candidatas estandarizadas. Nada de esta carpeta pasa al menú público sin aprobación humana; la web utiliza copias aprobadas y optimizadas desde public/images/menu/.</p>
     <div class="summary">
       <span>${records.length} archivos</span>
       <span>${records.filter((record) => record.validImage).length} imágenes válidas</span>
@@ -204,7 +226,7 @@ const html = `<!doctype html>
 
 mkdirSync(outputDirectory, { recursive: true });
 writeFileSync(join(outputDirectory, 'inventario.json'), `${JSON.stringify(records, null, 2)}\n`);
-writeFileSync(join(outputDirectory, 'index.html'), html);
+writeFileSync(join(outputDirectory, 'index.html'), `${html.replace(/[ \t]+$/gm, '')}\n`);
 
 console.log(`Galería generada: ${join(outputDirectory, 'index.html')}`);
 console.log(`${records.length} archivos: ${records.filter((record) => record.validImage).length} imágenes válidas y ${counts['Sin foto'] ?? 0} faltantes.`);
