@@ -44,6 +44,7 @@ export const MENU: Record<CategoryId, Dish[]> = {
   pizzas: [
     { id: 'muzzarella', name: 'Muzzarella', desc: 'Salsa de tomate, mozzarella y orégano.', price: 20000, tag: 'La más pedida', img: '/images/menu/pizzas/01-pizza-de-muzzarella.webp' },
     { id: 'muzz-albahaca', name: 'Muzzarella y Albahaca', desc: 'Mozzarella con albahaca.', price: 22000, img: '/images/menu/pizzas/02-pizza-de-muzza-y-albahaca.webp' },
+    { id: 'muzz-rucula', name: 'Muzzarella y Rúcula', desc: 'Mozzarella y rúcula.', price: 21000, img: '/images/menu/pizzas/03-pizza-de-muzza-y-rucula.webp' },
     { id: 'muzz-rucula-huevo', name: 'Muzzarella, Rúcula y Huevo', desc: 'Mozzarella, rúcula y huevo.', price: 22000, img: '/images/menu/pizzas/03b-pizza-de-muzza-rucula-y-huevo.webp' },
     { id: 'muzz-jamon-huevo', name: 'Muzzarella, Jamón y Huevo', desc: 'Mozzarella, jamón y huevo.', price: 25000, img: '/images/menu/pizzas/06-pizza-de-muzza-jamon-y-huevo.webp' },
     { id: 'muzz-jamon-morron', name: 'Muzzarella, Jamón y Morrón', desc: 'Mozzarella, jamón y morrón.', price: 28000, img: IMG.placeholderPizza },
