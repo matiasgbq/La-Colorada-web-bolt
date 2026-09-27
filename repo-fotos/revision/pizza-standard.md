@@ -1,6 +1,6 @@
-# Patrón visual propuesto para pizzas
+# Patrón visual aprobado para pizzas
 
-Estado: propuesta en laboratorio. Requiere aprobación de Matías antes de aplicarse en lote o publicarse.
+Estado: aprobado por Matías el 27 de septiembre de 2026 y aplicado al lote de fotos reales disponible.
 
 ## Composición
 
@@ -31,3 +31,8 @@ Estado: propuesta en laboratorio. Requiere aprobación de Matías antes de aplic
 3. Comparar original, recorte y candidata en `repo-fotos/revision/index.html`.
 4. Matías aprueba, rechaza o pide un ajuste puntual.
 5. Sólo las aprobadas se exportan a `public/images/menu/`.
+
+## Variantes derivadas
+
+- Una variante puede derivarse de una foto real aprobada cuando el cambio solicitado representa el plato real y queda documentado.
+- `03b-pizza-de-muzza-rucula-y-huevo.png` deriva de la pizza real de rúcula y agrega únicamente huevo rallado, usando otra foto real de La Colorada como referencia del ingrediente.

@@ -670,9 +670,9 @@
     "height": 345,
     "format": "JPEG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/pizzas/02-pizza-de-muzza-y-albahaca.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "pizzas/03-pizza-de-muzza-y-rucula.jpg",
@@ -685,9 +685,9 @@
     "height": 344,
     "format": "PNG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/pizzas/03-pizza-de-muzza-y-rucula.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "pizzas/04-pizza-de-muzza-y-huevo.jpg",
@@ -700,9 +700,9 @@
     "height": 346,
     "format": "PNG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/pizzas/04-pizza-de-muzza-y-huevo.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "pizzas/05-pizza-de-muzza-y-jamon.jpg",
@@ -715,9 +715,9 @@
     "height": 346,
     "format": "PNG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/pizzas/05-pizza-de-muzza-y-jamon.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "pizzas/06-pizza-de-muzza-jamon-y-huevo.jpg",
@@ -730,24 +730,9 @@
     "height": 346,
     "format": "JPEG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
-  },
-  {
-    "path": "pizzas/07-pizza-de-muzza-jamon-y-morron.jpg",
-    "category": "pizzas",
-    "name": "Pizza De Muzza Jamon Y Morron",
-    "bytes": 406605,
-    "hash": "772b508fbdd9a3591f9bcdcddc01eb37924e69dfa51877f4cd1d65be87751506",
-    "validImage": true,
-    "width": 461,
-    "height": 346,
-    "format": "PNG",
-    "duplicateCount": 1,
-    "candidate": null,
-    "status": "Dudosa",
-    "reason": "La imagen muestra palmitos y salsa golf; no corresponde a Jamón y Morrón. Debe reasignarse a Palmitos o reemplazarse."
+    "candidate": "./candidates/pizzas/06-pizza-de-muzza-jamon-y-huevo.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "pizzas/08-pizza-4-quesos.jpg",
@@ -760,9 +745,9 @@
     "height": 345,
     "format": "JPEG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/pizzas/08-pizza-4-quesos.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "pizzas/09-pizza-de-provolone.jpg",
@@ -775,9 +760,24 @@
     "height": 345,
     "format": "JPEG",
     "duplicateCount": 1,
-    "candidate": null,
-    "status": "Necesita edición",
-    "reason": "Original válido; falta aprobar encuadre y generar WebP."
+    "candidate": "./candidates/pizzas/09-pizza-de-provolone.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
+  },
+  {
+    "path": "pizzas/14-pizza-palmitos.jpg",
+    "category": "pizzas",
+    "name": "Pizza Palmitos",
+    "bytes": 406605,
+    "hash": "772b508fbdd9a3591f9bcdcddc01eb37924e69dfa51877f4cd1d65be87751506",
+    "validImage": true,
+    "width": 461,
+    "height": 346,
+    "format": "PNG",
+    "duplicateCount": 1,
+    "candidate": "./candidates/pizzas/14-pizza-palmitos.png",
+    "status": "Candidata",
+    "reason": "Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse."
   },
   {
     "path": "tartas-comidas-caseras/01-tarta-de-zapallitos.jpg",
