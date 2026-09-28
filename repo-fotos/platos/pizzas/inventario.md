@@ -1,6 +1,6 @@
 # Repositorio de fotos de platos - La Colorada
 
-## Estado: Pizzas - 9 fotos reales disponibles + 5 pendientes
+## Estado: Pizzas - 10 fotos reales disponibles + 7 candidatas aprobadas para el menú web
 
 ### Fotos descargadas (de PedidosYa - Pizzas y Empanadas):
 
@@ -15,26 +15,29 @@
 | 14 | 14-pizza-palmitos.jpg | Pizza con palmitos | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 407 KB | ✅ Reasignada tras validación visual |
 | 8 | 08-pizza-4-quesos.jpg | Pizza 4 quesos | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 99 KB | ✅ Descargada |
 | 15 | 15-pizza-fugazeta.jpg | Fugazeta | https://pedidosya.com.ar/restaurantes/san-isidro/la-colorada-pizzas-y-empanadas-menu | 29 KB | ✅ Reasignada tras validación visual |
+| 10 | 10-pizza-calabresa.webp | Pizza calabresa | Aportada por Matías | 2 KB | ✅ Original real recibido y candidata aprobada |
 
-### Fotos pendientes (URLs no disponibles en el DOM):
+### Candidatas asistidas aprobadas:
 
 | # | Nombre archivo | Nombre plato (según PedidosYa) | Estado |
 |---|---------------|-------------------------------|--------|
-| 10 | 10-pizza-calabresa.jpg | Pizza calabresa | ⏸ Pendiente |
-| 11 | 11-pizza-napolitana.jpg | Pizza napolitana | ⏸ Pendiente |
-| 12 | 12-pizza-napolitana-con-jamon.jpg | Pizza napolitana con jamon | ⏸ Pendiente |
-| 13 | 13-pizza-jamon-crudo-y-rucula.jpg | Pizza de crudo y rucula | ⏸ Pendiente |
-| 9 | 09-pizza-de-provolone.jpg | Pizza de provolone | ⏸ Pendiente |
+| 7 | 07-pizza-de-muzza-jamon-y-morron.png | Muzzarella, jamón y morrón | ✅ Aprobada; morrones alineados hacia el centro |
+| 7b | 07b-pizza-de-anchoas.png | Anchoas | ✅ Aprobada; estilo porteño sin mozzarella |
+| 9 | 09-pizza-de-provolone.png | Pizza de provolone | ✅ Aprobada |
+| 10 | 10-pizza-calabresa.png | Pizza calabresa | ✅ Aprobada; basada en la foto real aportada por Matías |
+| 11 | 11-pizza-napolitana.png | Pizza napolitana | ✅ Aprobada |
+| 12 | 12-pizza-napolitana-con-jamon.png | Pizza napolitana con jamón | ✅ Aprobada |
+| 13 | 13-pizza-jamon-crudo-y-rucula.png | Pizza de jamón crudo y rúcula | ✅ Aprobada |
 
 ### Notas:
 - Las fotos se descargaron con calidad 90 y ancho 461px (resolución original de PedidosYa).
 - El nombre del archivo corresponde al nombre del plato según aparece en PedidosYa.
 - Las fotos están autorizadas para uso (confirmado por Matías).
 - El repositorio está en: `/repo-fotos/platos/pizzas/`
-- Las 5 fotos restantes requieren acceso manual o captura de pantalla porque sus URLs no se exponen directamente en el DOM de la página.
+- Los masters asistidos permanecen en `repo-fotos/revision/candidates/pizzas/`; las copias WebP aprobadas se publican desde `public/images/menu/pizzas/`.
 
 ### Próximos pasos:
-- Completar las 5 fotos restantes de pizzas (provolone, calabresa, napolitana, napolitana con jamón, jamón crudo y rúcula).
+- Validar visualmente las siete fotos en el sitio full después del despliegue.
 - Evaluar calidad y resolución de cada foto.
 - Detectar duplicados con fotos existentes en `public/images/`.
 - Preparar inventario completo para aprobación final.
