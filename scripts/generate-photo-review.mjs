@@ -49,7 +49,7 @@ function jpegDimensions(buffer) {
 
 function titleFromFilename(filePath) {
   return basename(filePath, extname(filePath))
-    .replace(/^\d+-/, '')
+    .replace(/^\d+[a-z]?-/, '')
     .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
@@ -88,7 +88,47 @@ const records = files.map((filePath) => {
   };
 });
 
+const candidateFiles = existsSync(candidateDirectory)
+  ? walk(candidateDirectory)
+      .filter((filePath) => extname(filePath).toLowerCase() === '.png')
+      .sort((a, b) => a.localeCompare(b, 'es'))
+  : [];
+
+const knownCandidatePaths = new Set(records.map((record) => {
+  const candidateFilename = record.path.replace(/\.[^.]+$/, '.png');
+  return record.category === 'empanadas'
+    ? join('empanadas', candidateFilename)
+    : candidateFilename;
+}));
+
+for (const candidateFilePath of candidateFiles) {
+  const candidateRelativePath = relative(candidateDirectory, candidateFilePath).split(sep).join('/');
+  if (knownCandidatePaths.has(candidateRelativePath)) continue;
+
+  const buffer = readFileSync(candidateFilePath);
+  const dimensions = pngDimensions(buffer);
+  const [category] = candidateRelativePath.split('/');
+  const manualNote = manualReview[`candidates/${candidateRelativePath}`];
+
+  records.push({
+    path: `candidates/${candidateRelativePath}`,
+    source: null,
+    category,
+    name: titleFromFilename(candidateFilePath),
+    bytes: statSync(candidateFilePath).size,
+    hash: createHash('sha256').update(buffer).digest('hex'),
+    validImage: Boolean(dimensions),
+    duplicateCount: 1,
+    candidate: `./candidates/${candidateRelativePath}`,
+    status: manualNote?.status ?? 'Candidata',
+    reason: manualNote?.reason ?? 'Candidata asistida basada en fotos reales y el patrón aprobado; requiere aprobación humana antes de publicarse.',
+    ...dimensions,
+  });
+}
+
 for (const record of records) {
+  if (record.source === null) continue;
+
   const candidateFilename = record.path.replace(/\.[^.]+$/, '.png');
   const candidateRelativePath = record.category === 'empanadas'
     ? join('empanadas', candidateFilename)
@@ -123,8 +163,12 @@ const counts = records.reduce((result, record) => {
 
 const cards = records
   .map((record) => {
-    const source = `../platos/${record.path}`;
-    const media = record.validImage
+    const source = record.source === null ? null : `../platos/${record.path}`;
+    const media = record.source === null
+      ? `<div class="previews candidate-only">
+          <figure class="candidate"><img src="${htmlEscape(record.candidate)}" alt="Candidata estandarizada de ${htmlEscape(record.name)}"><figcaption>Candidata de laboratorio</figcaption></figure>
+        </div>`
+      : record.validImage
       ? `<div class="previews${record.candidate ? ' has-candidate' : ''}">
           <figure><img src="${htmlEscape(source)}" alt="${htmlEscape(record.name)}"><figcaption>Original</figcaption></figure>
           <figure class="crop"><img src="${htmlEscape(source)}" alt="Recorte web de ${htmlEscape(record.name)}"><figcaption>Recorte de tarjeta</figcaption></figure>
@@ -176,6 +220,7 @@ const html = `<!doctype html>
     .card { overflow: hidden; border-radius: 18px; background: white; border: 1px solid #e3d8ce; box-shadow: 0 10px 30px #542b1612; }
     .previews { display: grid; grid-template-columns: 1fr 1fr; height: 190px; background: #ede3d8; }
     .previews.has-candidate { grid-template-columns: 1fr 1fr; height: auto; }
+    .previews.candidate-only { display: block; height: auto; }
     figure { position: relative; margin: 0; overflow: hidden; }
     .previews.has-candidate > figure:not(.candidate) { height: 190px; }
     figure img { width: 100%; height: 100%; object-fit: contain; }
@@ -192,6 +237,7 @@ const html = `<!doctype html>
     .status-dudosa { color: #715300; background: #fff0b8; }
     .status-necesita-edición { color: #214d65; background: #dff3ff; }
     .status-candidata { color: #24532a; background: #dff4df; }
+    .status-aprobada { color: #174c2a; background: #ccefd7; }
     h2 { margin: 12px 0 5px; font-size: 20px; }
     .path { margin: 0 0 14px; color: #7c6a61; font: 12px ui-monospace, monospace; overflow-wrap: anywhere; }
     dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; }

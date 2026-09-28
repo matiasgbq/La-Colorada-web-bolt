@@ -1,1 +1,30 @@
-{}
+{
+  "pizzas/10-pizza-calabresa.jpg": {
+    "status": "Aprobada",
+    "reason": "Foto real aportada por Matías y candidata estandarizada aprobada para el menú web."
+  },
+  "candidates/pizzas/07-pizza-de-muzza-jamon-y-morron.png": {
+    "status": "Aprobada",
+    "reason": "Candidata aprobada con morrones dispuestos radialmente hacia el centro."
+  },
+  "candidates/pizzas/07b-pizza-de-anchoas.png": {
+    "status": "Aprobada",
+    "reason": "Candidata aprobada: estilo porteño sin mozzarella, con salsa de tomate, ajo, orégano y anchoas."
+  },
+  "candidates/pizzas/09-pizza-de-provolone.png": {
+    "status": "Aprobada",
+    "reason": "Candidata aprobada para el menú web."
+  },
+  "candidates/pizzas/11-pizza-napolitana.png": {
+    "status": "Aprobada",
+    "reason": "Candidata aprobada para el menú web."
+  },
+  "candidates/pizzas/12-pizza-napolitana-con-jamon.png": {
+    "status": "Aprobada",
+    "reason": "Candidata aprobada para el menú web."
+  },
+  "candidates/pizzas/13-pizza-jamon-crudo-y-rucula.png": {
+    "status": "Aprobada",
+    "reason": "Candidata aprobada para el menú web."
+  }
+}

@@ -20,6 +20,7 @@
     .card { overflow: hidden; border-radius: 18px; background: white; border: 1px solid #e3d8ce; box-shadow: 0 10px 30px #542b1612; }
     .previews { display: grid; grid-template-columns: 1fr 1fr; height: 190px; background: #ede3d8; }
     .previews.has-candidate { grid-template-columns: 1fr 1fr; height: auto; }
+    .previews.candidate-only { display: block; height: auto; }
     figure { position: relative; margin: 0; overflow: hidden; }
     .previews.has-candidate > figure:not(.candidate) { height: 190px; }
     figure img { width: 100%; height: 100%; object-fit: contain; }
@@ -36,6 +37,7 @@
     .status-dudosa { color: #715300; background: #fff0b8; }
     .status-necesita-edición { color: #214d65; background: #dff3ff; }
     .status-candidata { color: #24532a; background: #dff4df; }
+    .status-aprobada { color: #174c2a; background: #ccefd7; }
     h2 { margin: 12px 0 5px; font-size: 20px; }
     .path { margin: 0 0 14px; color: #7c6a61; font: 12px ui-monospace, monospace; overflow-wrap: anywhere; }
     dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; }
@@ -51,8 +53,8 @@
     <h1>Revisión de fotos</h1>
     <p>Laboratorio visual: compara originales, recortes y candidatas estandarizadas. Nada de esta carpeta pasa al menú público sin aprobación humana; la web utiliza copias aprobadas y optimizadas desde public/images/menu/.</p>
     <div class="summary">
-      <span>58 archivos</span>
-      <span>58 imágenes válidas</span>
+      <span>66 archivos</span>
+      <span>66 imágenes válidas</span>
       <span>0 faltantes</span>
       <span>23 duplicadas o dudosas</span>
     </div>
@@ -976,6 +978,24 @@
         <p class="reason">Muestra estandarizada en laboratorio; requiere aprobación humana antes de publicarse.</p>
       </div>
     </article>
+<article class="card" data-category="pizzas" data-status="Aprobada">
+      <div class="previews has-candidate">
+          <figure><img src="../platos/pizzas/10-pizza-calabresa.jpg" alt="Pizza Calabresa"><figcaption>Original</figcaption></figure>
+          <figure class="crop"><img src="../platos/pizzas/10-pizza-calabresa.jpg" alt="Recorte web de Pizza Calabresa"><figcaption>Recorte de tarjeta</figcaption></figure>
+          <figure class="candidate"><img src="./candidates/pizzas/10-pizza-calabresa.png" alt="Candidata estandarizada de Pizza Calabresa"><figcaption>Candidata de laboratorio</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-aprobada">Aprobada</span>
+        <h2>Pizza Calabresa</h2>
+        <p class="path">pizzas/10-pizza-calabresa.jpg</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>JPEG</dd></div>
+          <div><dt>Dimensiones</dt><dd>96 × 96 px</dd></div>
+          <div><dt>Peso</dt><dd>8 KB</dd></div>
+        </dl>
+        <p class="reason">Foto real aportada por Matías y candidata estandarizada aprobada para el menú web.</p>
+      </div>
+    </article>
 <article class="card" data-category="pizzas" data-status="Candidata">
       <div class="previews has-candidate">
           <figure><img src="../platos/pizzas/14-pizza-palmitos.jpg" alt="Pizza Palmitos"><figcaption>Original</figcaption></figure>
@@ -1100,6 +1120,118 @@
           <div><dt>Peso</dt><dd>24 KB</dd></div>
         </dl>
         <p class="reason">Original válido; falta aprobar encuadre y generar WebP.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Candidata">
+      <div class="previews candidate-only">
+          <figure class="candidate"><img src="./candidates/pizzas/03b-pizza-de-muzza-rucula-y-huevo.png" alt="Candidata estandarizada de Pizza De Muzza Rucula Y Huevo"><figcaption>Candidata de laboratorio</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-candidata">Candidata</span>
+        <h2>Pizza De Muzza Rucula Y Huevo</h2>
+        <p class="path">candidates/pizzas/03b-pizza-de-muzza-rucula-y-huevo.png</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>1448 × 1086 px</dd></div>
+          <div><dt>Peso</dt><dd>2198 KB</dd></div>
+        </dl>
+        <p class="reason">Candidata asistida basada en fotos reales y el patrón aprobado; requiere aprobación humana antes de publicarse.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Aprobada">
+      <div class="previews candidate-only">
+          <figure class="candidate"><img src="./candidates/pizzas/07-pizza-de-muzza-jamon-y-morron.png" alt="Candidata estandarizada de Pizza De Muzza Jamon Y Morron"><figcaption>Candidata de laboratorio</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-aprobada">Aprobada</span>
+        <h2>Pizza De Muzza Jamon Y Morron</h2>
+        <p class="path">candidates/pizzas/07-pizza-de-muzza-jamon-y-morron.png</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>1448 × 1086 px</dd></div>
+          <div><dt>Peso</dt><dd>2104 KB</dd></div>
+        </dl>
+        <p class="reason">Candidata aprobada con morrones dispuestos radialmente hacia el centro.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Aprobada">
+      <div class="previews candidate-only">
+          <figure class="candidate"><img src="./candidates/pizzas/07b-pizza-de-anchoas.png" alt="Candidata estandarizada de Pizza De Anchoas"><figcaption>Candidata de laboratorio</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-aprobada">Aprobada</span>
+        <h2>Pizza De Anchoas</h2>
+        <p class="path">candidates/pizzas/07b-pizza-de-anchoas.png</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>1448 × 1086 px</dd></div>
+          <div><dt>Peso</dt><dd>2381 KB</dd></div>
+        </dl>
+        <p class="reason">Candidata aprobada: estilo porteño sin mozzarella, con salsa de tomate, ajo, orégano y anchoas.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Aprobada">
+      <div class="previews candidate-only">
+          <figure class="candidate"><img src="./candidates/pizzas/09-pizza-de-provolone.png" alt="Candidata estandarizada de Pizza De Provolone"><figcaption>Candidata de laboratorio</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-aprobada">Aprobada</span>
+        <h2>Pizza De Provolone</h2>
+        <p class="path">candidates/pizzas/09-pizza-de-provolone.png</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>1448 × 1086 px</dd></div>
+          <div><dt>Peso</dt><dd>2133 KB</dd></div>
+        </dl>
+        <p class="reason">Candidata aprobada para el menú web.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Aprobada">
+      <div class="previews candidate-only">
+          <figure class="candidate"><img src="./candidates/pizzas/11-pizza-napolitana.png" alt="Candidata estandarizada de Pizza Napolitana"><figcaption>Candidata de laboratorio</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-aprobada">Aprobada</span>
+        <h2>Pizza Napolitana</h2>
+        <p class="path">candidates/pizzas/11-pizza-napolitana.png</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>1448 × 1086 px</dd></div>
+          <div><dt>Peso</dt><dd>2237 KB</dd></div>
+        </dl>
+        <p class="reason">Candidata aprobada para el menú web.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Aprobada">
+      <div class="previews candidate-only">
+          <figure class="candidate"><img src="./candidates/pizzas/12-pizza-napolitana-con-jamon.png" alt="Candidata estandarizada de Pizza Napolitana Con Jamon"><figcaption>Candidata de laboratorio</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-aprobada">Aprobada</span>
+        <h2>Pizza Napolitana Con Jamon</h2>
+        <p class="path">candidates/pizzas/12-pizza-napolitana-con-jamon.png</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>1448 × 1086 px</dd></div>
+          <div><dt>Peso</dt><dd>2138 KB</dd></div>
+        </dl>
+        <p class="reason">Candidata aprobada para el menú web.</p>
+      </div>
+    </article>
+<article class="card" data-category="pizzas" data-status="Aprobada">
+      <div class="previews candidate-only">
+          <figure class="candidate"><img src="./candidates/pizzas/13-pizza-jamon-crudo-y-rucula.png" alt="Candidata estandarizada de Pizza Jamon Crudo Y Rucula"><figcaption>Candidata de laboratorio</figcaption></figure>
+        </div>
+      <div class="content">
+        <span class="status status-aprobada">Aprobada</span>
+        <h2>Pizza Jamon Crudo Y Rucula</h2>
+        <p class="path">candidates/pizzas/13-pizza-jamon-crudo-y-rucula.png</p>
+        <dl>
+          <div><dt>Tipo</dt><dd>PNG</dd></div>
+          <div><dt>Dimensiones</dt><dd>1448 × 1086 px</dd></div>
+          <div><dt>Peso</dt><dd>2197 KB</dd></div>
+        </dl>
+        <p class="reason">Candidata aprobada para el menú web.</p>
       </div>
     </article></main>
   <script>
