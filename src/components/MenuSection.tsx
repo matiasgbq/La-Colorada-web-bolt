@@ -8,6 +8,12 @@ import { useReveal } from '../hooks';
 
 type SearchResult = Dish & { category: string };
 
+const normalizeSearchText = (value: string) =>
+  value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLocaleLowerCase('es-AR');
+
 export function MenuSection() {
   const [cat, setCat] = useState<CategoryId>('pizzas');
   const [query, setQuery] = useState('');
@@ -17,14 +23,14 @@ export function MenuSection() {
   const searching = query.trim().length > 0;
 
   const results = useMemo<SearchResult[]>(() => {
-    const q = query.trim().toLowerCase();
+    const q = normalizeSearchText(query.trim());
     if (!q) return [];
     const all: SearchResult[] = [];
     for (const c of CATEGORIES) {
       for (const dish of MENU[c.id]) {
         if (
-          dish.name.toLowerCase().includes(q) ||
-          dish.desc.toLowerCase().includes(q)
+          normalizeSearchText(dish.name).includes(q) ||
+          normalizeSearchText(dish.desc).includes(q)
         ) {
           all.push({ ...dish, category: c.label });
         }
