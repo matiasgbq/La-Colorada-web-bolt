@@ -75,7 +75,7 @@ export const MENU: Record<CategoryId, Dish[]> = {
   ensaladas: [
     { id: 'ensalada-dia', name: 'Ensalada del Día', desc: 'Lechuga, rúcula, tomate, zanahoria, queso, huevo y pollo grillé.', price: 10000, tag: 'La más pedida', img: '/images/menu/ensaladas/peya/02-ensalada-del-dia.webp' },
     { id: 'ensalada-dia-veg', name: 'Ensalada del Día Vegetariana', desc: 'Con berenjena, zucchini o choclo.', price: 9000, img: '/images/menu/ensaladas/peya/04-ensalada-vegetariana.webp' },
-    { id: 'mix-verdes', name: 'Mix Verdes', desc: 'Lechuga, rúcula, tomates cherry, zanahoria, huevo y pollo grillé.', price: 10000, img: '/images/menu/ensaladas/01-ensalada.webp' },
+    { id: 'mix-verdes', name: 'Mix Verdes', desc: 'Lechuga, rúcula, tomates cherry, zanahoria, huevo y pollo grillé.', price: 10000, img: '/images/menu/ensaladas/peya/01-mix-verdes.webp' },
     { id: 'cesar', name: 'César', desc: 'Lechuga, lechuga morada, queso, croutones caseros, pollo grillé y aderezo.', price: 10000, img: '/images/menu/ensaladas/peya/03-ensalada-cesar.webp' },
   ],
   tartas: [
@@ -110,20 +110,20 @@ export const MENU: Record<CategoryId, Dish[]> = {
     { id: 'veg-crudo-rucula', name: 'Berenjena o Zucchini con Jamón Crudo y Rúcula', desc: 'Con jamón crudo y rúcula.', price: 17000, img: '/images/menu/milanesas/gold/20-berenjena-zucchini-jamon-crudo-rucula.webp' },
     { id: 'suprema-pollo', name: 'Suprema de Pollo', desc: 'Suprema de pollo al horno.', price: 11000, img: '/images/menu/milanesas/peya/21-suprema-de-pollo.webp' },
     { id: 'suprema-gratinada', name: 'Suprema de Pollo Gratinada', desc: 'Suprema de pollo gratinada.', price: 12500, img: '/images/menu/milanesas/peya/22-suprema-de-pollo-gratinada.webp' },
-    { id: 'pechuga-grille', name: 'Pechuga Grillé', desc: 'Pechuga de pollo grillada.', price: 12500, img: IMG.placeholderPlato },
-    { id: 'grille-gratinado', name: 'Grillé Gratinado', desc: 'Pechuga grillada y gratinada.', price: 14000, img: IMG.placeholderPlato },
+    { id: 'pechuga-grille', name: 'Pechuga Grillé', desc: 'Pechuga de pollo grillada.', price: 12500, img: '/images/menu/milanesas/peya/23-pechuga-grille.webp' },
+    { id: 'grille-gratinado', name: 'Grillé Gratinado', desc: 'Pechuga grillada y gratinada.', price: 14000, img: '/images/menu/milanesas/peya/24-grille-gratinado.webp' },
   ],
   pastas: [
     { id: 'lasagna-carne', name: 'Lasagna de Carne', desc: 'Lasagna casera de carne.', price: 12000, tag: 'La más pedida', img: '/images/menu/pastas/01-lasagna-de-carne.webp' },
     { id: 'lasagna-verdura', name: 'Lasagna de Verdura', desc: 'Lasagna casera de verdura.', price: 10000, img: '/images/menu/pastas/02-lasagna-de-verdura.webp' },
-    { id: 'lasagna-carne-verdura', name: 'Lasagna de Carne y Verdura', desc: 'Lasagna casera mixta.', price: 11000, img: IMG.placeholderPlato },
+    { id: 'lasagna-carne-verdura', name: 'Lasagna de Carne y Verdura', desc: 'Lasagna casera mixta.', price: 11000, img: '/images/menu/pastas/09-lasagna-carne-y-verdura.webp' },
     { id: 'canelones-verdura', name: 'Canelones de Verdura', desc: 'Canelones caseros de verdura.', price: 10000, img: '/images/menu/pastas/04-canelones-de-verdura.webp' },
     { id: 'canelones-calabaza', name: 'Canelones de Calabaza', desc: 'Canelones caseros de calabaza.', price: 10000, img: '/images/menu/pastas/03-canelones-de-calabaza.webp' },
     { id: 'pastel-papas', name: 'Pastel de Papas', desc: 'Pastel de papas casero.', price: 10000, img: '/images/menu/pastas/05-pastel-de-papas.webp' },
     { id: 'omelette-jamon-queso', name: 'Omelette de Jamón y Queso', desc: 'Omelette de jamón y queso.', price: 10000, img: '/images/menu/omelettes/peya/01-omelette-de-jamon-y-queso.webp' },
     { id: 'omelette-capresse', name: 'Omelette Capresse', desc: 'Omelette de tomate, mozzarella y albahaca.', price: 9500, img: '/images/menu/omelettes/peya/02-omelette-caprese.webp' },
     { id: 'falafel', name: 'Falafel con Salsa Tai', desc: 'Falafel casero con salsa tai.', price: 10000, tag: 'Veggie', img: IMG.placeholderPlato },
-    { id: 'medallones-veg', name: 'Medallones Vegetarianos Gratinados', desc: 'De lentejas, garbanzos, quinoa al curry, porotos colorados o mijo.', price: 10000, img: IMG.placeholderPlato },
+    { id: 'medallones-veg', name: 'Medallones Vegetarianos Gratinados', desc: 'De lentejas, garbanzos, quinoa al curry, porotos colorados o mijo.', price: 10000, img: '/images/menu/medallones/01-medallones-vegetarianos-gratinados.webp' },
   ],
 };
 
