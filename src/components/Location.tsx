@@ -83,6 +83,8 @@ export function Location() {
                     <a
                       key={action.href}
                       href={action.href}
+                      data-contact-event={action.href.startsWith('tel:') ? 'phone_click' : 'directions_click'}
+                      data-contact-position="location"
                       target={action.href.startsWith('http') ? '_blank' : undefined}
                       rel="noreferrer"
                       className="inline-flex items-center gap-1.5 text-crimson-400 text-sm font-bold hover:text-crimson-300 transition-colors"
@@ -112,6 +114,8 @@ export function Location() {
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <a
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
+            data-contact-event="whatsapp_click"
+            data-contact-position="location"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#25D366] text-white font-bold hover:brightness-95 transition"
