@@ -4,7 +4,7 @@ Issue: https://github.com/matiasgbq/La-Colorada-web-bolt/issues/77
 
 ## Instalación y configuración
 
-GA4: G-KBYW046E26. La etiqueta se carga una vez, sólo con build de producción y hostname lacoloradacocina.com.ar o www.lacoloradacocina.com.ar. No se carga en localhost, Vercel ni otros subdominios de Cloudflare. No agregar otra etiqueta por Cloudflare o Tag Manager. Merge y publicación requieren aprobación de Matías.
+GA4: G-KBYW046E26. Propiedad: 558313622; cuenta: 411499010; flujo: 16101425887. La etiqueta se carga una vez, sólo con build de producción y hostname lacoloradacocina.com.ar o www.lacoloradacocina.com.ar. No se carga en localhost, Vercel ni otros subdominios de Cloudflare. No agregar otra etiqueta por Cloudflare o Tag Manager. Merge y publicación requieren aprobación de Matías.
 
 Antes de publicar, en Administrar de GA4:
 1. Confirmar que el flujo web corresponde al dominio y al ID anterior. Usar zona horaria Argentina y moneda ARS.
@@ -13,7 +13,7 @@ Antes de publicar, en Administrar de GA4:
 4. Marcar `whatsapp_click` como evento clave. Para la tasa, usar sesiones con ese evento, no cantidad de clics ni total de eventos clave.
 5. Revisar tráfico interno en modo prueba antes de excluirlo. No activar filtros definitivos sin revisar su efecto.
 
-No se habilitan Google Signals ni personalización publicitaria. La URL de página enviada se limita a origen y ruta; no se envían query ni fragmentos. Esto puede limitar atribución de campañas: validar las campañas UTM en GA4 antes de usarlas para decisiones. La política de privacidad y la configuración de consentimiento son una revisión pendiente antes de publicación.
+No se habilitan Google Signals ni personalización publicitaria. La URL de página enviada se limita a origen y ruta; no se envían query ni fragmentos. Se admite utm_source, utm_medium y utm_campaign como etiquetas de 1–80 caracteres alfanuméricos, guion o guion bajo. Ejemplo: ?utm_source=instagram&utm_medium=social&utm_campaign=perfil. No usar nombres de personas ni clientes en estas etiquetas. El referrer se limita al origen. Validar atribución en GA4 después del despliegue. La política de privacidad y la configuración de consentimiento son una revisión pendiente antes de publicación.
 
 ## Eventos
 
@@ -44,4 +44,8 @@ Periodo: lunes a domingo anterior en zona horaria Argentina. Emitir reporte sema
 
 Primeras cuatro semanas completas desde validación: línea de base sin metas inventadas. Semanas incompletas se identifican y no se comparan como equivalentes. Mantener separados pedidos/ventas confirmados, que requieren otra fuente.
 
-No hay acceso GA4 verificado desde esta sesión. GSC Wizard rechazó la consulta por suscripción vencida; no contratar para resolverlo. Alternativa: reportes nativos de GA4/exportación o conectar una fuente autorizada. Automatización en pausa hasta disponer de datos y validación de producción; no inventar números.
+Se verificó acceso directo a GA4 desde Chrome el 10/10/2026. Cuenta La-Colorada; propiedad LaColoradacocina; Argentina/Buenos Aires y ARS. Asistente completado, clics salientes e historial desactivados; dimensión Posición del contacto (contact_position, ámbito evento) creada y whatsapp_click registrado como evento clave. Aún no se recibieron datos porque la etiqueta no está publicada. GSC Wizard rechazó la consulta por suscripción vencida; no contratar para resolverlo. MVP: reportes nativos de GA4/exportación; evolución: API oficial con acceso de lectura y automatización propia, sin intermediarios. Automatización en pausa hasta disponer de datos y validación de producción; no inventar números.
+
+## Cierre MVP
+
+Completar #77 al publicar con aprobación y verificar visitas, los tres contactos y consulta de KPIs en GA4. La automatización por API se considera evolución posterior y no condiciona la instalación inicial. No cambiar el modo landing de producción ni publicar el menú.

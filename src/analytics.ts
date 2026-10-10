@@ -9,7 +9,6 @@ export function initializeAnalytics() {
 
   const analyticsWindow = window as AnalyticsWindow;
   const queue = analyticsWindow.dataLayer ??= [];
-  // gtag consumes argument objects, rather than arrays.
   // Google tag requires an Arguments object in dataLayer.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function gtag(..._args: unknown[]) {
@@ -17,8 +16,25 @@ export function initializeAnalytics() {
     queue.push(arguments as unknown as unknown[]);
   }
   gtag('js', new Date());
+  const campaign: Record<string, string> = {};
+  const query = new URLSearchParams(window.location.search);
+  for (const [utm, field] of [
+    ['utm_source', 'campaign_source'],
+    ['utm_medium', 'campaign_medium'],
+    ['utm_campaign', 'campaign_name'],
+  ]) {
+    const value = query.get(utm);
+    // Campaign labels only: reject free text, emails and full URLs.
+    if (value && /^[a-z0-9_-]{1,80}$/i.test(value)) campaign[field] = value;
+  }
+  let referrer = '';
+  try {
+    referrer = document.referrer ? new URL(document.referrer).origin : '';
+  } catch { /* Ignore malformed referrers. */ }
   gtag('config', MEASUREMENT_ID, {
     page_location: window.location.origin + window.location.pathname,
+    page_referrer: referrer,
+    ...campaign,
     allow_google_signals: false,
     allow_ad_personalization_signals: false,
   });
