@@ -101,6 +101,8 @@ export function Hero({
               ) : (
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  data-contact-event="whatsapp_click"
+                  data-contact-position="hero"
                   target="_blank"
                   rel="noreferrer"
                   className="group flex items-center gap-2 px-7 py-3.5 rounded-full bg-crimson-500 text-white font-bold shadow-xl shadow-crimson-900/30 hover:bg-crimson-600 transition-colors"
@@ -112,6 +114,8 @@ export function Hero({
               )}
               <a
                 href={`tel:${PHONE_TEL}`}
+                data-contact-event="phone_click"
+                data-contact-position="hero"
                 className="flex items-center gap-2 px-7 py-3.5 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/40 text-white font-bold hover:bg-white/20 transition-colors"
               >
                 <Phone className="w-5 h-5" />

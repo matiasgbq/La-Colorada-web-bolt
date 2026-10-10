@@ -73,6 +73,8 @@ export function OrderModal({
 
           <a
             href={waUrl}
+            data-contact-event="whatsapp_click"
+            data-contact-position="order_modal"
             target="_blank"
             rel="noreferrer"
             onClick={onClose}
