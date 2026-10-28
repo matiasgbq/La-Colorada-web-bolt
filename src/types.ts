@@ -10,10 +10,12 @@ export type Section = (typeof SITE_SECTION_IDS)[number];
 
 export type Dish = {
   id: string;
+  code: string;
   name: string;
   desc: string;
   price: number;
   tag?: string;
+  saladAddon?: { code: string; name: string; price: number };
   img: string;
 };
 

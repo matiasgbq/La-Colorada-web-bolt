@@ -3,19 +3,11 @@ import { X, Plus, Minus, Trash2, ShoppingBag, MessageCircle } from 'lucide-react
 import { useCart, formatARS } from '../cart';
 import { WHATSAPP_NUMBER } from '../data';
 import { OrderModal } from './OrderModal';
+import { buildOrderText } from '@/cart-items';
 
 export function CartSidebar() {
   const { items, total, count, isOpen, setOpen, setQty, remove, clear } = useCart();
   const [showModal, setShowModal] = useState(false);
-
-  const buildOrderText = () => {
-    let text = 'Hola La Colorada! Quiero hacer este pedido:%0A%0A';
-    items.forEach((i) => {
-      text += `• ${i.dish.name} x${i.qty} — ${formatARS(i.dish.price * i.qty)}%0A`;
-    });
-    text += `%0ATotal: ${formatARS(total)}%0A%0AGracias!`;
-    return text;
-  };
 
   return (
     <>
@@ -75,7 +67,7 @@ export function CartSidebar() {
                     className="w-16 h-16 rounded-lg object-cover shrink-0"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-sm text-ink-800 truncate">
+                    <p className="font-semibold text-sm text-ink-800">
                       {i.dish.name}
                     </p>
                     <p className="text-xs text-ink-400">
@@ -149,7 +141,7 @@ export function CartSidebar() {
         onClose={() => setShowModal(false)}
         items={items}
         total={total}
-        waUrl={`https://wa.me/${WHATSAPP_NUMBER}?text=${buildOrderText()}`}
+        waUrl={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildOrderText(items))}`}
       />
     </>
   );
