@@ -17,6 +17,7 @@ const normalizeSearchText = (value: string) =>
 export function MenuSection() {
   const [cat, setCat] = useState<CategoryId>('pizzas');
   const [query, setQuery] = useState('');
+  const [salads, setSalads] = useState<Record<string, boolean>>({});
   const { add } = useCart();
   const { ref, visible } = useReveal<HTMLDivElement>();
 
@@ -53,6 +54,8 @@ export function MenuSection() {
           </h2>
           <p className="mt-4 text-ink-500">
             Armá tu pedido y confirmalo por WhatsApp en segundos. Precios en pesos.
+            Las pizzas son grandes. Los platos con guarnición incluyen ensalada;
+            podés pedir cambios por WhatsApp.
           </p>
         </div>
 
@@ -136,12 +139,26 @@ export function MenuSection() {
                 <p className="mt-1.5 text-sm text-ink-500 leading-relaxed flex-1">
                   {dish.desc}
                 </p>
+                {dish.saladAddon && (
+                  <label className="mt-3 flex items-center gap-2 text-sm text-ink-700 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(salads[dish.id])}
+                      onChange={(event) => setSalads((prev) => ({ ...prev, [dish.id]: event.target.checked }))}
+                      className="w-4 h-4 accent-crimson-500"
+                    />
+                    Sumar ensalada +{formatARS(dish.saladAddon.price)}
+                  </label>
+                )}
                 <div className="mt-4 flex items-center justify-between">
                   <span className="font-display text-2xl text-crimson-500">
-                    {formatARS(dish.price)}
+                    {formatARS(dish.price + (salads[dish.id] ? dish.saladAddon?.price ?? 0 : 0))}
                   </span>
                   <button
-                    onClick={() => add(dish)}
+                    onClick={() => {
+                      add(dish, Boolean(salads[dish.id]));
+                      setSalads((prev) => ({ ...prev, [dish.id]: false }));
+                    }}
                     className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-ink-800 text-white text-sm font-bold hover:bg-crimson-500 transition-colors"
                   >
                     <Plus className="w-4 h-4" />
