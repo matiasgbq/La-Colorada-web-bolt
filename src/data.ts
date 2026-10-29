@@ -78,7 +78,7 @@ export const MENU: Record<CategoryId, Dish[]> = {
     { id: 'queso-cebolla', code: 'EMP009', name: 'Queso y Cebolla', desc: 'Mozzarella y cebolla.', price: 3000, img: '/images/menu/07-empanada-de-queso-y-cebolla.webp' },
     { id: 'capresse', code: 'EMP010', name: 'Capresse', desc: 'Tomate, mozzarella y albahaca.', price: 3000, img: '/images/menu/08-empanada-capresce.webp' },
     { id: 'crudo-queso', code: 'EMP011', name: 'Crudo y Queso', desc: 'Jamón crudo y mozzarella.', price: 3000, img: '/images/menu/09-empanadas-de-crudo-y-queso.webp' },
-    { id: 'empanada-la-colorada', code: 'EMP012', name: 'La Colorada (de la Casa)', desc: 'Tomates secos, albahaca, queso provolone y un toque de nuestra receta especial.', price: 3000, tag: 'De la casa', img: IMG.placeholderEmpanada },
+    { id: 'empanada-la-colorada', code: 'EMP012', name: 'La Colorada (de la Casa)', desc: 'Tomates secos, albahaca, queso provolone y un toque de nuestra receta especial.', price: 3000, tag: 'De la casa', img: '/images/menu/12-empanada-la-colorada-oro.webp', imgFit: 'contain' },
   ],
   ensaladas: [
     { id: 'ensalada-dia', code: 'ENS001', name: 'Ensalada del Día', desc: 'Lechuga, rúcula, tomate, zanahoria, queso, huevo y pollo grillé.', price: 12000, tag: 'La más pedida', img: '/images/menu/ensaladas/peya/02-ensalada-del-dia.webp' },

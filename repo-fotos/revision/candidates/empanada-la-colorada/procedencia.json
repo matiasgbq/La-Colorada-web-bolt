@@ -1,0 +1,7 @@
+{
+  "issue": 86,
+  "source": "Foto adjunta por Matias el 29/10/2026",
+  "method": "image_gen, edicion de luz/nitidez/fondo conservando producto y relleno",
+  "prompt": "Use case: lighting-weather / precise-object-edit. Edit target: attached local photo of La Colorada empanadas. Create the final ORO catalog food photo for the existing menu. Preserve EXACTLY the actual empanadas, their irregular handmade repulgue, golden oven spots, two whole empanadas plus one empanada split into two halves on top, positions and visible orange cheese/tomato filling and its tiny existing herb specks. Do not invent basil leaves, extra filling, meat, olives or cheese pulls; do not change quantities or make the food more inflated or geometrically perfect. Polish only light, microcontrast, sharpness and white background cleanup. Natural appetizing real food photography, soft subtle contact shadow, clean white seamless background matching other website empanada ORO photos. Landscape 4:3 framing, preserve the full product without cropping, leave enough clear margin around all outer edges so the website card crop is safe. No plate, packaging, props, text, logo or watermark.",
+  "web": "/images/menu/12-empanada-la-colorada-oro.webp"
+}
