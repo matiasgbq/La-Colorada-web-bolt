@@ -133,11 +133,11 @@ export const MENU: Record<CategoryId, Dish[]> = {
     { id: 'pastel-calabaza', code: 'PAS015', name: 'Pastel de Calabaza', desc: 'Pastel de calabaza casero.', price: 12000, img: IMG.placeholderPlato },
   ],
   medallones: [
-    { id: 'medallones-lentejas', code: 'MED001', name: 'Medallones de Lentejas Gratinados', desc: 'Medallones de lentejas gratinados. Con ensalada.', price: 10000, img: IMG.placeholderPlato },
-    { id: 'medallones-garbanzos', code: 'MED002', name: 'Medallones de Garbanzos Gratinados', desc: 'Medallones de garbanzos gratinados. Con ensalada.', price: 10000, img: IMG.placeholderPlato },
-    { id: 'medallones-quinoa-curry', code: 'MED003', name: 'Medallones de Quinoa al Curry Gratinados', desc: 'Medallones de quinoa al curry gratinados. Con ensalada.', price: 10000, img: IMG.placeholderPlato },
-    { id: 'medallones-porotos-colorados', code: 'MED004', name: 'Medallones de Porotos Colorados Gratinados', desc: 'Medallones de porotos colorados gratinados. Con ensalada.', price: 10000, img: IMG.placeholderPlato },
-    { id: 'medallones-mijo', code: 'MED005', name: 'Medallones de Mijo Gratinados', desc: 'Medallones de mijo gratinados. Con ensalada.', price: 10000, img: IMG.placeholderPlato },
+    { id: 'medallones-lentejas', code: 'MED001', name: 'Medallones de Lentejas Gratinados', desc: 'Dos medallones de lentejas, zanahoria, repollo blanco y morrón rojo, con un toque de paprika. Gratinados con queso, orégano y una aceituna en cada uno. Con ensalada.', price: 10000, tag: 'Veggie', img: '/images/menu/medallones/lentejas-gratinados-ensalada.webp' },
+    { id: 'medallones-garbanzos', code: 'MED002', name: 'Medallones de Garbanzos Gratinados', desc: 'Dos medallones de garbanzos, zanahoria y apio, con un toque de paprika. Gratinados con queso, orégano y una aceituna en cada uno. Con ensalada.', price: 10000, tag: 'Veggie', img: '/images/menu/medallones/garbanzos-gratinados-ensalada.webp' },
+    { id: 'medallones-quinoa-curry', code: 'MED003', name: 'Medallones de Quinoa al Curry Gratinados', desc: 'Dos medallones de quinoa, arvejas partidas y zanahoria, con curry. Gratinados con queso, orégano y una aceituna en cada uno. Con ensalada.', price: 10000, tag: 'Veggie', img: '/images/menu/medallones/quinoa-curry-gratinados-ensalada.webp' },
+    { id: 'medallones-porotos-colorados', code: 'MED004', name: 'Medallones de Porotos Colorados Gratinados', desc: 'Dos medallones de porotos colorados, zanahoria, hinojo y morrón rojo, con un toque de paprika. Gratinados con queso, orégano y una aceituna en cada uno. Con ensalada.', price: 10000, tag: 'Veggie', img: '/images/menu/medallones/porotos-colorados-gratinados-ensalada.webp' },
+    { id: 'medallones-mijo', code: 'MED005', name: 'Medallones de Mijo y Calabaza Gratinados', desc: 'Dos medallones de mijo y calabaza, con semillas de girasol y sésamo, cúrcuma y nuez moscada. Gratinados con queso, orégano y una aceituna en cada uno. Con ensalada.', price: 10000, tag: 'Veggie', img: '/images/menu/medallones/mijo-gratinados-ensalada.webp' },
   ],
 };
 
