@@ -6,6 +6,8 @@ import {
   Flame,
   MessageCircle,
   Phone,
+  Pause,
+  Play,
   Star,
 } from 'lucide-react';
 import { IMG, PHONE_TEL, WHATSAPP_NUMBER } from '../data';
@@ -20,21 +22,37 @@ export function Hero({
   showInteractiveMenu: boolean;
 }) {
   const [activeFlyer, setActiveFlyer] = useState(0);
+  const [hovering, setHovering] = useState(false);
+  const [touching, setTouching] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [resumeAt, setResumeAt] = useState(0);
+  const [pageHidden, setPageHidden] = useState(() => document.hidden);
+
+  const pauseForReading = () => setResumeAt(Date.now() + 20000);
 
   useEffect(() => {
-    const interval = window.setInterval(() => {
-      setActiveFlyer((current) => (current + 1) % menuFlyers.length);
-    }, 5000);
-    return () => window.clearInterval(interval);
+    const onVisibilityChange = () => setPageHidden(document.hidden);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
   }, []);
 
+  useEffect(() => {
+    if (paused || hovering || touching || pageHidden || menuFlyers.length < 2) return;
+    const timeout = window.setTimeout(() => {
+      setActiveFlyer((current) => (current + 1) % menuFlyers.length);
+    }, Math.max(5000, resumeAt - Date.now()));
+    return () => window.clearTimeout(timeout);
+  }, [activeFlyer, hovering, touching, paused, resumeAt, pageHidden]);
+
   const showPreviousFlyer = () => {
+    pauseForReading();
     setActiveFlyer(
       (current) => (current - 1 + menuFlyers.length) % menuFlyers.length,
     );
   };
 
   const showNextFlyer = () => {
+    pauseForReading();
     setActiveFlyer((current) => (current + 1) % menuFlyers.length);
   };
   return (
@@ -144,6 +162,26 @@ export function Hero({
           <div
             className="animate-floatUp w-full max-w-md mx-auto lg:max-w-none"
             style={{ animationDelay: '0.4s' }}
+            role="region"
+            aria-label="Flyers del menú"
+            aria-roledescription="carrusel"
+            onPointerEnter={(event) => {
+              if (event.pointerType === 'mouse') setHovering(true);
+            }}
+            onPointerLeave={(event) => {
+              if (event.pointerType === 'mouse') {
+                setHovering(false);
+                pauseForReading();
+              }
+            }}
+            onPointerDown={(event) => {
+              if (event.pointerType !== 'mouse') setTouching(true);
+              pauseForReading();
+            }}
+            onPointerUp={() => { setTouching(false); pauseForReading(); }}
+            onPointerCancel={() => { setTouching(false); pauseForReading(); }}
+            onFocusCapture={pauseForReading}
+            onKeyDownCapture={pauseForReading}
           >
             <div className="relative px-3 sm:px-5 lg:px-3">
               <div className="absolute inset-0 checker-band-sm rounded-2xl opacity-80 animate-wiggle" />
@@ -176,7 +214,7 @@ export function Hero({
                       <button
                         key={flyer.src}
                         type="button"
-                        onClick={() => setActiveFlyer(index)}
+                        onClick={() => { pauseForReading(); setActiveFlyer(index); }}
                         aria-label={`Ver menú ${index + 1}`}
                         aria-current={activeFlyer === index}
                         className={`h-2.5 rounded-full transition-all ${
@@ -189,6 +227,20 @@ export function Hero({
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="mt-4 flex justify-center">
+              <button
+                type="button"
+                aria-pressed={paused}
+                onClick={() => {
+                  setPaused((current) => !current);
+                  pauseForReading();
+                }}
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/50 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              >
+                {paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+                {paused ? 'Reanudar carrusel' : 'Pausar carrusel para leer'}
+              </button>
             </div>
           </div>
         </div>
