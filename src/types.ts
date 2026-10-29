@@ -17,6 +17,7 @@ export type Dish = {
   tag?: string;
   saladAddon?: { code: string; name: string; price: number };
   img: string;
+  imgFit?: 'cover' | 'contain';
 };
 
 export type CartItem = {

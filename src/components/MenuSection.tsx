@@ -126,7 +126,7 @@ export function MenuSection() {
                 <img
                   src={dish.img}
                   alt={dish.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className={`w-full h-full ${dish.imgFit === 'contain' ? 'object-contain' : 'object-cover'} group-hover:scale-105 transition-transform duration-500`}
                 />
                 {dish.tag && (
                   <span className={`absolute top-3 left-3 px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-wider shadow-md ${dish.tag === 'Veggie' ? 'bg-green-700' : 'bg-crimson-500'}`}>
