@@ -129,7 +129,7 @@ export function MenuSection() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 {dish.tag && (
-                  <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-crimson-500 text-white text-[10px] font-bold uppercase tracking-wider shadow-md">
+                  <span className={`absolute top-3 left-3 px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-wider shadow-md ${dish.tag === 'Veggie' ? 'bg-green-700' : 'bg-crimson-500'}`}>
                     {dish.tag}
                   </span>
                 )}
