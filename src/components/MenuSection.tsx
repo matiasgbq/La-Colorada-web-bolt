@@ -84,7 +84,7 @@ export function MenuSection() {
 
         {/* Category tabs — hidden while searching */}
         {!searching && (
-          <div className="flex justify-start sm:justify-center gap-3 mb-12 overflow-x-auto no-scrollbar pb-2 -mx-5 px-5 sm:mx-0 sm:px-0">
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
             {CATEGORIES.map((c) => (
               <button
                 key={c.id}
