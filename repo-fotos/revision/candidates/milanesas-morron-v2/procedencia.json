@@ -1,0 +1,11 @@
+{
+  "issue": 90,
+  "method": "Built-in image_gen; edición ilustrativa pendiente de aprobación visual",
+  "reference": "https://drive.google.com/file/d/1dWGuoFs96ItUGqp0lzqxO9gLtdWVJPZJ/view",
+  "referenceLocal": "repo-fotos/revision/candidates/peya/milanesas/pendiente-milanesa-berenjena-morron.png",
+  "reason": "Referencia PeYa sin jamón: se utiliza su morrón como referencia, no como sustituto directo de platos con jamón.",
+  "prompts": {
+    "MIL008": "Edit image 1 only for a restaurant menu photograph. Image 2 is a reference ONLY for the real roasted red pepper texture and shape. Replace the three artificial identical rigid rectangular pepper bars in image 1 with soft irregular thin roasted red pepper strips like image 2: naturally folded, gently curved, tapered uneven torn edges, smooth moist red-orange flesh with subtle wrinkles, no regular stamped texture, no black speckled plastic look, no identical shapes. Keep the same modest pepper quantity and approximate positions. Preserve the beef milanesa outline and crumb, melted mozzarella, visible pink ham, white plate, salad of lettuce tomato carrot, white background, camera angle and composition exactly. Do not add olives or any ingredients from image 2. Photorealistic food retouch, no text. Output one edited photo.",
+    "MIL017": "Edit image 1 only for a restaurant menu photograph. Image 2 is a reference ONLY for the real roasted red pepper texture and shape. Replace the three artificial identical rigid rectangular pepper bars on the three eggplant/zucchini breaded slices in image 1 with soft irregular thin roasted red pepper strips like image 2: naturally folded, gently curved, tapered uneven torn edges, smooth moist red-orange flesh with subtle wrinkles, no regular stamped texture, no black speckled plastic look, no identical shapes. Keep the same modest pepper quantity, one strip on each slice in approximately the same position. Preserve all three vegetable milanesas and crumb edges, melted mozzarella, visible pink ham, white plate, salad of lettuce tomato carrot, white background, camera angle and composition exactly. Do not add olives or any other ingredients from image 2. Photorealistic food retouch, no text. Output one edited photo."
+  }
+}
