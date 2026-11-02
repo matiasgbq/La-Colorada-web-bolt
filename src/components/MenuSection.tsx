@@ -1,3 +1,4 @@
+import { isPublicDish } from '@/catalog';
 import { useState, useMemo } from 'react';
 import { Plus, Search, X } from 'lucide-react';
 import { CATEGORIES, MENU } from '../data';
@@ -28,7 +29,7 @@ export function MenuSection() {
     if (!q) return [];
     const all: SearchResult[] = [];
     for (const c of CATEGORIES) {
-      for (const dish of MENU[c.id]) {
+      for (const dish of MENU[c.id].filter(isPublicDish)) {
         if (
           normalizeSearchText(dish.name).includes(q) ||
           normalizeSearchText(dish.desc).includes(q)
@@ -40,7 +41,7 @@ export function MenuSection() {
     return all;
   }, [query]);
 
-  const dishes = searching ? results : MENU[cat];
+  const dishes = searching ? results : MENU[cat].filter(isPublicDish);
 
   return (
     <section id="menu" className="py-20 sm:py-28 bg-white">
@@ -109,6 +110,10 @@ export function MenuSection() {
               ? `${results.length} ${results.length === 1 ? 'resultado' : 'resultados'} para "${query}"`
               : `No encontramos nada para "${query}"`}
           </p>
+        )}
+
+        {!searching && dishes.length === 0 && (
+          <p className="text-center text-ink-500 mb-8">Por ahora no hay platos disponibles en esta categoría.</p>
         )}
 
         <div

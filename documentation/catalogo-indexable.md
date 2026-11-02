@@ -44,3 +44,23 @@ El JSON es una entrada de lectura, no una API que acepta pedidos. Un futuro asis
 VERCEL=1 VITE_SITE_MODE=full npx vite build --outDir .verify-dist/preview
 VERCEL=1 SITE_MODE=full DIST_DIR=.verify-dist/preview node scripts/verify-product.mjs
 ```
+
+## Activo y disponible — Issue #99
+
+Los dos atributos opcionales se editan en cada registro de `src/data.ts`:
+
+```ts
+{ id: '...', code: '...', active: true, available: false, /* resto de datos */ }
+```
+
+- `active: false`: archivado, fuera de oferta; preservar el registro y su ID.
+- `available: false`: oculto temporalmente; al habilitarlo vuelve con el mismo ID.
+- Campos sin definir: conserva la oferta actual; disponibilidad desconocida. No se marcaron masivamente platos como disponibles ni se cambiaron precios.
+- `isPublicDish` es el mismo filtro para grilla, búsqueda, carta, JSON y Schema. Los registros internos nunca se borran para ocultar un plato. Las categorías vacías no contienen ofertas.
+- El JSON público solo contiene platos ofrecidos; incluye `active` y `available` (null si desconocido). No es un inventario administrativo de productos archivados.
+
+El carrito solicita `/catalogo.json` sin caché antes de abrir la confirmación. Valida el formato, recalcula precios y adicionales desde la fuente publicada y conserva cantidades. Si un plato o su adicional desapareció, retira ese renglón y avisa. Si cambió el precio o descripción, actualiza y pide revisar antes de un nuevo intento. Una respuesta inválida, fallo HTTP o timeout bloquea continuar; nunca reemplaza un error con stock disponible.
+
+Esto valida la oferta publicada al momento de preparar la confirmación, no reserva stock ni garantiza aceptación del local. Las modificaciones de datos siguen requiriendo build/deploy; la operación instantánea desde celulares pertenece a #8/#24. No hay panel en esta entrega.
+
+Evidencia: tests con activo/disponible false y restauración por mismo ID, exclusión HTML/JSON/Schema, cambio de precio y retirada de adicional. Prueba de navegador con servidor de fixtures aislado: producto de $20.000 a $21.000 dispara aviso sin abrir confirmación; luego available=false lo retira del carrito. No se alteró el catálogo comercial durante esas simulaciones.

@@ -1,3 +1,4 @@
+import { isPublicDish } from '../src/catalog';
 import { CATEGORIES, MENU } from '../src/data';
 import { SITE } from '../src/site-data';
 
@@ -30,7 +31,7 @@ export function buildCatalog() {
       id: category.id,
       name: category.label,
       url: absolute(`${CARTA_PATH}#${category.id}`),
-      items: MENU[category.id].map((dish) => ({
+      items: MENU[category.id].filter(isPublicDish).map((dish) => ({
         id: dish.id,
         code: dish.code,
         name: dish.name,
@@ -40,7 +41,9 @@ export function buildCatalog() {
         image: absolute(dish.img),
         imageFit: dish.imgFit ?? 'cover',
         url: absolute(`${CARTA_PATH}#${dish.code}`),
-        availability: 'unknown',
+        active: dish.active ?? true,
+        available: dish.available ?? null,
+        availability: dish.available === true ? 'available' : 'unknown',
         ...(dish.tag ? { label: dish.tag } : {}),
         addons: dish.saladAddon ? [{
           ...dish.saladAddon, currency: 'ARS', optional: true, requiresParent: true,

@@ -6,7 +6,7 @@ import { OrderModal } from './OrderModal';
 import { buildOrderText } from '@/cart-items';
 
 export function CartSidebar() {
-  const { items, total, count, isOpen, setOpen, setQty, remove, clear } = useCart();
+  const { items, total, count, isOpen, setOpen, setQty, remove, clear, validate, validating, notices } = useCart();
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -44,6 +44,10 @@ export function CartSidebar() {
         </div>
 
         <div className="flex-1 overflow-y-auto px-6 py-4">
+          {notices.length > 0 && <div role="alert" className="mb-4 rounded-xl bg-amber-50 p-3 text-sm text-ink-800">
+            <p className="font-bold mb-2">Revisá tu pedido antes de continuar</p>
+            <ul className="list-disc pl-4">{notices.map((notice) => <li key={notice}>{notice}</li>)}</ul>
+          </div>}
           {items.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center gap-3">
               <span className="w-16 h-16 rounded-full bg-ink-50 flex items-center justify-center">
@@ -79,6 +83,7 @@ export function CartSidebar() {
                           onClick={() => setQty(i.dish.id, i.qty - 1)}
                           className="w-7 h-7 flex items-center justify-center text-ink-600 hover:text-crimson-500"
                           aria-label="Restar"
+                          disabled={validating}
                         >
                           <Minus className="w-3.5 h-3.5" />
                         </button>
@@ -89,6 +94,7 @@ export function CartSidebar() {
                           onClick={() => setQty(i.dish.id, i.qty + 1)}
                           className="w-7 h-7 flex items-center justify-center text-ink-600 hover:text-crimson-500"
                           aria-label="Sumar"
+                          disabled={validating}
                         >
                           <Plus className="w-3.5 h-3.5" />
                         </button>
@@ -97,6 +103,7 @@ export function CartSidebar() {
                         onClick={() => remove(i.dish.id)}
                         className="w-7 h-7 flex items-center justify-center text-ink-300 hover:text-crimson-500"
                         aria-label="Quitar"
+                        disabled={validating}
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -120,14 +127,16 @@ export function CartSidebar() {
               </span>
             </div>
             <button
-              onClick={() => setShowModal(true)}
+              onClick={async () => { if (await validate()) setShowModal(true); }}
+              disabled={validating}
               className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-[#25D366] text-white font-bold hover:brightness-95 transition"
             >
               <MessageCircle className="w-5 h-5" />
-              Confirmar Pedido por WhatsApp
+              {validating ? 'Comprobando pedido…' : 'Confirmar Pedido por WhatsApp'}
             </button>
             <button
               onClick={clear}
+              disabled={validating}
               className="w-full mt-2 px-5 py-2 text-sm text-ink-400 hover:text-crimson-500 font-medium"
             >
               Vaciar carrito

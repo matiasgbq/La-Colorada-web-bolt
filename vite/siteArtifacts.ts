@@ -1,3 +1,4 @@
+import { isPublicDish } from '../src/catalog';
 import { buildCatalog, buildCartaHtml, CARTA_PATH, CATALOG_PATH, safeJson } from './catalog';
 import type { Plugin } from 'vite';
 import { CATEGORIES, MENU } from '../src/data';
@@ -23,7 +24,7 @@ function formatHours() {
 
 function buildPriceRange() {
   const prices = Object.values(MENU).flatMap((category) =>
-    category.map((dish) => dish.price),
+    category.filter(isPublicDish).map((dish) => dish.price),
   );
   return prices.length === 0
     ? 'Consultar'
@@ -84,7 +85,7 @@ export function buildRestaurantJsonLd(siteMode: SiteMode) {
 
 export function buildLlmsTxt(siteMode: SiteMode) {
   const categorySummary = CATEGORIES.map(
-    (category) => `${category.label} (${MENU[category.id].length} variedades)`,
+    (category) => `${category.label} (${MENU[category.id].filter(isPublicDish).length} variedades)`,
   ).join('; ');
 
   const menuSummary = siteMode === 'full'
