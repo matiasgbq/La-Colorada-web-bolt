@@ -61,7 +61,7 @@ assert(restaurant['@type'] === 'Restaurant', 'JSON-LD no describe un Restaurant.
 assert(restaurant.url === `${siteUrl}/`, 'JSON-LD usa otra URL.');
 assert(restaurant.hasMap.includes('ChIJVxbwP8i6vJURnJyqT_sTvZE'), 'JSON-LD no enlaza Maps.');
 assert(Array.isArray(restaurant.telephone) && restaurant.telephone.length === 2, 'JSON-LD perdió teléfonos.');
-assert(siteMode === 'full' ? restaurant.menu === `${siteUrl}/#menu` : !('menu' in restaurant), 'Menú incorrecto en JSON-LD.');
+assert(siteMode === 'full' ? restaurant.menu === `${siteUrl}/carta/` : !('menu' in restaurant), 'Menú incorrecto en JSON-LD.');
 
 const localReferences = [...html.matchAll(/(?:href|src)="(\/(?!\/)[^"#?]+)"/g)]
   .map((match) => decodeURIComponent(match[1]).replace(/^\//, ''))
@@ -71,3 +71,42 @@ for (const path of localReferences) {
 }
 
 console.log(`✅ Producto coherente en modo ${siteMode}: SEO, datos, secciones y assets.`);
+
+if (siteMode === 'full') {
+  const carta = readRequiredFile('carta/index.html');
+  const catalog = JSON.parse(readRequiredFile('catalogo.json'));
+  const items = catalog.categories.flatMap((category) => category.items);
+  assert(items.length > 0 && new Set(items.map((item) => item.code)).size === items.length, 'Catálogo vacío o códigos duplicados.');
+  assert(!carta.includes('<script type="module"'), 'La carta debe ser legible sin JavaScript.');
+  assert(carta.includes(`rel="canonical" href="${siteUrl}/carta/"`), 'Canonical de carta incorrecto.');
+  assert(sitemap.includes(`<loc>${siteUrl}/carta/</loc>`), 'Falta carta en sitemap.');
+  assert(!sitemap.includes('#'), 'No incluir fragmentos en sitemap.');
+  assert(llms.includes('/catalogo.json') && llms.includes('/carta/'), 'Faltan enlaces para descubrimiento.');
+  const graph = JSON.parse(carta.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])['@graph'];
+  const menu = graph.find((entry) => entry['@type'] === 'Menu');
+  const structured = menu.hasMenuSection.flatMap((category) => category.hasMenuItem);
+  assert(structured.length === items.length, 'Schema y JSON difieren.');
+  for (const item of items) {
+    assert(carta.includes(`data-product-code="${item.code}"`), `Plato ausente en HTML: ${item.code}`);
+    assert(carta.includes(`id="${item.code}"`), `Ancla ausente: ${item.code}`);
+    assert(existsSync(join(distDirectory, new URL(item.image).pathname)), `Foto ausente: ${item.code}`);
+    const schema = structured.find((entry) => entry.identifier === item.code);
+    assert(schema.name === item.name && schema.offers.price === item.price, `Deriva en Schema: ${item.code}`);
+    assert(!('availability' in schema.offers), 'No inventar stock.');
+  }
+  assert(!carta.includes('InStock'), 'No inventar stock en la carta.');
+} else {
+  assert(!existsSync(join(distDirectory, 'carta/index.html')), 'Landing expone carta oculta.');
+  assert(!existsSync(join(distDirectory, 'catalogo.json')), 'Landing expone catálogo oculto.');
+  assert(!sitemap.includes('/carta/') && !llms.includes('/catalogo.json'), 'Landing enlaza catálogo oculto.');
+}
+console.log(`✅ Carta y catálogo: modo ${siteMode} validado.`);
+
+const preview = process.env.VERCEL === '1' ||
+  (process.env.CF_PAGES === '1' && process.env.CF_PAGES_BRANCH !== 'main');
+assert(html.includes('content="noindex,follow"') === preview, 'Política de indexación de preview incorrecta.');
+if (siteMode === 'full') {
+  const carta = readRequiredFile('carta/index.html');
+  assert(carta.includes('content="noindex,follow"') === preview, 'Carta: política de preview incorrecta.');
+}
+if (preview) assert(readRequiredFile('_headers').includes('X-Robots-Tag: noindex'), 'Preview sin encabezados noindex.');

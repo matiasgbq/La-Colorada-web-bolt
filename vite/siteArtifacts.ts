@@ -1,3 +1,4 @@
+import { buildCatalog, buildCartaHtml, CARTA_PATH, CATALOG_PATH, safeJson } from './catalog';
 import type { Plugin } from 'vite';
 import { CATEGORIES, MENU } from '../src/data';
 import { SITE } from '../src/site-data';
@@ -33,8 +34,8 @@ export function buildRobotsTxt() {
   return `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`;
 }
 
-export function buildSitemapXml() {
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${SITE.url}/</loc>\n  </url>\n</urlset>\n`;
+export function buildSitemapXml(siteMode: SiteMode) {
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${SITE.url}/</loc>\n  </url>\n${siteMode === 'full' ? `  <url><loc>${SITE.url}${CARTA_PATH}</loc></url>\n` : ''}</urlset>\n`;
 }
 
 export function buildRestaurantJsonLd(siteMode: SiteMode) {
@@ -77,7 +78,7 @@ export function buildRestaurantJsonLd(siteMode: SiteMode) {
   };
 
   return siteMode === 'full'
-    ? { ...restaurant, menu: `${SITE.url}/#menu` }
+    ? { ...restaurant, menu: `${SITE.url}${CARTA_PATH}`, hasMenu: { '@id': `${SITE.url}${CARTA_PATH}#menu` } }
     : restaurant;
 }
 
@@ -116,7 +117,7 @@ ${menuSummary}
 
 ${sections}
 
-## Canales oficiales
+${siteMode === 'full' ? `## Carta y catálogo\n\n- [Carta completa](${CARTA_PATH}): todos los platos y precios, legibles sin JavaScript.\n- [Catálogo estructurado](${CATALOG_PATH}): IDs, códigos, precios ARS, imágenes y adicionales. Disponibilidad a confirmar; no informa stock en tiempo real.\n\n` : ''}## Canales oficiales
 
 - [Instagram](${SITE.instagramUrl}): ${SITE.instagramHandle}.
 - [Cómo llegar](${SITE.mapsUrl}): mapa de Google con la ubicación del local.
@@ -125,7 +126,15 @@ ${sections}
 }
 
 export function siteArtifactsPlugin(siteMode: SiteMode): Plugin {
-  const getArtifact = (pathname: string) => {
+  const preview = process.env.VERCEL === '1' ||
+    (process.env.CF_PAGES === '1' && process.env.CF_PAGES_BRANCH !== 'main');
+  const getArtifact = (pathname: string, dev = false) => {
+    if (pathname === CARTA_PATH || pathname === '/carta' || pathname === '/carta/index.html' || pathname === CATALOG_PATH) {
+      if (siteMode !== 'full') return { content: 'No encontrado', type: 'text/plain; charset=utf-8', status: 404 };
+      return pathname === CATALOG_PATH
+        ? { content: JSON.stringify(buildCatalog(), null, 2), type: 'application/json; charset=utf-8' }
+        : { content: buildCartaHtml(buildRestaurantJsonLd(siteMode), preview || dev), type: 'text/html; charset=utf-8' };
+    }
     if (pathname === '/llms.txt') {
       return { content: buildLlmsTxt(siteMode), type: 'text/markdown; charset=utf-8' };
     }
@@ -133,7 +142,7 @@ export function siteArtifactsPlugin(siteMode: SiteMode): Plugin {
       return { content: buildRobotsTxt(), type: 'text/plain; charset=utf-8' };
     }
     if (pathname === '/sitemap.xml') {
-      return { content: buildSitemapXml(), type: 'application/xml; charset=utf-8' };
+      return { content: buildSitemapXml(siteMode), type: 'application/xml; charset=utf-8' };
     }
     return undefined;
   };
@@ -142,21 +151,24 @@ export function siteArtifactsPlugin(siteMode: SiteMode): Plugin {
     name: 'la-colorada-site-artifacts',
     configureServer(server) {
       server.middlewares.use((request, response, next) => {
-        const artifact = getArtifact((request.url ?? '/').split('?')[0]);
+        const artifact = getArtifact((request.url ?? '/').split('?')[0], true);
         if (!artifact) {
           next();
           return;
         }
-        response.statusCode = 200;
+        response.statusCode = 'status' in artifact ? artifact.status! : 200;
+        if (preview || siteMode === 'landing') response.setHeader('X-Robots-Tag', 'noindex');
         response.setHeader('Content-Type', artifact.type);
         response.setHeader('Cache-Control', 'no-cache');
         response.end(artifact.content);
       });
     },
-    transformIndexHtml() {
+    transformIndexHtml(html) {
       return {
-        title: SITE.htmlTitle,
+        html,
         tags: [
+          ...(preview ? [{ tag: 'meta', attrs: { name: 'robots', content: 'noindex,follow' }, injectTo: 'head' as const }] : []),
+          ...(siteMode === 'full' ? [{ tag: 'link', attrs: { rel: 'alternate', type: 'application/json', href: CATALOG_PATH }, injectTo: 'head' as const }] : []),
           { tag: 'meta', attrs: { name: 'description', content: SITE.metaDescription }, injectTo: 'head' },
           {
             tag: 'meta',
@@ -186,7 +198,7 @@ export function siteArtifactsPlugin(siteMode: SiteMode): Plugin {
           {
             tag: 'script',
             attrs: { type: 'application/ld+json' },
-            children: JSON.stringify(buildRestaurantJsonLd(siteMode), null, 2),
+            children: safeJson(buildRestaurantJsonLd(siteMode)),
             injectTo: 'head',
           },
         ],
@@ -196,8 +208,13 @@ export function siteArtifactsPlugin(siteMode: SiteMode): Plugin {
       const artifacts = {
         'llms.txt': buildLlmsTxt(siteMode),
         'robots.txt': buildRobotsTxt(),
-        'sitemap.xml': buildSitemapXml(),
+        'sitemap.xml': buildSitemapXml(siteMode),
       };
+      if (siteMode === 'full') {
+        this.emitFile({ type: 'asset', fileName: 'carta/index.html', source: buildCartaHtml(buildRestaurantJsonLd(siteMode), preview) });
+        this.emitFile({ type: 'asset', fileName: 'catalogo.json', source: JSON.stringify(buildCatalog(), null, 2) });
+      }
+      if (preview) this.emitFile({ type: 'asset', fileName: '_headers', source: '/*\n  X-Robots-Tag: noindex, follow\n' });
       Object.entries(artifacts).forEach(([fileName, source]) => {
         this.emitFile({ type: 'asset', fileName, source });
       });
