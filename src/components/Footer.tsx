@@ -1,3 +1,4 @@
+import { IS_FULL_SITE } from '@/site-mode';
 import { Flame, Instagram, MapPin } from 'lucide-react';
 import { INSTAGRAM_URL, INSTAGRAM_HANDLE, ADDRESS_AREA } from '../data';
 
@@ -31,6 +32,7 @@ export function Footer() {
             <Instagram className="w-4 h-4" /> {INSTAGRAM_HANDLE}
           </a>
         </div>
+        {IS_FULL_SITE && <a href="/carta/" className="text-sm underline hover:text-white">Ver carta completa</a>}
         <p className="text-xs text-white/40">
           © {new Date().getFullYear()} La Colorada. Todos los derechos reservados.
         </p>

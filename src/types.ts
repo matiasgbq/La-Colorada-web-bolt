@@ -9,6 +9,9 @@ export const SITE_SECTION_IDS = [
 export type Section = (typeof SITE_SECTION_IDS)[number];
 
 export type Dish = {
+  /** Missing fields preserve the current menu; availability is not confirmed stock. */
+  active?: boolean;
+  available?: boolean;
   id: string;
   code: string;
   name: string;

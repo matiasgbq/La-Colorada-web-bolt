@@ -3,19 +3,24 @@ import { readFileSync, existsSync } from 'node:fs';
 import vm from 'node:vm';
 import ts from 'typescript';
 
-function load(source) {
+function load(source, dependencies = {}) {
   const exports = {};
   const code = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
-  vm.runInNewContext(code, { exports });
+  vm.runInNewContext(code, { exports, URL, require: (name) => {
+    assert.ok(name in dependencies, `Unexpected dependency: ${name}`);
+    return dependencies[name];
+  } });
   return exports;
 }
 const data = readFileSync('src/data.ts', 'utf8')
   .replace(/^import .*;\n/gm, '')
   .replace(/export \{[\s\S]*?\} from '.\/site-data';/, '')
   .replace(/icon: \w+/g, 'icon: null');
-const { MENU, TART_SALAD_ADDON } = load(data);
+const menuData = load(data);
+const { MENU, TART_SALAD_ADDON } = menuData;
+const catalogRules = load(readFileSync('src/catalog.ts', 'utf8'));
 const { prepareCartDish, addCartItem, setCartQuantity, cartTotals, buildOrderText } =
-  load(readFileSync('src/cart-items.ts', 'utf8'));
+  load(readFileSync('src/cart-items.ts', 'utf8'), { './catalog': catalogRules });
 const dishes = Object.values(MENU).flat();
 assert.equal(new Set(dishes.map((dish) => dish.id)).size, dishes.length);
 assert.equal(new Set([...dishes.map((dish) => dish.code), TART_SALAD_ADDON.code]).size, dishes.length + 1);
@@ -58,3 +63,66 @@ items = setCartQuantity(items, tart.id, 0);
 assert.equal(items.length, 0);
 assert.equal(cartTotals(items).total, 0);
 console.log(`✅ ${dishes.length} platos: códigos, assets, excepciones y flujo tarta con/sin ensalada (cantidades, eliminación, totales y WhatsApp).`);
+
+// The public exports must derive from the same product source, including addon rules.
+const siteData = load(readFileSync('src/site-data.ts', 'utf8'));
+const catalogModule = load(readFileSync('vite/catalog.ts', 'utf8'), {
+  '../src/data': menuData, '../src/site-data': siteData, '../src/catalog': catalogRules,
+});
+const catalog = catalogModule.buildCatalog();
+const exported = catalog.categories.flatMap((category) => category.items);
+assert.equal(exported.length, dishes.length);
+for (const dish of dishes) {
+  const item = exported.find((item) => item.code === dish.code);
+  assert.ok(item);
+  for (const key of ['id', 'code', 'name', 'price']) assert.equal(item[key], dish[key]);
+  assert.equal(item.description, dish.desc);
+  assert.equal(item.currency, 'ARS');
+  assert.equal(item.availability, 'unknown');
+  assert.equal(new URL(item.image).pathname, dish.img);
+  assert.equal(item.addons.length, dish.saladAddon ? 1 : 0);
+  if (dish.saladAddon) {
+    assert.equal(item.addons[0].price, dish.saladAddon.price);
+    assert.equal(item.addons[0].code, dish.saladAddon.code);
+    assert.equal(item.addons[0].requiresParent, true);
+  }
+}
+assert.equal(exported.some((item) => item.code === TART_SALAD_ADDON.code), false);
+assert.ok(!JSON.stringify(catalog).includes('InStock'));
+const dangerous = '</script><img src=x onerror="alert(1)">';
+assert.equal(catalogModule.safeJson(dangerous).includes('<'), false);
+assert.equal(catalogModule.escapeHtml(dangerous).includes('<'), false);
+console.log(`✅ Catálogo derivado: ${exported.length} productos, precios, IDs, fotos y adicionales coherentes.`);
+
+const { isPublicDish, readOrderCatalog } = catalogRules;
+assert.equal(isPublicDish({}), true);
+assert.equal(isPublicDish({ active: false }), false);
+assert.equal(isPublicDish({ available: false }), false);
+assert.equal(isPublicDish({ active: true, available: true }), true);
+const first = MENU.pizzas[0];
+for (const field of ['active', 'available']) {
+  first[field] = false;
+  assert.equal(catalogModule.buildCatalog().categories.flatMap((c) => c.items).some((p) => p.id === first.id), false);
+  assert.equal(catalogModule.buildCartaHtml({}).includes(`data-product-code="${first.code}"`), false);
+  assert.equal(JSON.stringify(catalogModule.buildMenuJsonLd()).includes(first.code), false);
+  delete first[field];
+}
+assert.equal(catalogModule.buildCatalog().categories.flatMap((c) => c.items).some((p) => p.id === first.id), true);
+assert.equal(readOrderCatalog(catalog).length, dishes.length);
+assert.throws(() => readOrderCatalog({ schemaVersion: '2.0', categories: [] }));
+const invalidCatalog = JSON.parse(JSON.stringify(catalog));
+invalidCatalog.categories[0].items[0].price = -1;
+assert.throws(() => readOrderCatalog(invalidCatalog));
+const { reconcileCart } = load(readFileSync('src/cart-items.ts', 'utf8'), { './catalog': catalogRules });
+const oldCart = [{ dish: prepareCartDish(tart, true), qty: 2 }];
+let checked = reconcileCart(oldCart, [{ ...tart, price: 10000 }]);
+assert.equal(checked.items[0].dish.price, 12500);
+assert.equal(checked.items[0].qty, 2);
+assert.equal(checked.changes.length, 1);
+checked = reconcileCart(oldCart, [{ ...tart, available: false }]);
+assert.equal(checked.items.length, 0);
+assert.equal(checked.changes.length, 1);
+assert.equal(reconcileCart(oldCart, [{ ...tart, saladAddon: undefined }]).items.length, 0);
+assert.equal(reconcileCart(oldCart, []).items.length, 0);
+assert.equal(reconcileCart(oldCart, [tart]).changes.length, 0);
+console.log('✅ Estados, ocultar/restaurar, lectura de catálogo y cambios de carrito validados.');

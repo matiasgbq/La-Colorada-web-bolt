@@ -1,4 +1,28 @@
 import type { CartItem, Dish } from '@/types';
+import { isPublicDish } from './catalog';
+
+export function reconcileCart(items: CartItem[], catalog: Dish[]) {
+  const changes: string[] = [];
+  const next: CartItem[] = [];
+  for (const item of items) {
+    const [parentId, addonCode, extra] = item.dish.id.split('+');
+    const current = catalog.find((dish) => dish.id === parentId && dish.code === item.dish.code);
+    if (!current || !isPublicDish(current) || extra ||
+        !Number.isSafeInteger(item.qty) || item.qty <= 0 ||
+        (addonCode && current.saladAddon?.code !== addonCode)) {
+      changes.push(`${item.dish.name}: ya no está disponible y se quitó del pedido.`);
+      continue;
+    }
+    const dish = prepareCartDish(current, !!addonCode);
+    if (dish.price !== item.dish.price) {
+      changes.push(`${dish.name}: el precio cambió de $${item.dish.price.toLocaleString('es-AR')} a $${dish.price.toLocaleString('es-AR')}.`);
+    } else if (dish.name !== item.dish.name || dish.desc !== item.dish.desc) {
+      changes.push(`${dish.name}: se actualizó la información del plato.`);
+    }
+    next.push({ dish, qty: item.qty });
+  }
+  return { items: next, changes };
+}
 
 /** The addon travels with its tart, including quantity, removal and order text. */
 export function prepareCartDish(dish: Dish, withSalad = false): Dish {
