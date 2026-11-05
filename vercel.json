@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/o",
+      "destination": "/?utm_source=qr&utm_medium=offline&utm_campaign=oficinas#menu",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
