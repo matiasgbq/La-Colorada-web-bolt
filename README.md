@@ -39,8 +39,10 @@ Admite AVIF, GIF, JPEG, JPG, PNG, SVG y WebP. Para menús se recomienda orientac
 
 ## Modos y despliegue
 
-- `full`: sitio completo con menú y carrito; valor por defecto y previews de Vercel.
-- `landing`: producción actual en Cloudflare Pages, sin menú ni carrito y con pedido por WhatsApp.
+- `full`: sitio completo con menú y carrito; producción actual en Cloudflare Pages, valor por defecto y previews de Vercel.
+- `landing`: alternativa de rollback, sin menú ni carrito y con pedido por WhatsApp.
+
+El lanzamiento oficial fue aprobado por Matías y verificado el 05/11/2026. El dominio oficial publica el menú interactivo, `/carta/` (HTML completo) y `/catalogo.json` desde el mismo catálogo.
 
 Cloudflare Pages:
 
@@ -48,7 +50,7 @@ Cloudflare Pages:
 Production branch: main
 Build command: npm run build
 Build output directory: dist
-Environment variable: VITE_SITE_MODE=landing
+Environment variable: VITE_SITE_MODE=full
 ```
 
-Para publicar `full`, cambiar esa variable y desplegar el último `main`. El tag `full-site-before-landing-mvp-2026-09-23` conserva un respaldo adicional.
+Para volver temporalmente a `landing`, cambiar la variable a `VITE_SITE_MODE=landing` y reconstruir/desplegar `main`; ese modo no publica la carta ni el JSON. El tag `full-site-before-landing-mvp-2026-09-23` conserva un respaldo adicional. Vercel permanece con `noindex` para evitar indexar las previews.
