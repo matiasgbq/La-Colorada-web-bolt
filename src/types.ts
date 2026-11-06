@@ -10,6 +10,8 @@ export type Section = (typeof SITE_SECTION_IDS)[number];
 
 export type Dish = {
   /** Missing fields preserve the current menu; availability is not confirmed stock. */
+  /** Vegetarian recipe classification; does not imply vegan or allergen-free. */
+  vegetarian?: boolean;
   active?: boolean;
   available?: boolean;
   id: string;

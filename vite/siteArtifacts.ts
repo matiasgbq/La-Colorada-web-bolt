@@ -1,5 +1,6 @@
 import { isPublicDish } from '../src/catalog';
-import { buildCatalog, buildCartaHtml, CARTA_PATH, CATALOG_PATH, safeJson } from './catalog';
+import { buildCatalog, buildPageCatalog, buildCartaHtml, CARTA_PATH, CATALOG_PATH, escapeHtml, safeJson } from './catalog';
+import { DISCOVERY_PAGES } from '../src/discovery';
 import type { Plugin } from 'vite';
 import { CATEGORIES, MENU } from '../src/data';
 import { SITE } from '../src/site-data';
@@ -36,7 +37,10 @@ export function buildRobotsTxt() {
 }
 
 export function buildSitemapXml(siteMode: SiteMode) {
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${SITE.url}/</loc>\n  </url>\n${siteMode === 'full' ? `  <url><loc>${SITE.url}${CARTA_PATH}</loc></url>\n` : ''}</urlset>\n`;
+  const categories = buildCatalog().categories;
+  const entry = (path: string, images: string[] = []) => `  <url><loc>${SITE.url}${path}</loc>${[...new Set(images)].filter((image) => !image.includes('placeholder-')).map((image) => `<image:image><image:loc>${escapeHtml(image)}</image:loc></image:image>`).join('')}</url>\n`;
+  const menuEntries = siteMode === 'full' ? entry(CARTA_PATH, categories.flatMap((c) => c.items.map((i) => i.image))) + DISCOVERY_PAGES.map((page) => entry(page.path, buildPageCatalog(page).categories.flatMap((c) => c.items.map((i) => i.image)))).join('') : '';
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entry('/')}${menuEntries}</urlset>\n`;
 }
 
 export function buildRestaurantJsonLd(siteMode: SiteMode) {
@@ -47,7 +51,11 @@ export function buildRestaurantJsonLd(siteMode: SiteMode) {
     name: SITE.name,
     description: SITE.metaDescription,
     url: `${SITE.url}/`,
-    image: SITE.socialImage,
+    image: siteMode === 'full' ? DISCOVERY_PAGES.flatMap((page) => {
+      const items = buildPageCatalog(page).categories.flatMap((c) => c.items);
+      const image = items.find((i) => i.code === page.preferredCode) ?? items.find((i) => !i.image.includes('placeholder-'));
+      return image ? [image.image] : [];
+    }) : SITE.socialImage,
     hasMap: SITE.mapsUrl,
     telephone: SITE.phones.map((phone) => phone.schema),
     contactPoint: {
@@ -130,6 +138,10 @@ export function siteArtifactsPlugin(siteMode: SiteMode): Plugin {
   const preview = process.env.VERCEL === '1' ||
     (process.env.CF_PAGES === '1' && process.env.CF_PAGES_BRANCH !== 'main');
   const getArtifact = (pathname: string, dev = false) => {
+    const discovery = DISCOVERY_PAGES.find((page) => [page.path, page.path.slice(0, -1), `${page.path}index.html`].includes(pathname));
+    if (discovery) return siteMode === 'full'
+      ? { content: buildCartaHtml(buildRestaurantJsonLd(siteMode), preview || dev, discovery), type: 'text/html; charset=utf-8' }
+      : { content: 'No encontrado', type: 'text/plain; charset=utf-8', status: 404 };
     if (pathname === CARTA_PATH || pathname === '/carta' || pathname === '/carta/index.html' || pathname === CATALOG_PATH) {
       if (siteMode !== 'full') return { content: 'No encontrado', type: 'text/plain; charset=utf-8', status: 404 };
       return pathname === CATALOG_PATH
@@ -168,7 +180,7 @@ export function siteArtifactsPlugin(siteMode: SiteMode): Plugin {
       return {
         html,
         tags: [
-          ...(preview ? [{ tag: 'meta', attrs: { name: 'robots', content: 'noindex,follow' }, injectTo: 'head' as const }] : []),
+          { tag: 'meta', attrs: { name: 'robots', content: `${preview ? 'noindex,follow,' : ''}max-image-preview:large` }, injectTo: 'head' as const },
           ...(siteMode === 'full' ? [{ tag: 'link', attrs: { rel: 'alternate', type: 'application/json', href: CATALOG_PATH }, injectTo: 'head' as const }] : []),
           { tag: 'meta', attrs: { name: 'description', content: SITE.metaDescription }, injectTo: 'head' },
           {
@@ -189,13 +201,13 @@ export function siteArtifactsPlugin(siteMode: SiteMode): Plugin {
           { tag: 'meta', attrs: { property: 'og:description', content: SITE.metaDescription }, injectTo: 'head' },
           { tag: 'meta', attrs: { property: 'og:image', content: SITE.socialImage }, injectTo: 'head' },
           { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' }, injectTo: 'head' },
-          { tag: 'meta', attrs: { property: 'og:image:height', content: '630' }, injectTo: 'head' },
-          { tag: 'meta', attrs: { property: 'og:image:alt', content: 'La Colorada: pizzas, empanadas y comidas caseras' }, injectTo: 'head' },
+          { tag: 'meta', attrs: { property: 'og:image:height', content: '900' }, injectTo: 'head' },
+          { tag: 'meta', attrs: { property: 'og:image:alt', content: 'Pizza grande de muzzarella de La Colorada' }, injectTo: 'head' },
           { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' }, injectTo: 'head' },
           { tag: 'meta', attrs: { name: 'twitter:title', content: SITE.htmlTitle }, injectTo: 'head' },
           { tag: 'meta', attrs: { name: 'twitter:description', content: SITE.metaDescription }, injectTo: 'head' },
           { tag: 'meta', attrs: { name: 'twitter:image', content: SITE.socialImage }, injectTo: 'head' },
-          { tag: 'meta', attrs: { name: 'twitter:image:alt', content: 'La Colorada: pizzas, empanadas y comidas caseras' }, injectTo: 'head' },
+          { tag: 'meta', attrs: { name: 'twitter:image:alt', content: 'Pizza grande de muzzarella de La Colorada' }, injectTo: 'head' },
           {
             tag: 'script',
             attrs: { type: 'application/ld+json' },
@@ -214,6 +226,7 @@ export function siteArtifactsPlugin(siteMode: SiteMode): Plugin {
       if (siteMode === 'full') {
         this.emitFile({ type: 'asset', fileName: 'carta/index.html', source: buildCartaHtml(buildRestaurantJsonLd(siteMode), preview) });
         this.emitFile({ type: 'asset', fileName: 'catalogo.json', source: JSON.stringify(buildCatalog(), null, 2) });
+        DISCOVERY_PAGES.forEach((page) => this.emitFile({ type: 'asset', fileName: `${page.path.slice(1)}index.html`, source: buildCartaHtml(buildRestaurantJsonLd(siteMode), preview, page) }));
       }
       if (preview) this.emitFile({ type: 'asset', fileName: '_headers', source: '/*\n  X-Robots-Tag: noindex, follow\n' });
       Object.entries(artifacts).forEach(([fileName, source]) => {

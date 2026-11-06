@@ -32,7 +32,9 @@ export function Footer() {
             <Instagram className="w-4 h-4" /> {INSTAGRAM_HANDLE}
           </a>
         </div>
-        {IS_FULL_SITE && <a href="/carta/" className="text-sm underline hover:text-white">Ver carta completa</a>}
+        {IS_FULL_SITE && <nav aria-label="Carta y especialidades" className="flex flex-wrap justify-center gap-x-5 gap-y-3 text-sm">
+          <a href="/carta/" className="underline hover:text-white">Ver carta completa</a>
+        </nav>}
         <p className="text-xs text-white/40">
           © {new Date().getFullYear()} La Colorada. Todos los derechos reservados.
         </p>

@@ -8,7 +8,7 @@ const WEEKDAYS = [
 
 const EVERY_DAY = [...WEEKDAYS, 'Saturday', 'Sunday'] as const;
 const SITE_URL = 'https://lacoloradacocina.com.ar';
-const SOCIAL_IMAGE = `${SITE_URL}/social/la-colorada-og-1200x630.jpg`;
+const SOCIAL_IMAGE = `${SITE_URL}/images/menu/pizzas/01-pizza-de-muzzarella.webp`;
 
 const MAPS_QUERY_VALUE = encodeURIComponent(
   'La Colorada Pizza, Empanadas y Comidas Caseras La Horqueta, Blanco Encalada 2229, Beccar, San Isidro, Argentina',
@@ -22,7 +22,7 @@ export const SITE = {
   htmlTitle:
     'La Colorada | Empanadas, Pizzas y Comidas Caseras en La Horqueta',
   metaDescription:
-    'Pizzas, empanadas y comidas caseras en La Horqueta. Delivery sin cargo en la zona, opciones para vegetarianos o veganos y pedidos programados.',
+    'Pizzas, empanadas, milanesas y tartas en La Horqueta, San Isidro. La Colorada Veggie: medallones vegetarianos. Consultá opciones para vegetarianos o veganos.',
   summary:
     'Pizzas, empanadas y comida casera en La Horqueta, con delivery sin cargo en la zona de cobertura, opciones para vegetarianos o veganos, ensaladas a medida y pedidos programados.',
   socialImage: SOCIAL_IMAGE,

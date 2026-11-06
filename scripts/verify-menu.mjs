@@ -66,8 +66,15 @@ console.log(`✅ ${dishes.length} platos: códigos, assets, excepciones y flujo 
 
 // The public exports must derive from the same product source, including addon rules.
 const siteData = load(readFileSync('src/site-data.ts', 'utf8'));
+const discovery = load(readFileSync('src/discovery.ts', 'utf8'));
 const catalogModule = load(readFileSync('vite/catalog.ts', 'utf8'), {
   '../src/data': menuData, '../src/site-data': siteData, '../src/catalog': catalogRules,
+  '../src/discovery': discovery,
+});
+const siteArtifacts = load(readFileSync('vite/siteArtifacts.ts', 'utf8'), {
+  './catalog': catalogModule, '../src/discovery': discovery, '../src/data': menuData,
+  '../src/site-data': siteData, '../src/catalog': catalogRules,
+  '../src/types': load(readFileSync('src/types.ts', 'utf8')),
 });
 const catalog = catalogModule.buildCatalog();
 const exported = catalog.categories.flatMap((category) => category.items);
@@ -105,10 +112,45 @@ for (const field of ['active', 'available']) {
   assert.equal(catalogModule.buildCatalog().categories.flatMap((c) => c.items).some((p) => p.id === first.id), false);
   assert.equal(catalogModule.buildCartaHtml({}).includes(`data-product-code="${first.code}"`), false);
   assert.equal(JSON.stringify(catalogModule.buildMenuJsonLd()).includes(first.code), false);
+  const page = discovery.DISCOVERY_PAGES.find((p) => p.categories.includes('pizzas'));
+  const filteredPage = catalogModule.buildCartaHtml({}, false, page);
+  assert.equal(filteredPage.includes(`data-product-code="${first.code}"`), false);
+  assert.equal(filteredPage.includes(first.img), false, 'Hidden preferred image must not leak into category metadata.');
+  assert.equal(siteArtifacts.buildSitemapXml('full').includes(first.img), false, 'Hidden image must not leak into sitemap.');
   delete first[field];
 }
 assert.equal(catalogModule.buildCatalog().categories.flatMap((c) => c.items).some((p) => p.id === first.id), true);
 assert.equal(readOrderCatalog(catalog).length, dishes.length);
+for (const page of discovery.DISCOVERY_PAGES) {
+  const html = catalogModule.buildCartaHtml({}, false, page);
+  const selected = catalog.categories.filter((c) => page.categories.includes(c.id)).flatMap((c) => c.items).filter((i) => !page.vegetarianOnly || i.vegetarian);
+  const codes = [...html.matchAll(/data-product-code="([^"]+)"/g)].map((m) => m[1]);
+  assert.equal(codes.sort().join(','), selected.map((item) => item.code).sort().join(','));
+  assert.ok(html.includes(`href="${siteData.SITE.url}${page.path}"`));
+  assert.equal(/<script type="module"/.test(html), false);
+  const graph = JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
+  const schemaItems = graph.find((entry) => entry['@type'] === 'Menu').hasMenuSection.flatMap((c) => c.hasMenuItem);
+  assert.equal(schemaItems.length, selected.length);
+  for (const item of selected) assert.equal(schemaItems.find((i) => i.identifier === item.code).offers.price, item.price);
+  assert.ok(html.includes(selected.find((i) => i.code === page.preferredCode).image));
+}
+const veggiePage = discovery.DISCOVERY_PAGES.find((p) => p.vegetarianOnly);
+const veggieCatalog = catalogModule.buildPageCatalog(veggiePage);
+assert.equal(veggieCatalog.categories.length, 7);
+const veggieCodes = veggieCatalog.categories.flatMap((c) => c.items.map((i) => i.code));
+assert.equal(veggieCodes.length, 39);
+for (const code of ['ENS002', 'MIL011', 'MIL014', 'EMP012', 'PIZ001', 'PAS008', 'TAR006']) assert.ok(veggieCodes.includes(code));
+for (const code of ['MIL015', 'MIL016', 'MIL017', 'MIL020', 'PIZ007', 'PIZ019', 'ENS001', 'PAS006', 'PAS015']) assert.ok(!veggieCodes.includes(code), code);
+const hiddenVeggie = MENU.medallones[0];
+hiddenVeggie.available = false;
+const hiddenVeggieHtml = catalogModule.buildCartaHtml({}, false, veggiePage);
+assert.ok(!hiddenVeggieHtml.includes(hiddenVeggie.img));
+assert.ok(!catalogModule.buildPageCatalog(veggiePage).categories.flatMap((c) => c.items).some((i) => i.code === hiddenVeggie.code));
+delete hiddenVeggie.available;
+assert.equal(siteArtifacts.buildSitemapXml('full').includes('placeholder-'), false);
+assert.equal(siteArtifacts.buildSitemapXml('landing').includes('image:loc'), false);
+assert.equal(siteArtifacts.buildSitemapXml('landing').includes('/la-colorada-veggie/'), false);
+console.log('✅ Cinco páginas: categorías/Schema/precios, imagen preferida, sitemap y ocultación de fotos de platos no disponibles.');
 assert.throws(() => readOrderCatalog({ schemaVersion: '2.0', categories: [] }));
 const invalidCatalog = JSON.parse(JSON.stringify(catalog));
 invalidCatalog.categories[0].items[0].price = -1;

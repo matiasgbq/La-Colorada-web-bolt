@@ -104,9 +104,26 @@ console.log(`✅ Carta y catálogo: modo ${siteMode} validado.`);
 
 const preview = process.env.VERCEL === '1' ||
   (process.env.CF_PAGES === '1' && process.env.CF_PAGES_BRANCH !== 'main');
-assert(html.includes('content="noindex,follow"') === preview, 'Política de indexación de preview incorrecta.');
+const isNoindex = (text) => /<meta name="robots" content="[^\"]*\bnoindex\b/.test(text);
+assert(isNoindex(html) === preview, 'Política de indexación de preview incorrecta.');
 if (siteMode === 'full') {
   const carta = readRequiredFile('carta/index.html');
-  assert(carta.includes('content="noindex,follow"') === preview, 'Carta: política de preview incorrecta.');
+  assert(isNoindex(carta) === preview, 'Carta: política de preview incorrecta.');
 }
 if (preview) assert(readRequiredFile('_headers').includes('X-Robots-Tag: noindex'), 'Preview sin encabezados noindex.');
+
+for (const path of ['pizzas', 'empanadas', 'milanesas', 'tartas', 'la-colorada-veggie']) {
+  const file = `${path}/index.html`;
+  if (siteMode !== 'full') {
+    assert(!existsSync(join(distDirectory, file)), `Landing expone ${path}.`);
+    assert(!sitemap.includes(`/${path}/`), `Landing enlaza ${path}.`);
+    continue;
+  }
+  const page = readRequiredFile(file);
+  assert(page.includes(`rel="canonical" href="${siteUrl}/${path}/"`), `${path}: canonical incorrecto.`);
+  assert(isNoindex(page) === preview, `${path}: política de preview incorrecta.`);
+  assert(page.includes('max-image-preview:large'), `${path}: falta permiso de preview grande.`);
+  assert(sitemap.includes(`<loc>${siteUrl}/${path}/</loc>`), `${path}: falta en sitemap.`);
+  assert(page.includes('data-product-code=') && !page.includes('<script type="module"'), `${path}: contenido no renderizado.`);
+  assert(!page.includes('images.pexels.com'), `${path}: imagen genérica externa.`);
+}

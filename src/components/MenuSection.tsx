@@ -133,11 +133,10 @@ export function MenuSection() {
                   alt={dish.name}
                   className={`w-full h-full ${dish.imgFit === 'contain' ? 'object-contain' : 'object-cover'} group-hover:scale-105 transition-transform duration-500`}
                 />
-                {dish.tag && (
-                  <span className={`absolute top-3 left-3 px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-wider shadow-md ${dish.tag === 'Veggie' ? 'bg-green-700' : 'bg-crimson-500'}`}>
-                    {dish.tag}
-                  </span>
-                )}
+                <div className="absolute top-3 left-3 right-3 flex flex-wrap gap-2">
+                  {dish.tag && dish.tag !== 'Veggie' && <span className="px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-wider shadow-md bg-crimson-500">{dish.tag}</span>}
+                  {dish.vegetarian && <span className="px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-wider shadow-md bg-green-700">Veggie</span>}
+                </div>
               </div>
               <div className="flex flex-col flex-1 p-5">
                 <h3 className="font-bold text-lg text-ink-800">{dish.name}</h3>
