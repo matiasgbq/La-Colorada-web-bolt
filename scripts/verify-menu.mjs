@@ -151,6 +151,10 @@ const hiddenVeggieHtml = catalogModule.buildCartaHtml({}, false, veggiePage);
 assert.ok(!hiddenVeggieHtml.includes(hiddenVeggie.img));
 assert.ok(!catalogModule.buildPageCatalog(veggiePage).categories.flatMap((c) => c.items).some((i) => i.code === hiddenVeggie.code));
 delete hiddenVeggie.available;
+for (const page of discovery.DISCOVERY_PAGES) {
+  assert.ok(siteArtifacts.buildLlmsTxt('full').includes('](' + page.path + ')'));
+  assert.ok(!siteArtifacts.buildLlmsTxt('landing').includes('](' + page.path + ')'));
+}
 assert.equal(siteArtifacts.buildSitemapXml('full').includes('placeholder-'), false);
 assert.equal(siteArtifacts.buildSitemapXml('landing').includes('image:loc'), false);
 assert.equal(siteArtifacts.buildSitemapXml('landing').includes('/la-colorada-veggie/'), false);

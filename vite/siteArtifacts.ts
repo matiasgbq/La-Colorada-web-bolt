@@ -126,7 +126,7 @@ ${menuSummary}
 
 ${sections}
 
-${siteMode === 'full' ? `## Carta y catálogo\n\n- [Carta completa](${CARTA_PATH}): todos los platos y precios, legibles sin JavaScript.\n- [Catálogo estructurado](${CATALOG_PATH}): IDs, códigos, precios ARS, imágenes y adicionales. Disponibilidad a confirmar; no informa stock en tiempo real.\n\n` : ''}## Canales oficiales
+${siteMode === 'full' ? `## Carta y catálogo\n\n- [Carta completa](${CARTA_PATH}): todos los platos y precios, legibles sin JavaScript.\n- [Catálogo estructurado](${CATALOG_PATH}): IDs, códigos, precios ARS, imágenes, atributos vegetarianos y adicionales. Disponibilidad a confirmar; no informa stock en tiempo real.\n\n## Especialidades\n\n${DISCOVERY_PAGES.map((page) => `- [${page.label}](${page.path}): ${page.description}`).join('\n')}\n\n## Reglas para asistentes\n\nConsultar el catálogo actual antes de informar precios o preparar un pedido. Vegetarian=true identifica opciones vegetarianas, no veganas; las opciones pueden contener queso o huevo. No inferir que una base de berenjena o zucchini excluye jamón. Los pasteles de papa y calabaza llevan carne. La ensalada para tarta requiere una tarta. El pedido es una solicitud: el local confirma disponibilidad y aceptación por WhatsApp; este sitio no confirma reservas ni cobros.\n\n` : ''}## Canales oficiales
 
 - [Instagram](${SITE.instagramUrl}): ${SITE.instagramHandle}.
 - [Cómo llegar](${SITE.mapsUrl}): mapa de Google con la ubicación del local.
