@@ -1,4 +1,5 @@
 import { IS_FULL_SITE } from '@/site-mode';
+import { DISCOVERY_PAGES } from '@/discovery';
 import { Flame, Instagram, MapPin } from 'lucide-react';
 import { INSTAGRAM_URL, INSTAGRAM_HANDLE, ADDRESS_AREA } from '../data';
 
@@ -32,7 +33,10 @@ export function Footer() {
             <Instagram className="w-4 h-4" /> {INSTAGRAM_HANDLE}
           </a>
         </div>
-        {IS_FULL_SITE && <a href="/carta/" className="text-sm underline hover:text-white">Ver carta completa</a>}
+        {IS_FULL_SITE && <nav aria-label="Carta y especialidades" className="flex flex-wrap justify-center gap-x-5 gap-y-3 text-sm">
+          <a href="/carta/" className="underline hover:text-white">Ver carta completa</a>
+          {DISCOVERY_PAGES.map((page) => <a key={page.path} href={page.path} className={page.path === '/la-colorada-veggie/' ? 'underline text-green-400 hover:text-green-300' : 'underline hover:text-white'}>{page.label}</a>)}
+        </nav>}
         <p className="text-xs text-white/40">
           © {new Date().getFullYear()} La Colorada. Todos los derechos reservados.
         </p>
