@@ -1,5 +1,5 @@
 import { isPublicDish } from '../src/catalog';
-import { buildCatalog, buildCartaHtml, CARTA_PATH, CATALOG_PATH, escapeHtml, safeJson } from './catalog';
+import { buildCatalog, buildPageCatalog, buildCartaHtml, CARTA_PATH, CATALOG_PATH, escapeHtml, safeJson } from './catalog';
 import { DISCOVERY_PAGES } from '../src/discovery';
 import type { Plugin } from 'vite';
 import { CATEGORIES, MENU } from '../src/data';
@@ -39,7 +39,7 @@ export function buildRobotsTxt() {
 export function buildSitemapXml(siteMode: SiteMode) {
   const categories = buildCatalog().categories;
   const entry = (path: string, images: string[] = []) => `  <url><loc>${SITE.url}${path}</loc>${[...new Set(images)].filter((image) => !image.includes('placeholder-')).map((image) => `<image:image><image:loc>${escapeHtml(image)}</image:loc></image:image>`).join('')}</url>\n`;
-  const menuEntries = siteMode === 'full' ? entry(CARTA_PATH, categories.flatMap((c) => c.items.map((i) => i.image))) + DISCOVERY_PAGES.map((page) => entry(page.path, categories.filter((c) => page.categories.includes(c.id)).flatMap((c) => c.items.map((i) => i.image)))).join('') : '';
+  const menuEntries = siteMode === 'full' ? entry(CARTA_PATH, categories.flatMap((c) => c.items.map((i) => i.image))) + DISCOVERY_PAGES.map((page) => entry(page.path, buildPageCatalog(page).categories.flatMap((c) => c.items.map((i) => i.image)))).join('') : '';
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entry('/')}${menuEntries}</urlset>\n`;
 }
 
@@ -52,7 +52,7 @@ export function buildRestaurantJsonLd(siteMode: SiteMode) {
     description: SITE.metaDescription,
     url: `${SITE.url}/`,
     image: siteMode === 'full' ? DISCOVERY_PAGES.flatMap((page) => {
-      const items = buildCatalog().categories.filter((c) => page.categories.includes(c.id)).flatMap((c) => c.items);
+      const items = buildPageCatalog(page).categories.flatMap((c) => c.items);
       const image = items.find((i) => i.code === page.preferredCode) ?? items.find((i) => !i.image.includes('placeholder-'));
       return image ? [image.image] : [];
     }) : SITE.socialImage,

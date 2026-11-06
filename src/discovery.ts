@@ -8,6 +8,7 @@ export type DiscoveryPage = {
   intro: string;
   categories: readonly CategoryId[];
   preferredCode: string;
+  vegetarianOnly?: boolean;
 };
 
 /** Editorial context only: dishes, prices, photos and availability remain in MENU. */
@@ -38,9 +39,9 @@ export const DISCOVERY_PAGES: readonly DiscoveryPage[] = [
   },
   {
     path: '/la-colorada-veggie/', label: 'La Colorada Veggie',
-    heading: 'La Colorada Veggie: medallones vegetarianos en La Horqueta',
-    description: 'La Colorada Veggie en La Horqueta, San Isidro. Cinco variedades de medallones vegetarianos gratinados con queso y ensalada. Fotos y precios del menú.',
-    intro: 'Nuestra propuesta de medallones vegetarianos: lentejas, garbanzos, quinoa al curry, porotos colorados y mijo con calabaza. Cada plato incluye dos medallones gratinados con queso, orégano y una aceituna por unidad, con ensalada. Esta preparación lleva queso; es vegetariana, no vegana.',
-    categories: ['medallones'], preferredCode: 'MED001',
+    heading: 'La Colorada Veggie: opciones vegetarianas en La Horqueta',
+    description: 'La Colorada Veggie en La Horqueta, San Isidro. Pizzas, empanadas, milanesas de berenjena o zucchini, tartas, ensaladas, pastas y medallones vegetarianos. Fotos y precios.',
+    intro: 'Opciones vegetarianas de La Colorada, organizadas por las mismas secciones de nuestra carta: pizzas, empanadas, ensaladas, tartas, milanesas de berenjena o zucchini y pastas, además de nuestros medallones. Los medallones vienen de lentejas, garbanzos, quinoa al curry, porotos colorados o mijo con calabaza; cada plato de medallones incluye dos unidades gratinadas con queso, orégano y una aceituna por unidad, con ensalada. Las opciones pueden llevar queso o huevo: vegetariano no significa vegano.',
+    categories: ['pizzas', 'empanadas', 'ensaladas', 'tartas', 'milanesas', 'pastas', 'medallones'], preferredCode: 'MED001', vegetarianOnly: true,
   },
 ];

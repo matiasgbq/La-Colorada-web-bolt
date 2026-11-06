@@ -35,6 +35,7 @@ export function buildCatalog() {
       items: MENU[category.id].filter(isPublicDish).map((dish) => ({
         id: dish.id,
         code: dish.code,
+        vegetarian: dish.vegetarian === true,
         name: dish.name,
         description: dish.desc,
         price: dish.price,
@@ -54,8 +55,16 @@ export function buildCatalog() {
   };
 }
 
-export function buildMenuJsonLd(page?: DiscoveryPage) {
+export function buildPageCatalog(page?: DiscoveryPage) {
   const catalog = buildCatalog();
+  return { ...catalog, categories: catalog.categories
+    .filter((c) => !page || page.categories.includes(c.id))
+    .map((c) => ({ ...c, items: c.items.filter((item) => !page?.vegetarianOnly || item.vegetarian) }))
+    .filter((c) => c.items.length > 0) };
+}
+
+export function buildMenuJsonLd(page?: DiscoveryPage) {
+  const catalog = buildPageCatalog(page);
   return {
     '@context': 'https://schema.org',
     '@type': 'Menu',
@@ -71,6 +80,7 @@ export function buildMenuJsonLd(page?: DiscoveryPage) {
         description: [item.description, ...item.addons.map((addon) =>
           `${addon.name} opcional por ARS ${addon.price}, solamente junto con esta tarta.`)].join(' '),
         image: item.image, url: item.url,
+        ...(item.vegetarian ? { suitableForDiet: 'https://schema.org/VegetarianDiet' } : {}),
         offers: { '@type': 'Offer', price: item.price, priceCurrency: item.currency },
       })),
     })),
@@ -78,8 +88,7 @@ export function buildMenuJsonLd(page?: DiscoveryPage) {
 }
 
 export function buildCartaHtml(restaurant: unknown, noindex = false, page?: DiscoveryPage) {
-  const allCatalog = buildCatalog();
-  const catalog = { ...allCatalog, categories: allCatalog.categories.filter((c) => !page || page.categories.includes(c.id)) };
+  const catalog = buildPageCatalog(page);
   const e = escapeHtml;
   const items = catalog.categories.flatMap((c) => c.items);
   const representative = items.find((item) => item.code === page?.preferredCode) ?? items.find((item) => !item.image.includes('placeholder-'));
@@ -112,7 +121,7 @@ ${image ? `<meta property="og:image" content="${e(image)}"><meta property="og:im
 ${page?.path === '/la-colorada-veggie/' ? 'body{background:#f3f8f1}header{background:#24623b}a,.price,h2{color:#24623b}a:focus-visible{outline-color:#24623b}header a{color:white}nav a{border-color:#b7cfb8}article{border-color:#cddfca}footer{border-color:#b7cfb8}' : ''}
 </style></head><body>
 <header><div class="wrap"><a href="/">${e(SITE.shortName)}</a><h1>${e(page?.heading ?? 'Nuestra carta completa')}</h1><p>Pizzas, empanadas y comidas caseras · La Horqueta</p><a href="/#menu">Armar pedido</a></div></header>
-<main><div class="notice">${page ? `<p>${e(page.intro)}</p>` : '<p>Conocé nuestras pizzas, empanadas, milanesas y tartas caseras. La Colorada Veggie reúne nuestros medallones vegetarianos gratinados con ensalada.</p>'}<p>Precios en pesos argentinos · Las pizzas del menú son grandes.</p><p>Los platos con guarnición incluyen ensalada. Consultá disponibilidad y cambios al confirmar por WhatsApp.</p></div><nav aria-label="Especialidades de La Colorada"><a href="/carta/">Carta completa</a>${discoveryLinks}</nav>${page ? '' : `<nav aria-label="Categorías de la carta">${navigation}</nav>`}${sections}</main>
+<main><div class="notice">${page ? `<p>${e(page.intro)}</p>` : '<p>Conocé nuestras pizzas, empanadas, milanesas y tartas caseras. La Colorada Veggie reúne las opciones vegetarianas de todas nuestras secciones.</p>'}<p>Precios en pesos argentinos · Las pizzas del menú son grandes.</p><p>Los platos con guarnición incluyen ensalada. Consultá disponibilidad y cambios al confirmar por WhatsApp.</p></div><nav aria-label="Especialidades de La Colorada"><a href="/carta/">Carta completa</a>${discoveryLinks}</nav>${page && !page.vegetarianOnly ? '' : `<nav aria-label="Categorías de la carta">${navigation}</nav>`}${sections}</main>
 <footer><p>${e(SITE.address.streetAddress)} · ${e(SITE.address.area)}</p><a href="/#menu">Armar pedido</a><a href="${CATALOG_PATH}">Catálogo en JSON</a><a href="/">Volver al inicio</a></footer>
 </body></html>`;
 }

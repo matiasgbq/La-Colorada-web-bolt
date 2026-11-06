@@ -2,7 +2,7 @@
 
 Páginas: `/pizzas/`, `/empanadas/`, `/milanesas/`, `/tartas/` y `/la-colorada-veggie/`.
 
-`src/discovery.ts` aporta contexto editorial y el código de imagen preferida. Productos, precios, fotos y disponibilidad se derivan de `src/data.ts` con el filtro público compartido. No se duplica el catálogo. Veggie muestra las cinco variedades de medallones con queso: vegetarianas, no veganas. Su identidad visual es verde.
+`src/discovery.ts` aporta contexto editorial y el código de imagen preferida. Productos, precios, fotos y disponibilidad se derivan de `src/data.ts` con el filtro público compartido. No se duplica el catálogo. Veggie reúne 39 opciones vegetarianas de las siete secciones, mediante el atributo explícito vegetarian en cada plato. El menú general conserva esos mismos platos y muestra la etiqueta verde. No se infiere por el prefijo veg: berenjenas/zucchini con jamón quedan fuera. Pasteles de papa/calabaza quedan pendientes de confirmar rellenos. Vegetarianas no implica veganas. Su identidad visual es verde.
 
 Se reutilizan las fotos publicadas aprobadas; algunas son retoques o composiciones basadas en referencias. No se afirma que todas sean fotografías originales sin edición. Se preservan los originales y su procedencia en `repo-fotos/`.
 

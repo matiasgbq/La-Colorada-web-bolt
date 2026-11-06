@@ -123,7 +123,7 @@ assert.equal(catalogModule.buildCatalog().categories.flatMap((c) => c.items).som
 assert.equal(readOrderCatalog(catalog).length, dishes.length);
 for (const page of discovery.DISCOVERY_PAGES) {
   const html = catalogModule.buildCartaHtml({}, false, page);
-  const selected = catalog.categories.filter((c) => page.categories.includes(c.id)).flatMap((c) => c.items);
+  const selected = catalog.categories.filter((c) => page.categories.includes(c.id)).flatMap((c) => c.items).filter((i) => !page.vegetarianOnly || i.vegetarian);
   const codes = [...html.matchAll(/data-product-code="([^"]+)"/g)].map((m) => m[1]);
   assert.equal(codes.sort().join(','), selected.map((item) => item.code).sort().join(','));
   assert.ok(html.includes(`href="${siteData.SITE.url}${page.path}"`));
@@ -134,6 +134,19 @@ for (const page of discovery.DISCOVERY_PAGES) {
   for (const item of selected) assert.equal(schemaItems.find((i) => i.identifier === item.code).offers.price, item.price);
   assert.ok(html.includes(selected.find((i) => i.code === page.preferredCode).image));
 }
+const veggiePage = discovery.DISCOVERY_PAGES.find((p) => p.vegetarianOnly);
+const veggieCatalog = catalogModule.buildPageCatalog(veggiePage);
+assert.equal(veggieCatalog.categories.length, 7);
+const veggieCodes = veggieCatalog.categories.flatMap((c) => c.items.map((i) => i.code));
+assert.equal(veggieCodes.length, 39);
+for (const code of ['ENS002', 'MIL011', 'MIL014', 'EMP012', 'PIZ001', 'PAS008', 'TAR006']) assert.ok(veggieCodes.includes(code));
+for (const code of ['MIL015', 'MIL016', 'MIL017', 'MIL020', 'PIZ007', 'PIZ019', 'ENS001', 'PAS006', 'PAS015']) assert.ok(!veggieCodes.includes(code), code);
+const hiddenVeggie = MENU.medallones[0];
+hiddenVeggie.available = false;
+const hiddenVeggieHtml = catalogModule.buildCartaHtml({}, false, veggiePage);
+assert.ok(!hiddenVeggieHtml.includes(hiddenVeggie.img));
+assert.ok(!catalogModule.buildPageCatalog(veggiePage).categories.flatMap((c) => c.items).some((i) => i.code === hiddenVeggie.code));
+delete hiddenVeggie.available;
 assert.equal(siteArtifacts.buildSitemapXml('full').includes('placeholder-'), false);
 assert.equal(siteArtifacts.buildSitemapXml('landing').includes('image:loc'), false);
 assert.equal(siteArtifacts.buildSitemapXml('landing').includes('/la-colorada-veggie/'), false);
