@@ -1,6 +1,6 @@
 # Fotos y especialidades indexables — Issue #103
 
-Páginas: `/pizzas/`, `/empanadas/`, `/milanesas/`, `/tartas/` y `/la-colorada-veggie/`.
+Páginas: `/pizzas/`, `/empanadas/`, `/milanesas/`, `/tartas/`, `/ensaladas/`, `/pastas/`, `/medallones/` y `/la-colorada-veggie/`. Cada especialidad se presenta como La Colorada + sección.
 
 `src/discovery.ts` aporta contexto editorial y el código de imagen preferida. Productos, precios, fotos y disponibilidad se derivan de `src/data.ts` con el filtro público compartido. No se duplica el catálogo. Veggie reúne 39 opciones vegetarianas de las siete secciones, mediante el atributo explícito vegetarian en cada plato. El menú general conserva esos mismos platos y muestra la etiqueta verde. No se infiere por el prefijo veg: berenjenas/zucchini con jamón quedan fuera. Pasteles de papa/calabaza llevan carne, confirmado por Matías: quedan excluidos. Vegetarianas no implica veganas. Su identidad visual es verde.
 

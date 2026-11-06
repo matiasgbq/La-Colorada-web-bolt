@@ -121,6 +121,10 @@ for (const field of ['active', 'available']) {
 }
 assert.equal(catalogModule.buildCatalog().categories.flatMap((c) => c.items).some((p) => p.id === first.id), true);
 assert.equal(readOrderCatalog(catalog).length, dishes.length);
+assert.equal(discovery.DISCOVERY_PAGES.filter((p) => !p.vegetarianOnly).length, menuData.CATEGORIES.length);
+for (const category of menuData.CATEGORIES) {
+  assert.ok(discovery.DISCOVERY_PAGES.some((p) => !p.vegetarianOnly && p.categories.length === 1 && p.categories[0] === category.id));
+}
 for (const page of discovery.DISCOVERY_PAGES) {
   const html = catalogModule.buildCartaHtml({}, false, page);
   const selected = catalog.categories.filter((c) => page.categories.includes(c.id)).flatMap((c) => c.items).filter((i) => !page.vegetarianOnly || i.vegetarian);
@@ -147,10 +151,14 @@ const hiddenVeggieHtml = catalogModule.buildCartaHtml({}, false, veggiePage);
 assert.ok(!hiddenVeggieHtml.includes(hiddenVeggie.img));
 assert.ok(!catalogModule.buildPageCatalog(veggiePage).categories.flatMap((c) => c.items).some((i) => i.code === hiddenVeggie.code));
 delete hiddenVeggie.available;
+for (const page of discovery.DISCOVERY_PAGES) {
+  assert.ok(siteArtifacts.buildLlmsTxt('full').includes('](' + page.path + ')'));
+  assert.ok(!siteArtifacts.buildLlmsTxt('landing').includes('](' + page.path + ')'));
+}
 assert.equal(siteArtifacts.buildSitemapXml('full').includes('placeholder-'), false);
 assert.equal(siteArtifacts.buildSitemapXml('landing').includes('image:loc'), false);
 assert.equal(siteArtifacts.buildSitemapXml('landing').includes('/la-colorada-veggie/'), false);
-console.log('✅ Cinco páginas: categorías/Schema/precios, imagen preferida, sitemap y ocultación de fotos de platos no disponibles.');
+console.log('✅ Páginas de especialidades: categorías/Schema/precios, imagen preferida, sitemap y ocultación de fotos de platos no disponibles.');
 assert.throws(() => readOrderCatalog({ schemaVersion: '2.0', categories: [] }));
 const invalidCatalog = JSON.parse(JSON.stringify(catalog));
 invalidCatalog.categories[0].items[0].price = -1;
