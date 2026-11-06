@@ -94,7 +94,7 @@ export function buildCartaHtml(restaurant: unknown, noindex = false, page?: Disc
   const representative = items.find((item) => item.code === page?.preferredCode) ?? items.find((item) => !item.image.includes('placeholder-'));
   const image = representative?.image;
   const path = page?.path ?? CARTA_PATH;
-  const title = page ? `${page.heading} | ${SITE.shortName}` : `Carta completa | ${SITE.shortName}`;
+  const title = page ? page.heading : `Carta completa | ${SITE.shortName}`;
   const description = page?.description ?? 'Carta de La Colorada en La Horqueta, San Isidro: pizzas grandes, empanadas, milanesas, tartas y medallones vegetarianos, con fotos y precios en pesos argentinos.';
   const discoveryLinks = DISCOVERY_PAGES.map((p) => `<a href="${e(p.path)}">${e(p.label)}</a>`).join('');
   const price = (amount: number) => `$${amount.toLocaleString('es-AR')}`;

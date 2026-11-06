@@ -112,7 +112,7 @@ if (siteMode === 'full') {
 }
 if (preview) assert(readRequiredFile('_headers').includes('X-Robots-Tag: noindex'), 'Preview sin encabezados noindex.');
 
-for (const path of ['pizzas', 'empanadas', 'milanesas', 'tartas', 'la-colorada-veggie']) {
+for (const path of ['pizzas', 'empanadas', 'milanesas', 'tartas', 'ensaladas', 'pastas', 'medallones', 'la-colorada-veggie']) {
   const file = `${path}/index.html`;
   if (siteMode !== 'full') {
     assert(!existsSync(join(distDirectory, file)), `Landing expone ${path}.`);
