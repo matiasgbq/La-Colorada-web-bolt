@@ -58,10 +58,10 @@ export function cartTotals(items: CartItem[]) {
 
 export function buildOrderText(items: CartItem[]) {
   const lines = items.map((item) =>
-    `• ${item.dish.name} x${item.qty} — $${(item.dish.price * item.qty).toLocaleString('es-AR')}`,
+    `• ${item.dish.name}${item.dish.includesSalad ? ' (con ensalada)' : ''} x${item.qty} — $${(item.dish.price * item.qty).toLocaleString('es-AR')}`,
   );
   return ['Hola La Colorada! Quiero hacer este pedido:', '', ...lines, '',
     `Total: $${cartTotals(items).total.toLocaleString('es-AR')}`, '',
-    'Las guarniciones incluidas son ensaladas. Si necesito algún cambio, lo aclaro por acá.', '', 'Gracias!',
+    'Gracias!',
   ].join('\n');
 }

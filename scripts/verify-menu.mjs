@@ -77,6 +77,12 @@ const siteArtifacts = load(readFileSync('vite/siteArtifacts.ts', 'utf8'), {
   '../src/types': load(readFileSync('src/types.ts', 'utf8')),
 });
 const catalog = catalogModule.buildCatalog();
+const checkedDishes = catalogRules.readOrderCatalog(catalog);
+const pizza = checkedDishes.find((dish) => dish.code === 'PIZ001');
+const milanesa = checkedDishes.find((dish) => dish.code === 'MIL001');
+assert.doesNotMatch(buildOrderText([{ dish: pizza, qty: 1 }]), /ensalada|guarnici/i);
+assert.match(buildOrderText([{ dish: pizza, qty: 1 }, { dish: milanesa, qty: 1 }]), /Milanesa de Ternera al Horno \(con ensalada\)/);
+assert.doesNotMatch(buildOrderText([{ dish: saladTart, qty: 1 }]), /\(con ensalada\)/);
 const exported = catalog.categories.flatMap((category) => category.items);
 assert.equal(exported.length, dishes.length);
 for (const dish of dishes) {
