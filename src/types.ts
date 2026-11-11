@@ -12,6 +12,7 @@ export type Dish = {
   /** Missing fields preserve the current menu; availability is not confirmed stock. */
   /** Vegetarian recipe classification; does not imply vegan or allergen-free. */
   vegetarian?: boolean;
+  includesSalad?: boolean;
   active?: boolean;
   available?: boolean;
   id: string;

@@ -36,6 +36,7 @@ export function buildCatalog() {
         id: dish.id,
         code: dish.code,
         vegetarian: dish.vegetarian === true,
+        includesSalad: dish.includesSalad === true,
         name: dish.name,
         description: dish.desc,
         price: dish.price,

@@ -23,6 +23,7 @@ export function readOrderCatalog(value: unknown): Dish[] {
           typeof item.name !== 'string' || typeof item.description !== 'string' ||
           typeof item.image !== 'string' || !validPrice(item.price) || item.currency !== 'ARS' ||
           !Array.isArray(item.addons) || item.addons.length > 1 || ids.has(item.id) || codes.has(item.code) ||
+          (item.includesSalad !== undefined && typeof item.includesSalad !== 'boolean') ||
           (item.active !== undefined && typeof item.active !== 'boolean') ||
           (item.available !== undefined && item.available !== null && typeof item.available !== 'boolean')) {
         throw new Error('Producto inválido');
@@ -36,6 +37,7 @@ export function readOrderCatalog(value: unknown): Dish[] {
         id: item.id, code: item.code, name: item.name, desc: item.description,
         price: item.price, img: item.image, active: item.active,
         available: item.available ?? undefined,
+        includesSalad: item.includesSalad === true,
         ...(addon ? { saladAddon: { code: addon.code, name: addon.name, price: addon.price } } : {}),
       });
     }
