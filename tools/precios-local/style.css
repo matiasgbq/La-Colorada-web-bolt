@@ -1,0 +1,19 @@
+:root { font-family: system-ui, sans-serif; color: #241d1b; background: #faf8f5; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 52rem; margin: auto; padding: 1.25rem; }
+h1 { margin: 0; font-size: clamp(2rem, 6vw, 3rem); }
+.brand { color: #a42424; font-weight: 800; letter-spacing: .12em; }
+.controls { display: grid; grid-template-columns: 1fr auto; gap: .5rem; }
+label, #status { grid-column: 1 / -1; }
+input, button { font: inherit; min-height: 44px; padding: .55rem .7rem; border-radius: .4rem; }
+input { border: 1px solid #80716e; min-width: 0; }
+button { background: #a42424; color: white; border: 0; cursor: pointer; }
+button:disabled { opacity: .65; cursor: wait; }
+section { background: white; margin: 1rem 0; border: 1px solid #e4dbd5; border-radius: .6rem; padding: 0 1rem; }
+h2 { font-size: 1.2rem; }
+ul { list-style: none; padding: 0; }
+li { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; border-top: 1px solid #eee7e3; }
+small { display: block; color: #625653; }
+strong { white-space: nowrap; font-variant-numeric: tabular-nums; }
+@media (max-width: 430px) { .controls { grid-template-columns: 1fr; } }
