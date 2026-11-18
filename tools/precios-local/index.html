@@ -12,12 +12,15 @@
   <main>
     <header><p class="brand">LA COLORADA</p><h1>Precios del local</h1>
     <p>Los mismos precios que figuran en la carta web.</p></header>
-    <div class="controls">
-      <label for="search">Buscar plato o código</label>
-      <input id="search" type="search" placeholder="Ej. muzzarella o PIZ001">
-      <button id="refresh" type="button">Actualizar precios</button>
-      <p id="status" role="status">Cargando precios…</p>
+    <div class="lookup">
+      <div class="controls">
+        <label for="search">Buscar plato o código</label>
+        <input id="search" type="search" placeholder="Ej. muzzarella o PIZ001">
+        <button id="refresh" type="button">Actualizar precios</button>
+      </div>
+      <nav id="categories" aria-label="Filtrar por categoría" hidden></nav>
     </div>
+    <p id="status" role="status">Cargando precios…</p>
     <div id="catalog"></div>
   </main>
 </body>
