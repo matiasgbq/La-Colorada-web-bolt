@@ -6,6 +6,7 @@ Sitio oficial de La Colorada, en la Galería Colorada de La Horqueta, San Isidro
 
 - Producción: https://lacoloradacocina.com.ar
 - Desarrollo y previews: Vercel
+- Herramienta interna del local: [Precios y pedido de mostrador](https://la-colorada-precios-local.vercel.app/)
 - Repositorio: https://github.com/matiasgbq/La-Colorada-web-bolt
 - Backlog: https://github.com/users/matiasgbq/projects/2
 
@@ -20,6 +21,16 @@ Matías es el Product Owner. GitHub Issues define alcance y aceptación; GitHub 
 - `vite/siteArtifacts.ts`: metadatos, JSON-LD, `robots.txt`, `sitemap.xml` y `llms.txt` derivados.
 
 Stack: React 18, TypeScript, Vite, Tailwind CSS y Lucide React.
+
+## Precios y pedidos de mostrador
+
+Desde el 18/11/2026, el personal del local usa [Precios y pedido de mostrador](https://la-colorada-precios-local.vercel.app/) para consultar precios y calcular el total frente al cliente. El enlace está destinado al equipo del local y abre sin iniciar sesión.
+
+- Para consultar un precio, elegí una categoría o buscá por nombre o código. La columna de atributos muestra Veggie y Primaria cuando corresponden.
+- Para calcular un pedido, usá **Agregar**, **+** y **−**. Las tartas tienen la opción **Con ensalada**. Al terminar, usá **Vaciar pedido**.
+- El pedido y los precios unitarios que tomó al agregar cada plato quedan en la pestaña hasta vaciar el pedido o recargar. Es una calculadora de mostrador, sin historial ni envío a cocina.
+- La lista consulta el [catálogo publicado](https://lacoloradacocina.com.ar/catalogo.json) al abrir, al volver a la pestaña, cada cinco minutos mientras esté visible y al pulsar **Actualizar precios**. Los cambios de precio se hacen en el catálogo.
+- El proyecto separado de Vercel `la-colorada-precios-local` despliega desde `main` con raíz `tools/precios-local`. Después de publicar, verificar que abra la lista, que se puedan agregar platos y que `/api/catalog` entregue datos.
 
 ## Comandos
 
