@@ -3,6 +3,12 @@ const refresh = document.querySelector('#refresh');
 const status = document.querySelector('#status');
 const catalog = document.querySelector('#catalog');
 const categoryNav = document.querySelector('#categories');
+const orderItems = document.querySelector('#order-items');
+const orderEmpty = document.querySelector('#order-empty');
+const orderCount = document.querySelector('#order-count');
+const orderTotal = document.querySelector('#order-total');
+const clearOrder = document.querySelector('#clear-order');
+const order = new Map();
 const pesos = new Intl.NumberFormat('es-AR', {
   style: 'currency', currency: 'ARS', maximumFractionDigits: 0,
 });
@@ -15,6 +21,67 @@ function element(tag, label) {
   node.textContent = label;
   return node;
 }
+
+function actionButton(label, accessibleLabel, onClick) {
+  const button = element('button', label);
+  button.type = 'button';
+  button.setAttribute('aria-label', accessibleLabel);
+  button.addEventListener('click', onClick);
+  return button;
+}
+
+function changeQuantity(item, delta, control) {
+  const line = order.get(item.code);
+  const quantity = (line?.quantity ?? 0) + delta;
+  if (quantity > 0) {
+    order.set(item.code, { ...(line ?? item), quantity });
+  } else {
+    order.delete(item.code);
+  }
+  renderOrder();
+  if (control) {
+    const buttons = [...orderItems.querySelectorAll('button')];
+    const next = buttons.find((button) => button.getAttribute('aria-label') ===
+      `${control} ${item.name}`);
+    (next ?? buttons[0] ?? catalog.querySelector('button') ?? search).focus();
+  }
+}
+
+function renderOrder() {
+  orderItems.replaceChildren();
+  let total = 0;
+  let units = 0;
+  for (const item of order.values()) {
+    const subtotal = item.quantity * item.price;
+    total += subtotal;
+    units += item.quantity;
+    const row = element('li', '');
+    const title = element('strong', item.name);
+    const controls = element('div', '');
+    controls.className = 'quantity';
+    controls.append(
+      actionButton('−', `Quitar una unidad de ${item.name}`, () =>
+        changeQuantity(item, -1, 'Quitar una unidad de')),
+      element('span', String(item.quantity)),
+      actionButton('+', `Sumar una unidad de ${item.name}`, () =>
+        changeQuantity(item, 1, 'Sumar una unidad de')),
+      element('strong', pesos.format(subtotal)),
+    );
+    row.append(title, controls);
+    orderItems.append(row);
+  }
+  orderEmpty.hidden = order.size > 0;
+  clearOrder.disabled = order.size === 0;
+  orderCount.textContent = `· ${units}`;
+  orderTotal.textContent = pesos.format(total);
+}
+
+clearOrder.addEventListener('click', () => {
+  if (!window.confirm('¿Vaciar el pedido de mostrador?')) return;
+  order.clear();
+  renderOrder();
+  (catalog.querySelector('button') ?? search).focus();
+});
 
 function renderCategories() {
   categoryNav.hidden = !categories.length;
@@ -53,7 +120,9 @@ function render() {
     const table = element('table', '');
     table.setAttribute('aria-label', category.name);
     const header = table.createTHead().insertRow();
-    for (const label of ['Plato', 'Precio', 'Atributos']) {
+    const canOrder = category.name !== 'Adicionales';
+    const columns = canOrder ? ['Plato', 'Precio', 'Atributos', 'Pedido'] : ['Plato', 'Precio', 'Atributos'];
+    for (const label of columns) {
       const cell = element('th', label);
       cell.scope = 'col';
       header.append(cell);
@@ -72,6 +141,20 @@ function render() {
         attributes.append(badge);
       }
       if (!attributes.childElementCount) attributes.textContent = '—';
+      if (canOrder) {
+        const actions = row.insertCell();
+        actions.className = 'order-actions';
+        actions.append(actionButton('Agregar', `Agregar ${item.name} al pedido`, () => changeQuantity(item, 1)));
+        for (const addon of item.addons ?? []) {
+          const withAddon = {
+            code: `${item.code}:${addon.code}`,
+            name: `${item.name} + ${addon.name.toLocaleLowerCase('es-AR')}`,
+            price: item.price + addon.price,
+          };
+          actions.append(actionButton('Con ensalada', `Agregar ${item.name} con ensalada al pedido`,
+            () => changeQuantity(withAddon, 1)));
+        }
+      }
     }
     section.append(heading, table);
     catalog.append(section);
@@ -106,6 +189,11 @@ async function loadPrices() {
     refresh.disabled = false;
   }
 }
+
+const lookup = document.querySelector('.lookup');
+new ResizeObserver(() => {
+  document.documentElement.style.setProperty('--lookup-height', `${lookup.offsetHeight + 8}px`);
+}).observe(lookup);
 
 search.addEventListener('input', render);
 refresh.addEventListener('click', loadPrices);
