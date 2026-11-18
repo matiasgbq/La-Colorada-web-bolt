@@ -35,6 +35,8 @@ export function buildCatalog() {
       items: MENU[category.id].filter(isPublicDish).map((dish) => ({
         id: dish.id,
         code: dish.code,
+        primary: dish.primaryOrder !== undefined,
+        primaryOrder: dish.primaryOrder ?? null,
         vegetarian: dish.vegetarian === true,
         includesSalad: dish.includesSalad === true,
         name: dish.name,

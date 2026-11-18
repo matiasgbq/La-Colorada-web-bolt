@@ -12,6 +12,8 @@ export type Dish = {
   /** Missing fields preserve the current menu; availability is not confirmed stock. */
   /** Vegetarian recipe classification; does not imply vegan or allergen-free. */
   vegetarian?: boolean;
+  /** Position among primary dishes in the category, starting at 1. */
+  primaryOrder?: number;
   includesSalad?: boolean;
   active?: boolean;
   available?: boolean;
