@@ -1,10 +1,18 @@
-const source = 'https://lacoloradacocina.com.ar/catalogo.json';
+const source = process.env.PRICE_CATALOG_URL ?? 'https://lacoloradacocina.com.ar/catalogo.json';
 
 function toPriceRow(item) {
   if (typeof item.name !== 'string' || !Number.isFinite(item.price) || item.currency !== 'ARS') {
     throw new Error('El catálogo contiene un precio inválido.');
   }
-  return { name: item.name, code: item.code, price: item.price };
+  return {
+    name: item.name,
+    code: item.code,
+    price: item.price,
+    attributes: [
+      ...(item.vegetarian === true ? ['Veggie'] : []),
+      ...(item.primary === true ? ['Primaria'] : []),
+    ],
+  };
 }
 
 export default async function handler(_request, response) {

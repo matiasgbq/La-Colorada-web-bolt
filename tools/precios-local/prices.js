@@ -23,15 +23,31 @@ function render() {
     if (!items.length) continue;
 
     const section = element('section', '');
-    const list = element('ul', '');
-    section.append(element('h2', category.name), list);
-    for (const item of items) {
-      const row = element('li', '');
-      const name = element('span', item.name);
-      if (item.code) name.append(element('small', item.code));
-      row.append(name, element('strong', pesos.format(item.price)));
-      list.append(row);
+    const heading = element('h2', category.name);
+    const table = element('table', '');
+    table.setAttribute('aria-label', category.name);
+    const header = table.createTHead().insertRow();
+    for (const label of ['Plato', 'Precio', 'Atributos']) {
+      const cell = element('th', label);
+      cell.scope = 'col';
+      header.append(cell);
     }
+    const body = table.createTBody();
+    for (const item of items) {
+      const row = body.insertRow();
+      const name = row.insertCell();
+      name.textContent = item.name;
+      if (item.code) name.append(element('small', item.code));
+      row.insertCell().textContent = pesos.format(item.price);
+      const attributes = row.insertCell();
+      for (const attribute of item.attributes ?? []) {
+        const badge = element('span', attribute);
+        badge.className = attribute === 'Veggie' ? 'badge veggie' : 'badge';
+        attributes.append(badge);
+      }
+      if (!attributes.childElementCount) attributes.textContent = '—';
+    }
+    section.append(heading, table);
     catalog.append(section);
   }
   if (categories.length && !catalog.childElementCount) {
