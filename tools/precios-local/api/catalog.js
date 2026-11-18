@@ -8,6 +8,7 @@ function toPriceRow(item) {
     name: item.name,
     code: item.code,
     price: item.price,
+    ...(item.addons?.length ? { addons: item.addons.map(toPriceRow) } : {}),
     attributes: [
       ...(item.vegetarian === true ? ['Veggie'] : []),
       ...(item.primary === true ? ['Primaria'] : []),

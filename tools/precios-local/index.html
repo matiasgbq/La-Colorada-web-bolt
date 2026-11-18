@@ -12,13 +12,30 @@
   <main>
     <header><p class="brand">LA COLORADA</p><h1>Precios del local</h1>
     <p>Los mismos precios que figuran en la carta web.</p></header>
-    <div class="controls">
-      <label for="search">Buscar plato o código</label>
-      <input id="search" type="search" placeholder="Ej. muzzarella o PIZ001">
-      <button id="refresh" type="button">Actualizar precios</button>
-      <p id="status" role="status">Cargando precios…</p>
+    <div class="lookup" id="lookup">
+      <div class="controls">
+        <label for="search">Buscar plato o código</label>
+        <input id="search" type="search" placeholder="Ej. muzzarella o PIZ001">
+        <button id="refresh" type="button">Actualizar precios</button>
+      </div>
+      <nav id="categories" aria-label="Filtrar por categoría" hidden></nav>
+      <a class="order-jump" href="#counter-order">Ver pedido <span id="order-count">· 0</span></a>
     </div>
-    <div id="catalog"></div>
+    <p id="status" role="status">Cargando precios…</p>
+    <div class="counter-layout">
+      <div id="catalog"></div>
+      <aside id="counter-order" class="order" aria-labelledby="order-title">
+        <h2 id="order-title">Pedido de mostrador</h2>
+        <p id="order-empty">Tocá Agregar al lado de un plato.</p>
+        <ul id="order-items" aria-label="Platos del pedido"></ul>
+        <div class="order-footer">
+          <span>Total</span>
+          <output id="order-total" aria-live="polite">$0</output>
+        </div>
+        <button id="clear-order" type="button" disabled>Vaciar pedido</button>
+        <a class="order-jump" href="#lookup">Volver a los platos</a>
+      </aside>
+    </div>
   </main>
 </body>
 </html>
