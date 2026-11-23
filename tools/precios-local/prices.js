@@ -15,6 +15,19 @@ const pesos = new Intl.NumberFormat('es-AR', {
 const normalize = (value) => value.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 let categories = [];
 let selectedCategory = '';
+const expandedCategories = new Map();
+let defaultCategoryOpen = true;
+
+function categoryOpen(name) {
+  return expandedCategories.get(name) ?? defaultCategoryOpen;
+}
+function setAllCategoriesOpen(open) {
+  defaultCategoryOpen = open;
+  expandedCategories.clear();
+  for (const category of categories) expandedCategories.set(category.name, open);
+  render();
+}
+
 
 function element(tag, label) {
   const node = document.createElement(tag);
@@ -169,6 +182,15 @@ function renderCategories() {
 function render() {
   catalog.replaceChildren();
   const query = normalize(search.value.trim());
+  if (!query && !selectedCategory && categories.length > 1) {
+    const controls = element('div', '');
+    controls.className = 'section-controls';
+    controls.append(
+      actionButton('Expandir todas', 'Expandir todas las categorías', () => setAllCategoriesOpen(true)),
+      actionButton('Contraer todas', 'Contraer todas las categorías', () => setAllCategoriesOpen(false)),
+    );
+    catalog.append(controls);
+  }
   for (const category of categories) {
     if (selectedCategory && category.name !== selectedCategory) continue;
     const items = category.items.filter((item) =>
@@ -176,7 +198,21 @@ function render() {
     if (!items.length) continue;
 
     const section = element('section', '');
+    const details = element('details', '');
+    details.className = 'catalog-category';
+    // A search always opens matching groups; otherwise preserve the operator's choice.
+    details.open = Boolean(query) || Boolean(selectedCategory) || categoryOpen(category.name);
+    const summary = element('summary', '');
     const heading = element('h2', category.name);
+    heading.append(element('span', ` · ${items.length}`));
+    summary.append(heading);
+    details.append(summary);
+    details.addEventListener('toggle', () => {
+      // Search/filter temporarily overrides collapse state without overwriting it.
+      if (details.isConnected && !search.value.trim() && !selectedCategory) {
+        expandedCategories.set(category.name, details.open);
+      }
+    });
     const table = element('table', '');
     table.setAttribute('aria-label', category.name);
     const header = table.createTHead().insertRow();
@@ -188,7 +224,11 @@ function render() {
       header.append(cell);
     }
     const body = table.createTBody();
-    for (const item of items) {
+    // Primarias al comienzo, conservando el orden del catálogo dentro de cada grupo.
+    const orderedItems = [...items].sort((a, b) =>
+      Number((b.attributes ?? []).includes('Primaria')) -
+      Number((a.attributes ?? []).includes('Primaria')));
+    for (const item of orderedItems) {
       const row = body.insertRow();
       const name = row.insertCell();
       name.textContent = item.name;
@@ -216,7 +256,8 @@ function render() {
         }
       }
     }
-    section.append(heading, table);
+    details.append(table);
+    section.append(details);
     catalog.append(section);
   }
   if (categories.length && !catalog.childElementCount) {
