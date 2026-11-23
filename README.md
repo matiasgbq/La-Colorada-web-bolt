@@ -26,7 +26,7 @@ Stack: React 18, TypeScript, Vite, Tailwind CSS y Lucide React.
 
 Desde el 18/11/2026, el personal del local usa [Precios y pedido de mostrador](https://la-colorada-precios-local.vercel.app/) para consultar precios y calcular el total frente al cliente. El enlace está destinado al equipo del local y abre sin iniciar sesión.
 
-- Para consultar un precio, elegí una categoría o buscá por nombre o código. La columna de atributos muestra Veggie y Primaria cuando corresponden.
+- Para consultar un precio, elegí una categoría o buscá por nombre o código. La columna de atributos muestra Veggie y Primaria cuando corresponden. Las filas **Primaria** aparecen primero en cada categoría; con el filtro **Todo** se pueden plegar/desplegar secciones individualmente o usar **Expandir todas / Contraer todas**. Una búsqueda despliega los resultados coincidentes.
 - Para calcular un pedido, usá **Agregar**, **+** y **−**. Las tartas tienen la opción **Con ensalada**. En **Pizza mitad y mitad** (plegada por defecto) se eligen dos variedades y se cobra el 50 % del precio publicado de cada una, sumados y redondeados al peso; fainá queda excluida de esa combinación. Al terminar, usá **Vaciar pedido**.
 - El pedido y los precios unitarios que tomó al agregar cada plato quedan en la pestaña hasta vaciar el pedido o recargar. Es una calculadora de mostrador, sin historial ni envío a cocina.
 - La lista consulta el [catálogo publicado](https://lacoloradacocina.com.ar/catalogo.json) al abrir, al volver a la pestaña, cada cinco minutos mientras esté visible y al pulsar **Actualizar precios**. Los cambios de precio se hacen en el catálogo.
