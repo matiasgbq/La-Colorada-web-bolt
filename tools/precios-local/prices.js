@@ -30,6 +30,69 @@ function actionButton(label, accessibleLabel, onClick) {
   return button;
 }
 
+const halfPizza = document.querySelector('#half-pizza');
+const pizzaFirst = document.querySelector('#pizza-first');
+const pizzaSecond = document.querySelector('#pizza-second');
+const pizzaRule = document.querySelector('#pizza-rule');
+const halfPizzaPrice = document.querySelector('#half-pizza-price');
+const addHalfPizza = document.querySelector('#add-half-pizza');
+
+function getPizzas() {
+  return categories.filter(({ name }) => normalize(name).includes('pizza'))
+    .flatMap(({ items }) => items.filter(({ code, price }) => code && Number.isFinite(price)));
+}
+
+function chosenHalfPizza() {
+  const pizzas = getPizzas();
+  const first = pizzas.find(({ code }) => code === pizzaFirst.value);
+  const second = pizzas.find(({ code }) => code === pizzaSecond.value);
+  if (!first || !second) return null;
+  const price = pizzaRule.value === 'halves'
+    ? (first.price + second.price) / 2
+    : Math.max(first.price, second.price);
+  return {
+    code: `HALF:${[first.code, second.code].sort().join(':')}:${pizzaRule.value}`,
+    name: `½ ${first.name} + ½ ${second.name}`,
+    price: Math.round(price),
+  };
+}
+
+function updateHalfPizzaPrice() {
+  const pizza = chosenHalfPizza();
+  halfPizzaPrice.textContent = pizza
+    ? `Total: ${pesos.format(pizza.price)} · ${pizzaRule.value === 'higher' ? 'se cobra el gusto más caro' : 'se suma la mitad de cada precio'}`
+    : 'Seleccioná dos gustos.';
+  addHalfPizza.disabled = !pizza;
+}
+
+function renderHalfPizza() {
+  const pizzas = getPizzas();
+  halfPizza.hidden = pizzas.length === 0;
+  if (!pizzas.length) return;
+  const previousFirst = pizzaFirst.value;
+  const previousSecond = pizzaSecond.value;
+  for (const select of [pizzaFirst, pizzaSecond]) {
+    select.replaceChildren();
+    for (const pizza of pizzas) {
+      const option = element('option', `${pizza.name} — ${pesos.format(pizza.price)}`);
+      option.value = pizza.code;
+      select.append(option);
+    }
+  }
+  pizzaFirst.value = pizzas.some(({ code }) => code === previousFirst) ? previousFirst : pizzas[0].code;
+  pizzaSecond.value = pizzas.some(({ code }) => code === previousSecond) ? previousSecond : (pizzas[1] ?? pizzas[0]).code;
+  updateHalfPizzaPrice();
+}
+
+for (const control of [pizzaFirst, pizzaSecond, pizzaRule]) {
+  control.addEventListener('change', updateHalfPizzaPrice);
+}
+addHalfPizza.addEventListener('click', () => {
+  const pizza = chosenHalfPizza();
+  if (!pizza) return;
+  changeQuantity(pizza, 1);
+});
+
 function changeQuantity(item, delta, control) {
   const line = order.get(item.code);
   const quantity = (line?.quantity ?? 0) + delta;
@@ -175,6 +238,7 @@ async function loadPrices() {
     const categoryNamesChanged = categories.map(({ name }) => name).join('|') !==
       nextCategories.map(({ name }) => name).join('|');
     categories = nextCategories;
+    renderHalfPizza();
     if (categoryNamesChanged) renderCategories();
     const time = new Intl.DateTimeFormat('es-AR', {
       timeZone: 'America/Argentina/Buenos_Aires', dateStyle: 'short', timeStyle: 'short',
@@ -182,6 +246,7 @@ async function loadPrices() {
     status.textContent = 'Última consulta al sitio: ' + time;
   } catch {
     categories = [];
+    halfPizza.hidden = true;
     renderCategories();
     status.textContent = 'No pudimos consultar los precios. Usá Actualizar precios para reintentar.';
   } finally {

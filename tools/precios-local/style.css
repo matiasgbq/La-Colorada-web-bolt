@@ -80,3 +80,13 @@ table:has(.order-actions) th:last-child { width: 8.25rem; }
   table:has(.order-actions) th:last-child { width: 5.6rem; }
   .order-actions button { padding-inline: .2rem; }
 }
+
+/* Combinación de dos gustos: se alimenta del mismo catálogo publicado. */
+.half-pizza { padding: .75rem; margin-bottom: 1rem; border: 1px solid #e4dbd5; border-radius: .5rem; background: #faf8f5; }
+.half-pizza summary { cursor: pointer; font-size: 1.1rem; font-weight: 700; min-height: 44px; display: list-item; align-content: center; }
+.half-pizza summary::marker { color: #a42424; }
+.half-pizza-fields { padding-top: .5rem; }
+.half-pizza label { display: block; margin: .6rem 0 .2rem; }
+.half-pizza select { display: block; width: 100%; min-height: 44px; padding: .5rem; border: 1px solid #80716e; border-radius: .4rem; background: #fff; font: inherit; }
+.half-pizza p { margin: .75rem 0; font-weight: 700; }
+.half-pizza button { width: 100%; font-weight: 700; }
