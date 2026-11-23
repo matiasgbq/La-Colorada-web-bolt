@@ -209,7 +209,7 @@ function render() {
     details.append(summary);
     details.addEventListener('toggle', () => {
       // Search/filter temporarily overrides collapse state without overwriting it.
-      if (!search.value.trim() && !selectedCategory) {
+      if (details.isConnected && !search.value.trim() && !selectedCategory) {
         expandedCategories.set(category.name, details.open);
       }
     });
