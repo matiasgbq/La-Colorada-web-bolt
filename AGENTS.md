@@ -7,7 +7,7 @@ Este contrato aplica a cualquier agente, sin importar proveedor, modelo, IDE o r
 - Matías es el Product Owner: define prioridades, datos del negocio y aprueba decisiones materiales, merges y publicación.
 - El backlog canónico es **La Colorada · Backlog**: https://github.com/users/matiasgbq/projects/2
 - Cada trabajo se acota con un GitHub Issue. Trello es sólo contexto histórico cuando un Issue lo cita.
-- Producción: https://lacoloradacocina.com.ar en Cloudflare Pages. Vercel se usa para desarrollo y previews.
+- Producción: https://lacoloradacocina.com.ar en Cloudflare Pages. Vercel aloja desarrollo/previews y la herramienta interna del local en https://la-colorada-precios-local.vercel.app (proyecto separado, raíz tools/precios-local).
 
 ## Inicio de una tarea
 
