@@ -25,6 +25,15 @@ Este contrato aplica a cualquier agente, sin importar proveedor, modelo, IDE o r
 - Stack: React 18, TypeScript, Vite y Tailwind CSS. Usar imports `@/`, preferir `lucide-react` y preservar accesibilidad y comportamiento responsive.
 - Mantener secretos y credenciales fuera del repositorio.
 
+## Documentación viva y contexto para cualquier agente
+
+- Antes de modificar una funcionalidad, leer el código actual y su documento operativo: `README.md` (mapa del proyecto), `documentation/tablero-interno.md` (estado/visión del panel), `documentation/catalogo-indexable.md` (catálogo y publicación) y los Issues relacionados. Los documentos históricos (`MENU-UPDATE.md`, inventarios fechados) no sustituyen datos vigentes ni deben reescribirse retroactivamente.
+- **Cada cambio funcional debe incluir en la misma PR la actualización mínima de los Markdown afectados**, o indicar explícitamente «sin cambios documentales» con motivo verificable. No depender de que Matías recuerde solicitarlo: la responsabilidad es de quien implementa, sea Codex, ChatGPT, Copilot u otro agente.
+- No copiar precios, listados y reglas de negocio como una segunda fuente canónica en documentos. Referenciar código/contratos/Issues, diferenciar claramente «implementado», «en prueba», «pendiente» y «visión», y conservar decisiones anteriores con fecha cuando haga falta.
+- El panel interno ya existe en `tools/precios-local/` y en la URL de Vercel definida arriba. Su **objetivo futuro** es servir como sistema interno de organización del trabajo cotidiano de La Colorada (pedidos, preparación y coordinación entre roles/canales), sin arquitectura ni flujo definitivo aprobado. Ver `documentation/tablero-interno.md` e Issue #29; no presentar capacidades futuras como existentes.
+- En cambios al panel interno, verificar **además** su HTML/JS, cálculo y endpoint `/api/catalog`; `npm run verify` cubre principalmente la web y no equivale a prueba funcional completa de la herramienta interna.
+- Si un cambio afecta precio/catálogo, evaluar su impacto en carta web, JSON/SEO, mostrador, flyers y Google Business Profile. Las sincronizaciones futuras se siguen en #120: ninguna se considera realizada sin verificación en cada destino.
+
 ## Verificación y entrega
 
 Ejecutar `npm run verify` antes de entregar. Informar archivos cambiados, criterios cubiertos, resultados, riesgos y validación humana pendiente.

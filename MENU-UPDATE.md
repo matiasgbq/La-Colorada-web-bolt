@@ -2,7 +2,7 @@
 
 Issue: https://github.com/matiasgbq/La-Colorada-web-bolt/issues/80
 
-> Registro histórico del 28/10/2026. El menú fue publicado el 05/11/2026 y la herramienta interna el 18/11/2026. Los importes de esta tabla corresponden a esa entrega. Consultar src/data.ts y catalogo.json para datos vigentes.
+> Registro histórico del 28/10/2026. El menú fue publicado el 05/11/2026 y la herramienta interna el 18/11/2026. Los importes de esta tabla corresponden a esa entrega. Consultar src/data.ts y catalogo.json para datos vigentes. **Nota posterior (23/11):** el panel interno incorporó combinaciones de pizzas mitad y mitad; aplica una mitad del precio publicado de cada variedad, sumadas y redondeadas. Esto no cambia retrospectivamente las decisiones de octubre ni crea medias pizzas individuales en el menú público. Ver `documentation/tablero-interno.md`.
 
 ## Fuente y decisiones
 

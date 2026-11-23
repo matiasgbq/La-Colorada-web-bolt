@@ -33,13 +33,12 @@ function actionButton(label, accessibleLabel, onClick) {
 const halfPizza = document.querySelector('#half-pizza');
 const pizzaFirst = document.querySelector('#pizza-first');
 const pizzaSecond = document.querySelector('#pizza-second');
-const pizzaRule = document.querySelector('#pizza-rule');
 const halfPizzaPrice = document.querySelector('#half-pizza-price');
 const addHalfPizza = document.querySelector('#add-half-pizza');
 
 function getPizzas() {
   return categories.filter(({ name }) => normalize(name).includes('pizza'))
-    .flatMap(({ items }) => items.filter(({ code, price }) => code && Number.isFinite(price)));
+    .flatMap(({ items }) => items.filter(({ code, price }) => /^PIZ\d{3}$/.test(code ?? '') && code !== 'PIZ016' && Number.isFinite(price)));
 }
 
 function chosenHalfPizza() {
@@ -47,11 +46,9 @@ function chosenHalfPizza() {
   const first = pizzas.find(({ code }) => code === pizzaFirst.value);
   const second = pizzas.find(({ code }) => code === pizzaSecond.value);
   if (!first || !second) return null;
-  const price = pizzaRule.value === 'halves'
-    ? (first.price + second.price) / 2
-    : Math.max(first.price, second.price);
+  const price = (first.price + second.price) / 2;
   return {
-    code: `HALF:${[first.code, second.code].sort().join(':')}:${pizzaRule.value}`,
+    code: `HALF:${[first.code, second.code].sort().join(':')}`,
     name: `½ ${first.name} + ½ ${second.name}`,
     price: Math.round(price),
   };
@@ -60,7 +57,7 @@ function chosenHalfPizza() {
 function updateHalfPizzaPrice() {
   const pizza = chosenHalfPizza();
   halfPizzaPrice.textContent = pizza
-    ? `Total: ${pesos.format(pizza.price)} · ${pizzaRule.value === 'higher' ? 'se cobra el gusto más caro' : 'se suma la mitad de cada precio'}`
+    ? `Total: ${pesos.format(pizza.price)} · 50 % del precio de cada gusto`
     : 'Seleccioná dos gustos.';
   addHalfPizza.disabled = !pizza;
 }
@@ -84,7 +81,7 @@ function renderHalfPizza() {
   updateHalfPizzaPrice();
 }
 
-for (const control of [pizzaFirst, pizzaSecond, pizzaRule]) {
+for (const control of [pizzaFirst, pizzaSecond]) {
   control.addEventListener('change', updateHalfPizzaPrice);
 }
 addHalfPizza.addEventListener('click', () => {
