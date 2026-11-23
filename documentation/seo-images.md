@@ -10,6 +10,6 @@ Cada página contiene HTML accesible, fotos, texto, precios, canonical, metadato
 
 Verificación: `npm run verify` y revisión visual local. Previews y localhost siguen sin indexación; landing no publica las nuevas páginas.
 
-Publicación autorizada por Matías el 06/11. No agregar enlaces nuevos desde la página principal; acceso por URL, carta y sitemap. Próxima etapa: transformar el sitio React a una vista verde La Colorada Veggie filtrada por atributos, conservando tipografía y diseño; vegano queda para después. Tras el despliegue: comprobar HTTP, canonical, fotos y sitemap en el dominio oficial; solicitar rastreo de las cinco páginas en Search Console. La selección de imágenes y los tiempos de indexación dependen de Google. No se modificó Google Business Profile.
+Publicación autorizada por Matías el 06/11. No agregar enlaces nuevos desde la página principal; acceso por URL, carta y sitemap. Próxima etapa: transformar el sitio React a una vista verde La Colorada Veggie filtrada por atributos, conservando tipografía y diseño; vegano queda para después. Tras el despliegue: comprobar HTTP, canonical, fotos y sitemap en el dominio oficial; solicitar y verificar rastreo de las páginas vigentes en el sitemap (#107) en Search Console. La selección de imágenes y los tiempos de indexación dependen de Google. La integración con Google Business Profile se sigue por separado en #98.
 
 Referencia oficial: https://developers.google.com/search/docs/appearance/google-images

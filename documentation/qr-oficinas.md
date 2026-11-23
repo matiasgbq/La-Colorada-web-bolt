@@ -2,6 +2,8 @@
 
 Issue: https://github.com/matiasgbq/La-Colorada-web-bolt/issues/101
 
+> El usuario confirmó que el QR ya fue impreso y distribuido en oficinas. Las instrucciones de prueba de este documento describen la validación inicial; conservar la URL impresa.
+
 ## Enlace que se imprime
 
 `https://lacoloradacocina.com.ar/o`
@@ -10,7 +12,7 @@ Mantener esta URL mientras existan impresos en circulación. Cloudflare Pages ap
 
 `/?utm_source=qr&utm_medium=offline&utm_campaign=oficinas#menu`
 
-No usar un acortador externo ni poner las UTM largas dentro del QR. Si cambia el destino, actualizar la redirección y desplegar; no cambiar la URL impresa. La ruta no es una nueva página indexable y no se agrega al sitemap. No publicar ni imprimir en serie hasta aprobación y prueba con celular real.
+No usar un acortador externo ni poner las UTM largas dentro del QR. Si cambia el destino, actualizar la redirección y desplegar; no cambiar la URL impresa. La ruta no es una nueva página indexable y no se agrega al sitemap. Para futuras reimpresiones, probar el arte final con un celular real.
 
 ## Impresión y lectura
 

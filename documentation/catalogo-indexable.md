@@ -6,10 +6,10 @@ Issue #96. Origen operativo: `MENU` / `CATEGORIES` en `src/data.ts`; datos del r
 
 En modo `full`:
 - `/carta/`: HTML estático completo, fotos, categorías, precios ARS y enlace al menú interactivo para armar el pedido. No necesita JavaScript para leer los productos.
-- `/catalogo.json`: contrato versión `1.0`; restaurante, reglas de pedido, categorías e items con `id`, `code`, nombre, descripción, precio, moneda, imagen y URL estable. Cada item tiene `availability: unknown`: no declara stock.
+- `/catalogo.json`: contrato versión `1.0`; restaurante, reglas de pedido, categorías e items con `id`, `code`, nombre, descripción, precio, moneda, imagen y URL estable. Cada item informa active, available y availability según los atributos de la fuente; available ausente representa disponibilidad desconocida. No informa cantidades de stock.
 - Los adicionales son hijos de su tarta (`optional`, `requiresParent`), nunca un producto vendible por separado. La suma se sigue resolviendo en el carrito existente.
 - JSON-LD Restaurant enlaza `/carta/`; la carta contiene Menu, MenuSection, MenuItem y Offer. La URL de cada plato usa su código estable como ancla de la carta, no una supuesta página independiente.
-- Sitemap incluye raíz y carta; robots referencia sitemap; llms.txt y el footer enlazan la nueva carta, y la carta enlaza el JSON.
+- Sitemap incluye raíz, carta y las páginas definidas en src/discovery.ts; robots referencia sitemap; llms.txt y el footer enlazan la nueva carta, y la carta enlaza el JSON.
 
 Modificar los datos del catálogo y reconstruir actualiza todas las salidas. No editar archivos generados. No se infieren variantes, alérgenos, dietas, nutrición ni disponibilidad. La etiqueta comercial existente viaja como `label`, sin convertirla automáticamente en una certificación dietaria.
 
@@ -17,13 +17,15 @@ Modificar los datos del catálogo y reconstruir actualiza todas las salidas. No 
 
 En modo `landing` no se emiten carta ni JSON, ni se enlazan en sitemap, llms.txt o footer. El middleware de desarrollo responde 404 para esas rutas. El hosting puede aplicar su fallback de SPA a rutas inexistentes, pero el catálogo no se incluye en esos archivos HTML.
 
-Vercel se usa para pruebas: `vercel.json` agrega `X-Robots-Tag: noindex, follow` a las respuestas. Los builds con `VERCEL=1` o Cloudflare de rama distinta de main también incluyen meta noindex y `_headers`. Las URLs canónicas siempre apuntan al dominio oficial. En dev la carta también tiene noindex.
+El proyecto web de Vercel se usa para previews; el proyecto separado de precios es de uso interno del local. En la web, `vercel.json` agrega `X-Robots-Tag: noindex, follow` a las respuestas. Los builds con `VERCEL=1` o Cloudflare de rama distinta de main también incluyen meta noindex y `_headers`. Las URLs canónicas siempre apuntan al dominio oficial. En dev la carta también tiene noindex.
 
-La publicación del menú en el dominio oficial sigue requiriendo aprobación. Antes de publicarlo, verificar acceso HTTP, canonical, robots, sitemap, Schema y Search Console. Esta V1 no modifica Google Business Profile y no garantiza indexación ni aparición en resultados enriquecidos.
+El menú fue publicado con aprobación el 05/11/2026. Las nuevas páginas siguen el sitemap del sitio. La solicitud y verificación de indexación se sigue en #107; publicar o solicitar rastreo no confirma inclusión en Google.
 
 ## Google Business Profile
 
-El próximo paso público será asociar la URL de la carta en el enlace de menú del perfil. Google puede extraer datos del sitio, pero no se considera una sincronización garantizada. Para sincronización explícita hay que verificar acceso a API, elegibilidad `canHaveFoodMenus`, leer el menú existente y presentar el diff antes de escribir con FoodMenus. Las fotos del menú nativo usan mediaKey. No se implementó un conector en V1.
+El Issue #98 registra una carga por FoodMenus verificada el 11/11/2026: 80 platos, siete secciones y lectura posterior de nombres y precios. También registra enlaces propios preferidos para retiro y entrega. Esa evidencia es histórica; esta auditoría no volvió a consultar la ficha.
+
+La sincronización recurrente y el manejo de expiración OAuth siguen pendientes en #98. Web y listado interno consumen el catálogo publicado; una carga puntual a Google no configura actualización automática.
 
 Fuentes oficiales revisadas en #96:
 - https://support.google.com/business/answer/9455840?hl=es
@@ -64,3 +66,10 @@ El carrito solicita `/catalogo.json` sin caché antes de abrir la confirmación.
 Esto valida la oferta publicada al momento de preparar la confirmación, no reserva stock ni garantiza aceptación del local. Las modificaciones de datos siguen requiriendo build/deploy; la operación instantánea desde celulares pertenece a #8/#24. No hay panel en esta entrega.
 
 Evidencia: tests con activo/disponible false y restauración por mismo ID, exclusión HTML/JSON/Schema, cambio de precio y retirada de adicional. Prueba de navegador con servidor de fixtures aislado: producto de $20.000 a $21.000 dispara aviso sin abrir confirmación; luego available=false lo retira del carrito. No se alteró el catálogo comercial durante esas simulaciones.
+
+
+## Primarias y herramienta interna — 18/11/2026
+
+primaryOrder en src/data.ts define la selección y el orden de los platos primarios por categoría. El JSON deriva primary y primaryOrder. Milanesas y Pizzas muestran seis primarios con expansión al resto; el buscador consulta todo el menú público. Ojear toda la carta ofrece una lista compacta de categorías y precios.
+
+La herramienta interna consume este JSON y muestra sus atributos. Su contrato y estado operativo están en [Tablero interno](tablero-interno.md). La edición desde un administrador queda en #24.

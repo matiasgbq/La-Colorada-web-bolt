@@ -2,6 +2,8 @@
 
 Issue: https://github.com/matiasgbq/La-Colorada-web-bolt/issues/80
 
+> Registro histórico del 28/10/2026. El menú fue publicado el 05/11/2026 y la herramienta interna el 18/11/2026. Los importes de esta tabla corresponden a esa entrega. Consultar src/data.ts y catalogo.json para datos vigentes.
+
 ## Fuente y decisiones
 
 Matías autorizó usar el flyer adjunto (precios impresos al 20/10/2026), hasta que él y Lucho concilien el Excel como fuente única para todas las herramientas. No hay importación automática ni acceso al Excel original en esta entrega.
