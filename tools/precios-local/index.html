@@ -27,7 +27,9 @@
       <aside id="counter-order" class="order" aria-labelledby="order-title">
         <h2 id="order-title">Pedido de mostrador</h2>
         <div id="half-pizza" class="half-pizza" hidden>
-          <h3>Pizza mitad y mitad</h3>
+          <details>
+            <summary>Pizza mitad y mitad</summary>
+            <div class="half-pizza-fields">
           <label for="pizza-first">Primera mitad</label>
           <select id="pizza-first"></select>
           <label for="pizza-second">Segunda mitad</label>
@@ -39,6 +41,8 @@
           </select>
           <p id="half-pizza-price" aria-live="polite"></p>
           <button id="add-half-pizza" type="button">Agregar pizza mitad y mitad</button>
+            </div>
+          </details>
         </div>
         <p id="order-empty">Tocá Agregar al lado de un plato.</p>
         <ul id="order-items" aria-label="Platos del pedido"></ul>
