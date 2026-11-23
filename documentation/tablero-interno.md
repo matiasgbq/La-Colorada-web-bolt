@@ -6,7 +6,7 @@ Desde el 18/11/2026 el personal usa https://la-colorada-precios-local.vercel.app
 
 La implementación está en tools/precios-local. El proyecto Vercel la-colorada-precios-local despliega main desde esa carpeta. El sitio para clientes está en Cloudflare Pages y el proyecto Vercel de la web conserva su función de preview.
 
-Hoy permite consultar precios, buscar por nombre/código, filtrar categorías y ver los atributos Veggie y Primaria. La calculadora de mostrador permite agregar platos, sumar/restar unidades, elegir ensalada con una tarta y vaciar con confirmación. El total se calcula con los precios unitarios tomados al agregar cada renglón.
+Hoy permite consultar precios, buscar por nombre/código, filtrar categorías y ver los atributos Veggie y Primaria. La calculadora de mostrador permite agregar platos, sumar/restar unidades, elegir ensalada con una tarta, preparar pizzas mitad y mitad y vaciar con confirmación. La sección mitad y mitad está plegada por defecto; se eligen dos variedades de pizza (no fainá), se toma el 50 % del precio de cada pizza entera publicada, se suman ambos importes y se redondea al peso. No hay selector de política de cobro. El total se calcula con los precios unitarios tomados al agregar cada renglón.
 
 La lista consulta el catálogo público oficial al abrir, al volver a la pestaña, al actualizar manualmente y cada cinco minutos mientras está visible. Filtra los platos ofrecidos y usa los mismos IDs y precios. Los renglones ya agregados conservan el precio que tomaron al agregarse; una actualización de la lista no recalcula ese pedido.
 
@@ -15,6 +15,10 @@ El pedido vive en memoria de la pestaña y se pierde al recargar o cerrar. La ca
 ## Acceso y datos
 
 El enlace está destinado al uso interno y actualmente abre sin iniciar sesión. Tiene noindex, nofollow. Al desarrollar funciones con pedidos y datos personales, definir acceso del personal, persistencia y visibilidad por rol junto con #8/#24/#29 antes de exponer esos datos.
+
+## Objetivo del desarrollo interno — visión abierta (23/11/2026)
+
+El propósito es contar con **un lugar de trabajo interno compartido y simple**, partiendo de la herramienta de precios actual. No se adoptó todavía un diseño definitivo ni se decidió cómo se implementará cada módulo. Los ejemplos siguientes son hipótesis de evolución que habrá que validar con la operación real, sin añadir complejidad innecesaria.
 
 ## Visión de Matías — 23/11/2026
 
@@ -34,6 +38,10 @@ Retomar #29 y relevar un pedido real de mostrador y uno telefónico de principio
 
 La conexión de Supabase y las herramientas disponibles de n8n son capacidades de desarrollo; su disponibilidad no demuestra que la central o la integración de WhatsApp estén implementadas.
 
+## Mantenimiento y estado documental
+
+El código de `tools/precios-local/` determina las funciones actualmente disponibles. Este documento describe su operación y la visión, pero no replica el catálogo ni sus precios: esa fuente vigente es `src/data.ts` y el JSON publicado. **Cada PR que altere el panel debe ajustar su descripción operativa en este documento y, si corresponde, el resumen del README**, siguiendo `AGENTS.md` y la plantilla de PR, sin esperar una solicitud manual de Matías. Mantener la evidencia histórica de abajo sin editarla retroactivamente.
+
 ## Evidencia de la auditoría — 23/11/2026
 
 Main auditado en c200ab6 (PR #114), con #111 y #112 también fusionadas. La página interna y su API devolvieron 80 platos más el adicional; el catálogo oficial expone 12 primarios. La documentación de uso de #115 seguía en borrador y se incorpora en la PR de esta auditoría. El flujo del carrusel #116 continúa como borrador separado.
@@ -41,3 +49,9 @@ Main auditado en c200ab6 (PR #114), con #111 y #112 también fusionadas. La pág
 El directorio de trabajo original permanece en una rama antigua con modificaciones locales ajenas; la auditoría se realizó en un worktree desde main para preservarlas.
 
 No se verificaron métricas de GA4, indexación efectiva de Google ni la ficha de Business Profile en esta auditoría. Sus estados se siguen en #79, #107 y #98.
+
+## Evolución posterior a esa auditoría — 23/11/2026
+
+- PR #119 incorporó al panel interno una sección plegable «Pizza mitad y mitad» para pedidos de mostrador.
+- Refinamiento posterior: regla única **50 % de cada variedad**, sin regla alternativa del precio más alto y sin incluir fainá. Se conserva el precio de cada renglón al agregarlo; sin histórico de pedidos ni sincronización con cocina.
+- Los Issues #8, #24, #29 y #120 expresan posibles próximos desarrollos; no equivalen a funcionalidades publicadas.
