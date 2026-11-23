@@ -90,3 +90,13 @@ table:has(.order-actions) th:last-child { width: 8.25rem; }
 .half-pizza select { display: block; width: 100%; min-height: 44px; padding: .5rem; border: 1px solid #80716e; border-radius: .4rem; background: #fff; font: inherit; }
 .half-pizza p { margin: .75rem 0; font-weight: 700; }
 .half-pizza button { width: 100%; font-weight: 700; }
+
+/* Collapsible catalog groups, keeping order and order panel unchanged. */
+.section-controls { display: flex; flex-wrap: wrap; gap: .5rem; margin: .5rem 0; }
+.section-controls button { background: #fff; border: 1px solid #a42424; color: #702424; font-weight: 700; }
+.catalog-category summary { cursor: pointer; display: list-item; background: #742323; color: #fff; }
+.catalog-category summary::marker { color: #fff; }
+.catalog-category summary h2 { display: inline-block; vertical-align: middle; padding: .7rem .5rem; }
+.catalog-category summary h2 span { font-size: .85rem; font-weight: 400; color: #f1d8d8; }
+.catalog-category summary:hover { background: #8b3030; }
+.catalog-category summary:focus-visible { outline: 3px solid #264f86; outline-offset: -3px; }
