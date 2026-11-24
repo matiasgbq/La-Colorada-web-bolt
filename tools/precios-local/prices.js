@@ -49,10 +49,32 @@ const pizzaSecond = document.querySelector('#pizza-second');
 const halfPizzaPrice = document.querySelector('#half-pizza-price');
 const addHalfPizza = document.querySelector('#add-half-pizza');
 
+// Promo Google: descuento individual, sin modificar el catálogo ni otras líneas.
+function isPizza(item) {
+  return /^PIZ\d{3}$/.test(item.code ?? '') && item.code !== 'PIZ016' && Number.isFinite(item.price);
+}
+
+function googlePromo(item) {
+  return {
+    ...item,
+    code: `${item.code}:GOOGLE20`,
+    name: `${item.name} (Promo Google −20%)`,
+    price: Math.round(item.price * 0.8),
+  };
+}
+
 function getPizzas() {
   return categories.filter(({ name }) => normalize(name).includes('pizza'))
-    .flatMap(({ items }) => items.filter(({ code, price }) => /^PIZ\d{3}$/.test(code ?? '') && code !== 'PIZ016' && Number.isFinite(price)));
+    .flatMap(({ items }) => items.filter(isPizza));
 }
+
+const addHalfPizzaPromo = actionButton('Promo Google −20%', 'Agregar pizza mitad y mitad con promo Google del 20%', () => {
+  const pizza = chosenHalfPizza();
+  if (pizza) changeQuantity(googlePromo(pizza), 1);
+});
+addHalfPizzaPromo.style.marginTop = '.35rem';
+addHalfPizzaPromo.style.background = '#60433d';
+addHalfPizza.after(addHalfPizzaPromo);
 
 function chosenHalfPizza() {
   const pizzas = getPizzas();
@@ -70,9 +92,10 @@ function chosenHalfPizza() {
 function updateHalfPizzaPrice() {
   const pizza = chosenHalfPizza();
   halfPizzaPrice.textContent = pizza
-    ? `Total: ${pesos.format(pizza.price)} · 50 % del precio de cada gusto`
+    ? `Lista: ${pesos.format(pizza.price)} · Promo Google −20%: ${pesos.format(googlePromo(pizza).price)}`
     : 'Seleccioná dos gustos.';
   addHalfPizza.disabled = !pizza;
+  addHalfPizzaPromo.disabled = !pizza;
 }
 
 function renderHalfPizza() {
@@ -244,7 +267,14 @@ function render() {
       if (canOrder) {
         const actions = row.insertCell();
         actions.className = 'order-actions';
-        actions.append(actionButton('Agregar', `Agregar ${item.name} al pedido`, () => changeQuantity(item, 1)));
+        const promoEligible = normalize(category.name).includes('pizza') && isPizza(item);
+        actions.append(actionButton(promoEligible ? 'Lista' : 'Agregar', `Agregar ${item.name} al pedido`, () => changeQuantity(item, 1)));
+        if (promoEligible) {
+          const promo = googlePromo(item);
+          actions.append(actionButton(`Google −20% · ${pesos.format(promo.price)}`,
+            `Agregar ${item.name} con promo Google del 20% a ${pesos.format(promo.price)}`,
+            () => changeQuantity(promo, 1)));
+        }
         for (const addon of item.addons ?? []) {
           const withAddon = {
             code: `${item.code}:${addon.code}`,
