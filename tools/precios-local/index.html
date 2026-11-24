@@ -4,14 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Precios del local | La Colorada</title>
+  <title>Central de pedidos | La Colorada · Preview</title>
   <link rel="stylesheet" href="/style.css">
-  <script src="/prices.js" defer></script>
+  <script src="/prices.js" type="module"></script>
 </head>
-<body>
+<body data-view="new">
   <main>
-    <header><p class="brand">LA COLORADA</p><h1>Precios del local</h1>
-    <p>Los mismos precios que figuran en la carta web.</p></header>
+    <header class="central-header">
+      <p class="brand">LA COLORADA · OPERACIONES</p>
+      <h1>Central de pedidos</h1>
+      <p>Atención, precios y seguimiento en un solo lugar.</p>
+      <p class="demo-notice"><strong>PREVIEW · Modo prueba</strong> — Usá datos ficticios. Los pedidos quedan solo en esta pestaña y se pierden al recargar. No se envían a cocina ni a WhatsApp.</p>
+    </header>
+    <nav class="central-nav" aria-label="Vistas de la central">
+      <button type="button" data-view-target="new" aria-pressed="true">＋ Nuevo pedido</button>
+      <button type="button" data-view-target="active" aria-pressed="false">En curso <span id="active-count">0</span></button>
+      <button type="button" data-view-target="prices" aria-pressed="false">Consulta de precios</button>
+    </nav>
+    <p id="central-feedback" role="status" aria-live="polite"></p>
+    <div id="catalog-view">
     <div class="lookup" id="lookup">
       <div class="controls">
         <label for="search">Buscar plato o código</label>
@@ -19,13 +30,13 @@
         <button id="refresh" type="button">Actualizar precios</button>
       </div>
       <nav id="categories" aria-label="Filtrar por categoría" hidden></nav>
-      <a class="order-jump" href="#counter-order">Ver pedido <span id="order-count">· 0</span></a>
+      <a class="order-jump draft-jump" href="#counter-order">Ver pedido <span id="order-count">· 0</span> · <span id="jump-total">$0</span></a>
     </div>
     <p id="status" role="status">Cargando precios…</p>
     <div class="counter-layout">
       <div id="catalog"></div>
       <aside id="counter-order" class="order" aria-labelledby="order-title">
-        <h2 id="order-title">Pedido de mostrador</h2>
+        <h2 id="order-title">Armar pedido</h2>
         <div id="half-pizza" class="half-pizza" hidden>
           <details>
             <summary>Pizza mitad y mitad</summary>
@@ -45,9 +56,31 @@
           <span>Total</span>
           <output id="order-total" aria-live="polite">$0</output>
         </div>
+        <form id="order-form" autocomplete="off">
+          <h3>Datos del pedido</h3>
+          <div class="field-grid">
+            <label>Canal<select name="channel"><option value="counter">Mostrador</option><option value="phone">Teléfono</option><option value="whatsapp">WhatsApp · manual</option><option value="web">Web · manual</option></select></label>
+            <label>Entrega<select name="fulfillment" id="fulfillment"><option value="counter">Mostrador</option><option value="pickup">Retiro</option><option value="delivery">Delivery</option></select></label>
+            <label>Cliente (ficticio)<input name="customer" maxlength="80" placeholder="Ej. Cliente A"></label>
+            <label>Teléfono (ficticio)<input name="phone" type="tel" maxlength="35" placeholder="Opcional"></label>
+            <label class="full-field" id="address-field" hidden>Dirección de envío (ficticia)<input name="address" id="delivery-address" maxlength="200" placeholder="Calle, número, localidad, piso/depto"></label>
+            <label>Medio de pago<select name="paymentMethod"><option value="unknown">A definir</option><option value="cash">Efectivo</option><option value="transfer">Transferencia</option><option value="card">Tarjeta</option><option value="other">Otro</option></select></label>
+            <label>Estado del pago<select name="paymentStatus"><option value="pending">Pendiente</option><option value="paid">Pagado (simulado)</option></select></label>
+            <label class="full-field">Notas<textarea name="notes" rows="2" maxlength="300" placeholder="Aclaraciones, horario solicitado…"></textarea></label>
+          </div>
+          <button id="save-order" type="submit" disabled>Registrar pedido de prueba</button>
+          <p class="form-hint">Se registra como nuevo, para revisar y confirmar. No implica un cobro real.</p>
+        </form>
         <button id="clear-order" type="button" disabled>Vaciar pedido</button>
         <a class="order-jump" href="#lookup">Volver a los platos</a>
       </aside>
+    </div>
+    </div>
+    <div id="orders-view" hidden>
+      <div class="queue-header"><div><h2>Pedidos en curso</h2><p>Revisá y actualizá el estado de cada pedido.</p></div><button type="button" id="new-from-queue">＋ Nuevo pedido</button></div>
+      <div id="queue-summary" class="queue-summary" aria-live="polite"></div>
+      <div class="queue-filter"><label for="queue-filter">Mostrar</label><select id="queue-filter"><option value="active">En curso</option><option value="closed">Finalizados y cancelados</option><option value="all">Todos</option></select></div>
+      <div id="orders-list"></div>
     </div>
   </main>
 </body>

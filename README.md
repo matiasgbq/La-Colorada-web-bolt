@@ -32,6 +32,10 @@ Desde el 18/11/2026, el personal del local usa [Precios y pedido de mostrador](h
 - La lista consulta el [catálogo publicado](https://lacoloradacocina.com.ar/catalogo.json) al abrir, al volver a la pestaña, cada cinco minutos mientras esté visible y al pulsar **Actualizar precios**. Los cambios de precio se hacen en el catálogo.
 - El proyecto separado de Vercel `la-colorada-precios-local` despliega desde `main` con raíz `tools/precios-local`. Después de publicar, verificar que abra la lista, que se puedan agregar platos y que `/api/catalog` entregue datos.
 
+### Prototipo de desarrollo — Central de pedidos (24/11/2026)
+
+Esta rama experimental agrega navegación entre nuevo pedido, consulta de precios y cola de pedidos simulados, con datos de entrega y pago. Solo datos ficticios en memoria; no usar en operación real. Ver [alcance y próximos cortes](documentation/tablero-interno.md#prototipo-de-central--24112026-rama-de-desarrollo-no-publicado). No implica publicación en producción.
+
 ### Visión de evolución del panel interno
 
 Esta misma dirección es la base de un futuro **sistema interno de organización y operación del local**, no solamente una calculadora: se busca ordenar la recepción de pedidos, el seguimiento de preparación, retiro y delivery, el trabajo entre mostrador y cocina y la administración autorizada del catálogo. Es una **visión en descubrimiento**, no un diseño cerrado ni funcionalidades ya disponibles. Los flujos, roles, persistencia, impresión y conexiones con WhatsApp se decidirán con Matías y Lucho a partir del uso real.

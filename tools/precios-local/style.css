@@ -100,3 +100,48 @@ table:has(.order-actions) th:last-child { width: 8.25rem; }
 .catalog-category summary h2 span { font-size: .85rem; font-weight: 400; color: #f1d8d8; }
 .catalog-category summary:hover { background: #8b3030; }
 .catalog-category summary:focus-visible { outline: 3px solid #264f86; outline-offset: -3px; }
+
+/* Central de pedidos — prototipo de navegación y cola local. */
+[hidden] { display: none !important; }
+.central-header h1 { font-size: clamp(1.8rem,4vw,2.6rem); }
+.demo-notice { background:#fff4de; border:1px solid #e6d0a5; border-radius:.5rem; padding:.7rem .85rem; font-size:.85rem; }
+.central-nav { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.5rem; margin:1rem 0 .5rem; }
+.central-nav button { background:#fff; color:#742323; font-weight:700; border:1px solid #cfaeaa; }
+.central-nav button[aria-pressed=true] { background:#742323; color:#fff; }
+#active-count { display:inline-block; min-width:1.4rem; text-align:center; border:1px solid currentColor; border-radius:1rem; margin-left:.15rem; }
+#central-feedback { font-weight:600; color:#625653; margin:.3rem 0; }
+#central-feedback:empty { display:none; }
+body[data-view=prices] .counter-layout { display:block; }
+body[data-view=prices] #counter-order, body[data-view=prices] .draft-jump,
+body[data-view=prices] .order-actions, body[data-view=prices] table:has(.order-actions) th:last-child { display:none; }
+body[data-view=prices] td:nth-child(2) { font-size:clamp(1.1rem,3vw,1.55rem); }
+#order-form { border-top:1px solid #e4dbd5; padding-top:.7rem; }
+#order-form h3 { margin:.15rem 0 .65rem; font-size:1rem; }
+.field-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.6rem; }
+.field-grid label { grid-column:auto; display:flex; flex-direction:column; gap:.25rem; min-width:0; font-size:.82rem; }
+.field-grid .full-field { grid-column:1/-1; }
+.field-grid input,.field-grid select,.field-grid textarea,.queue-filter select { width:100%; min-width:0; min-height:44px; padding:.45rem; background:#fff; color:inherit; border:1px solid #80716e; border-radius:.4rem; font:inherit; }
+#save-order { width:100%; font-weight:700; margin-top:.75rem; }
+.form-hint { color:#625653; font-size:.8rem; }
+.queue-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+.queue-header h2 { background:none; color:#241d1b; padding:0; font-size:1.5rem; }
+.queue-header p { margin:.3rem 0; color:#625653; }
+.queue-summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.6rem; margin:1rem 0; }
+.queue-summary div { border:1px solid #e4dbd5; border-radius:.6rem; background:white; padding:.75rem; }
+.queue-summary strong,.queue-summary span { display:block; }
+.queue-summary strong { font-size:1.7rem; color:#742323; }
+.queue-summary span { font-size:.8rem; color:#625653; }
+.queue-filter { display:flex; align-items:center; gap:.6rem; margin-bottom:.75rem; }
+.queue-filter select { width:auto; max-width:100%; }
+#orders-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr)); gap:.75rem; }
+.queue-card,.queue-empty { background:white; border:1px solid #e4dbd5; border-radius:.65rem; padding:1rem; overflow-wrap:anywhere; }
+.queue-card h3 { margin:0; font-size:1.05rem; }
+.queue-card-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:.5rem; }
+.order-state { font-size:.78rem; font-weight:700; padding:.3rem .5rem; background:#f3e4df; color:#742323; border-radius:.4rem; }
+.order-state[data-status=ready],.order-state[data-status=delivered] { background:#e1f3e6; color:#175528; }
+.queue-card p,.queue-card li { font-size:.9rem; }
+.queue-card ul { padding-left:1.1rem; }
+.queue-actions { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.75rem; }
+.queue-actions button { font-size:.85rem; }
+.queue-actions button:not(:first-child) { background:#60433d; }
+@media(max-width:560px) { .central-nav button { font-size:.83rem; padding:.4rem; } .queue-summary div { padding:.5rem; } .queue-summary span { font-size:.75rem; } .draft-jump { display:block; background:#742323; color:white; padding:.7rem; border-radius:.4rem; text-align:center; margin-top:.5rem; } }

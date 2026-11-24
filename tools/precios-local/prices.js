@@ -1,3 +1,4 @@
+import {createOrder, transition, nextStatus, isClosed, labels} from './order-model.js';
 const search = document.querySelector('#search');
 const refresh = document.querySelector('#refresh');
 const status = document.querySelector('#status');
@@ -147,11 +148,15 @@ function renderOrder() {
   clearOrder.disabled = order.size === 0;
   orderCount.textContent = `· ${units}`;
   orderTotal.textContent = pesos.format(total);
+  document.querySelector('#jump-total').textContent = pesos.format(total);
+  document.querySelector('#save-order').disabled = !order.size;
 }
 
 clearOrder.addEventListener('click', () => {
   if (!window.confirm('¿Vaciar el pedido de mostrador?')) return;
   order.clear();
+  orderForm.reset();
+  syncAddress();
   renderOrder();
   (catalog.querySelector('button') ?? search).focus();
 });
@@ -292,6 +297,111 @@ async function loadPrices() {
     refresh.disabled = false;
   }
 }
+
+// El almacén de demostración vive exclusivamente en memoria de la pestaña.
+// No usar datos reales hasta incorporar autenticación y almacenamiento compartido.
+const savedOrders = new Map();
+let orderSequence = 0;
+const orderForm = document.querySelector('#order-form');
+const fulfillment = document.querySelector('#fulfillment');
+const addressField = document.querySelector('#address-field');
+const addressInput = document.querySelector('#delivery-address');
+const feedback = document.querySelector('#central-feedback');
+const filter = document.querySelector('#queue-filter');
+const orderList = document.querySelector('#orders-list');
+function syncAddress() {
+  const delivery = fulfillment.value === 'delivery';
+  addressField.hidden = !delivery;
+  addressInput.required = delivery;
+  if (!delivery) addressInput.value = '';
+}
+fulfillment.addEventListener('change', syncAddress);
+function setView(view) {
+  document.body.dataset.view = view;
+  document.querySelector('#catalog-view').hidden = view === 'active';
+  document.querySelector('#orders-view').hidden = view !== 'active';
+  for (const button of document.querySelectorAll('[data-view-target]')) {
+    button.setAttribute('aria-pressed', String(button.dataset.viewTarget === view));
+  }
+  if (view === 'active') renderQueue();
+  else search.focus({preventScroll:true});
+}
+for (const button of document.querySelectorAll('[data-view-target]')) {
+  button.addEventListener('click', () => setView(button.dataset.viewTarget));
+}
+document.querySelector('#new-from-queue').addEventListener('click', () => setView('new'));
+filter.addEventListener('change', renderQueue);
+orderForm.addEventListener('submit', event => {
+  event.preventDefault();
+  try {
+    const id = 'LC-' + String(orderSequence + 1).padStart(3,'0');
+    const record = createOrder({id,items:[...order.values()],fields:Object.fromEntries(new FormData(orderForm))});
+    orderSequence++;
+    savedOrders.set(id,record);
+    order.clear();
+    orderForm.reset();
+    syncAddress();
+    renderOrder();
+    filter.value = 'active';
+    feedback.textContent = 'Pedido de prueba ' + id + ' registrado.';
+    setView('active');
+  } catch (error) { feedback.textContent = error.message; }
+});
+function changeStatus(id, state) {
+  try {
+    savedOrders.set(id,transition(savedOrders.get(id),state));
+    feedback.textContent = id + ': ' + labels.status[state] + '.';
+    renderQueue();
+  } catch (error) { feedback.textContent = error.message; }
+}
+function renderQueue() {
+  const records = [...savedOrders.values()];
+  const active = records.filter(record => !isClosed(record));
+  document.querySelector('#active-count').textContent = String(active.length);
+  const summary = document.querySelector('#queue-summary');
+  summary.replaceChildren();
+  for (const [label,count] of [
+    ['Nuevos',active.filter(r=>r.status==='new').length],
+    ['Preparación',active.filter(r=>['confirmed','preparing'].includes(r.status)).length],
+    ['Listos / en camino',active.filter(r=>['ready','dispatched'].includes(r.status)).length]
+  ]) {
+    const stat = element('div','');
+    stat.append(element('strong',String(count)),element('span',label));
+    summary.append(stat);
+  }
+  orderList.replaceChildren();
+  const shown = records.filter(r=>filter.value==='all'||(filter.value==='closed'?isClosed(r):!isClosed(r)));
+  if (!shown.length) {
+    const empty = element('p', 'No hay pedidos en esta vista. Creá un pedido de prueba desde Nuevo pedido.');
+    empty.className = 'queue-empty'; orderList.append(empty);
+  }
+  for (const record of shown.reverse()) {
+    const card = element('article',''); card.className='queue-card';
+    const heading = element('div',''); heading.className='queue-card-heading';
+    const state = element('span',labels.status[record.status]); state.className='order-state'; state.dataset.status=record.status;
+    heading.append(element('h3',record.id+' · '+(record.customer.name||'Sin nombre')),state);
+    const items = element('ul','');
+    for (const line of record.items) items.append(element('li',line.quantity+' × '+line.name+' — '+pesos.format(line.subtotal)));
+    const actions = element('div',''); actions.className='queue-actions';
+    const next = nextStatus(record);
+    if(next) actions.append(actionButton('Pasar a '+labels.status[next],record.id+': '+labels.status[next],()=>changeStatus(record.id,next)));
+    if(!isClosed(record)){
+      if(record.paymentStatus==='pending' && record.paymentMethod!=='unknown') actions.append(actionButton('Marcar pagado',record.id+': marcar pagado',()=>{
+        savedOrders.set(record.id,{...savedOrders.get(record.id),paymentStatus:'paid',updatedAt:new Date().toISOString()}); renderQueue();
+      }));
+      actions.append(actionButton('Cancelar', 'Cancelar '+record.id,()=>{if(window.confirm('¿Cancelar '+record.id+'?'))changeStatus(record.id,'cancelled')}));
+    }
+    card.append(heading,element('p',labels.channel[record.channel]+' · '+labels.fulfillment[record.fulfillment]+' · '+new Date(record.createdAt).toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})),items,
+      element('p','Pago: '+labels.paymentMethod[record.paymentMethod]+' · '+labels.paymentStatus[record.paymentStatus]));
+    if(record.customer.phone) card.append(element('p','Tel.: '+record.customer.phone));
+    if(record.address) card.append(element('p','Dirección: '+record.address));
+    if(record.notes) card.append(element('p','Notas: '+record.notes));
+    card.append(element('strong','Total: '+pesos.format(record.total)),actions);
+    orderList.append(card);
+  }
+}
+syncAddress();
+renderQueue();
 
 const lookup = document.querySelector('.lookup');
 new ResizeObserver(() => {
