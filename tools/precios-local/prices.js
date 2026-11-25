@@ -381,8 +381,10 @@ async function loadActiveOrders() {
       fetch(SUPABASE_URL + '/rest/v1/la_colorada_pedidos?select=id,cliente,direccion,horario_entrega,estado,total&estado=not.in.(entregado,cancelado)&order=created_at.asc', { headers, cache: 'no-store' }),
       fetch(SUPABASE_URL + '/rest/v1/la_colorada_pedido_items?select=pedido_id,cantidad,descripcion&order=id.asc', { headers, cache: 'no-store' }),
     ]);
-    if (!ordersResponse.ok || !itemsResponse.ok) throw new Error('No se pudieron consultar los pedidos.');
-    const [orders, items] = await Promise.all([ordersResponse.json(), itemsResponse.json()]);
+    if (!ordersResponse.ok) throw new Error('No se pudieron consultar los pedidos.');
+    let items = [];
+    if (itemsResponse.ok) items = await itemsResponse.json();
+    const orders = await ordersResponse.json();
     ordersList.replaceChildren();
     ordersCount.textContent = '· ' + orders.length;
     ordersStatus.textContent = orders.length ? 'En vivo · tocá un estado para actualizarlo.' : 'No hay pedidos en curso.';
