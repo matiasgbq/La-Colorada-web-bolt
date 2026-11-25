@@ -10,8 +10,10 @@
 </head>
 <body>
   <main>
-    <header><p class="brand">LA COLORADA</p><h1>Precios del local</h1>
-    <p>Los mismos precios que figuran en la carta web.</p></header>
+    <header><p class="brand">LA COLORADA</p><h1>Central de pedidos</h1>
+    <p>Precios, alta, seguimiento e historial operativo.</p>
+    <nav class="ops-nav"><a href="#active-orders-title">Pedidos en curso</a><a href="#lookup">Nuevo pedido</a><a href="/cocina.html">Vista cocina</a><button id="toggle-history" type="button">Historial</button></nav></header>
+    <section id="history-section" class="history-section" hidden><h2>Historial de pedidos</h2><p id="history-status">Cargando…</p><div id="history-list"></div></section>
 
     <section class="active-orders" aria-labelledby="active-orders-title">
       <h2 id="active-orders-title">Pedidos en curso <span id="active-orders-count">· …</span></h2>
