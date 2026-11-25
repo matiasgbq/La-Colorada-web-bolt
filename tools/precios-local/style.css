@@ -115,3 +115,8 @@ table:has(.order-actions) th:last-child { width: 8.25rem; }
 .active-order-total { border-top: 1px solid #e4dbd5; padding-top: .55rem; }
 .active-order-total strong { font-size: 1.25rem; color: #7c2020; }
 .order-state { margin: .5rem 0 0; font-weight: 700; text-transform: capitalize; }
+
+.order-state-controls { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: .35rem; margin-top: .7rem; }
+.order-state-controls button { min-height: 40px; padding: .35rem .25rem; font-size: .78rem; background: #60433d; }
+.order-state-controls button.current { background: #a42424; outline: 2px solid #a42424; outline-offset: 1px; font-weight: 800; }
+@media (max-width: 560px) { .order-state-controls { grid-template-columns: repeat(2, minmax(0,1fr)); } }
