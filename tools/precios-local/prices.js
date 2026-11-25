@@ -378,39 +378,48 @@ async function loadActiveOrders() {
   try {
     const headers = { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY };
     const [ordersResponse, itemsResponse] = await Promise.all([
-      fetch(SUPABASE_URL + '/rest/v1/la_colorada_pedidos?select=id,cliente,direccion,horario_entrega,estado,total&estado=not.in.(entregado,cancelado)&order=created_at.asc', { headers, cache: 'no-store' }),
-      fetch(SUPABASE_URL + '/rest/v1/la_colorada_pedido_items?select=pedido_id,cantidad,descripcion&order=id.asc', { headers, cache: 'no-store' }),
+      fetch(SUPABASE_URL + '/rest/v1/la_colorada_pedidos?select=id,cliente,direccion,horario_entrega,estado,total,forma_pago,notas,created_at,updated_at&estado=not.in.(entregado,cancelado)&order=created_at.asc', { headers, cache: 'no-store' }),
+      fetch(SUPABASE_URL + '/rest/v1/la_colorada_pedido_items?select=pedido_id,cantidad,descripcion,notas&order=id.asc', { headers, cache: 'no-store' }),
     ]);
     if (!ordersResponse.ok) throw new Error('No se pudieron consultar los pedidos.');
-    let items = [];
-    if (itemsResponse.ok) items = await itemsResponse.json();
     const orders = await ordersResponse.json();
+    const items = itemsResponse.ok ? await itemsResponse.json() : [];
     ordersList.replaceChildren();
     ordersCount.textContent = '· ' + orders.length;
-    ordersStatus.textContent = orders.length ? 'En vivo · tocá un estado para actualizarlo.' : 'No hay pedidos en curso.';
-    for (const orderData of orders) {
-      const card = element('article', ''); card.className = 'active-order-card';
-      const head = element('div', ''); head.className = 'active-order-head';
-      const time = element('span', orderData.horario_entrega || 'Sin horario'); time.className = 'order-time';
-      head.append(element('strong', orderData.cliente), time); card.append(head);
-      if (orderData.direccion && orderData.direccion !== orderData.cliente) {
-        const address = element('p', orderData.direccion); address.className = 'active-order-address'; card.append(address);
+    ordersStatus.textContent = orders.length ? 'Todos los pedidos activos permanecen acá hasta Entregado o Cancelado.' : 'No hay pedidos en curso.';
+    const lanes = [
+      ['recibido','Nuevos'], ['en_preparacion','Preparando'], ['listo','Listos'], ['salio','En camino']
+    ];
+    for (const [state,label] of lanes) {
+      const lane = element('section',''); lane.className='order-lane';
+      const laneOrders=orders.filter(o=>o.estado===state);
+      const heading=element('h3', label + ' · ' + laneOrders.length); lane.append(heading);
+      const stack=element('div',''); stack.className='order-lane-stack';
+      for (const orderData of laneOrders) {
+        const card=element('article',''); card.className='active-order-card state-'+state;
+        const head=element('div',''); head.className='active-order-head';
+        const time=element('span',orderData.horario_entrega||'Sin horario'); time.className='order-time';
+        head.append(element('strong',orderData.cliente),time); card.append(head);
+        if(orderData.direccion){const p=element('p',orderData.direccion);p.className='active-order-address';card.append(p)}
+        const list=element('ul','');
+        const lines=items.filter(x=>x.pedido_id===orderData.id);
+        if(lines.length) for(const line of lines) list.append(element('li',line.cantidad+' × '+line.descripcion+(line.notas?' · '+line.notas:'')));
+        else list.append(element('li','Sin detalle cargado'));
+        card.append(list);
+        if(orderData.notas){const n=element('p','Nota: '+orderData.notas);n.className='active-order-address';card.append(n)}
+        const total=element('div','');total.className='active-order-total';
+        total.append(element('span',orderData.forma_pago||'A cobrar'),element('strong',pesos.format(orderData.total)));card.append(total);
+        const controls=element('div','');controls.className='order-state-controls';
+        for(const [value,textLabel] of ORDER_STATES){const button=actionButton(textLabel,'Cambiar pedido a '+textLabel,()=>updateOrderState(orderData.id,value,button));if(value===orderData.estado){button.classList.add('current');button.setAttribute('aria-current','true')}controls.append(button)}
+        const cancel=actionButton('Cancelar','Cancelar pedido',()=>updateOrderState(orderData.id,'cancelado',cancel));cancel.classList.add('cancel-order');controls.append(cancel);
+        card.append(controls); stack.append(card);
       }
-      const list = element('ul', '');
-      for (const item of items.filter((line) => line.pedido_id === orderData.id)) list.append(element('li', item.cantidad + ' ' + item.descripcion));
-      card.append(list);
-      const total = element('div', ''); total.className = 'active-order-total';
-      total.append(element('span', 'A cobrar'), element('strong', pesos.format(orderData.total))); card.append(total);
-      const controls = element('div', ''); controls.className = 'order-state-controls';
-      for (const [value, label] of ORDER_STATES) {
-        const button = actionButton(label, 'Cambiar pedido a ' + label, () => updateOrderState(orderData.id, value, button));
-        if (value === orderData.estado) { button.classList.add('current'); button.setAttribute('aria-current', 'true'); }
-        controls.append(button);
-      }
-      card.append(controls);
+      if(!laneOrders.length){const empty=element('p','Sin pedidos');empty.className='lane-empty';stack.append(empty)}
+      lane.append(stack);ordersList.append(lane);
     }
-  } catch {
-    ordersStatus.textContent = 'No pudimos consultar los pedidos. Reintentaremos automáticamente.';
+  } catch (error) {
+    ordersStatus.textContent = 'Error cargando pedidos activos. Reintentaremos automáticamente.';
+    console.error(error);
   }
 }
 loadActiveOrders();
