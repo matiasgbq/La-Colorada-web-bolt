@@ -100,3 +100,18 @@ table:has(.order-actions) th:last-child { width: 8.25rem; }
 .catalog-category summary h2 span { font-size: .85rem; font-weight: 400; color: #f1d8d8; }
 .catalog-category summary:hover { background: #8b3030; }
 .catalog-category summary:focus-visible { outline: 3px solid #264f86; outline-offset: -3px; }
+
+/* Pedidos en curso: lectura en vivo desde Supabase. */
+.active-orders { padding-bottom: .8rem; }
+.active-orders h2 span { font-size: .9rem; font-weight: 500; color: #f1d8d8; }
+.active-orders-status { margin: .75rem 1rem 0; color: #625653; font-size: .9rem; }
+.active-order-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: .75rem; padding: .8rem; }
+.active-order-card { border: 1px solid #e4dbd5; border-radius: .55rem; padding: .8rem; background: #faf8f5; }
+.active-order-head, .active-order-total { display: flex; justify-content: space-between; gap: .75rem; align-items: baseline; }
+.active-order-head strong { font-size: 1.15rem; }
+.order-time { font-weight: 800; color: #7c2020; }
+.active-order-address { margin: .3rem 0; color: #625653; }
+.active-order-card ul { margin: .65rem 0; padding-left: 1.25rem; }
+.active-order-total { border-top: 1px solid #e4dbd5; padding-top: .55rem; }
+.active-order-total strong { font-size: 1.25rem; color: #7c2020; }
+.order-state { margin: .5rem 0 0; font-weight: 700; text-transform: capitalize; }
