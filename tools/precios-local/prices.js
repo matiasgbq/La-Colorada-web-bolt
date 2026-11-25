@@ -315,6 +315,30 @@ const ordersCount = document.querySelector('#active-orders-count');
 const ordersStatus = document.querySelector('#active-orders-status');
 const SUPABASE_URL = 'https://gwvaixuymtctmzrfoewl.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_7N_w5yr54EyyPzs5nwfkqA_h8I5vbvl';
+const ORDER_STATES = [
+  ['recibido', 'Recibido'],
+  ['en_preparacion', 'Preparando'],
+  ['listo', 'Listo'],
+  ['salio', 'Salió'],
+  ['entregado', 'Entregado'],
+];
+
+async function updateOrderState(id, estado, button) {
+  const previous = button?.textContent;
+  if (button) { button.disabled = true; button.textContent = 'Guardando…'; }
+  try {
+    const response = await fetch(SUPABASE_URL + '/functions/v1/la-colorada-estado-pedido', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', apikey: SUPABASE_KEY },
+      body: JSON.stringify({ id, estado }),
+    });
+    if (!response.ok) throw new Error('No se pudo cambiar el estado.');
+    await loadActiveOrders();
+  } catch {
+    window.alert('No se pudo cambiar el estado. Probá de nuevo.');
+    if (button) { button.disabled = false; button.textContent = previous; }
+  }
+}
 
 async function loadActiveOrders() {
   if (!ordersList) return;
@@ -328,28 +352,27 @@ async function loadActiveOrders() {
     const [orders, items] = await Promise.all([ordersResponse.json(), itemsResponse.json()]);
     ordersList.replaceChildren();
     ordersCount.textContent = '· ' + orders.length;
-    ordersStatus.textContent = orders.length ? 'Actualizado en vivo desde la base de pedidos.' : 'No hay pedidos en curso.';
+    ordersStatus.textContent = orders.length ? 'En vivo · tocá un estado para actualizarlo.' : 'No hay pedidos en curso.';
     for (const orderData of orders) {
-      const card = element('article', '');
-      card.className = 'active-order-card';
-      const head = element('div', '');
-      head.className = 'active-order-head';
-      head.append(element('strong', orderData.cliente), element('span', orderData.horario_entrega || 'Sin horario'));
-      head.lastChild.className = 'order-time';
-      card.append(head);
+      const card = element('article', ''); card.className = 'active-order-card';
+      const head = element('div', ''); head.className = 'active-order-head';
+      const time = element('span', orderData.horario_entrega || 'Sin horario'); time.className = 'order-time';
+      head.append(element('strong', orderData.cliente), time); card.append(head);
       if (orderData.direccion && orderData.direccion !== orderData.cliente) {
         const address = element('p', orderData.direccion); address.className = 'active-order-address'; card.append(address);
       }
       const list = element('ul', '');
-      for (const item of items.filter((line) => line.pedido_id === orderData.id)) {
-        list.append(element('li', item.cantidad + ' ' + item.descripcion));
-      }
+      for (const item of items.filter((line) => line.pedido_id === orderData.id)) list.append(element('li', item.cantidad + ' ' + item.descripcion));
       card.append(list);
       const total = element('div', ''); total.className = 'active-order-total';
-      total.append(element('span', 'A cobrar'), element('strong', pesos.format(orderData.total)));
-      card.append(total);
-      const state = element('p', orderData.estado.replaceAll('_', ' ')); state.className = 'order-state'; card.append(state);
-      ordersList.append(card);
+      total.append(element('span', 'A cobrar'), element('strong', pesos.format(orderData.total))); card.append(total);
+      const controls = element('div', ''); controls.className = 'order-state-controls';
+      for (const [value, label] of ORDER_STATES) {
+        const button = actionButton(label, 'Cambiar pedido a ' + label, () => updateOrderState(orderData.id, value, button));
+        if (value === orderData.estado) { button.classList.add('current'); button.setAttribute('aria-current', 'true'); }
+        controls.append(button);
+      }
+      card.append(controls);
     }
   } catch {
     ordersStatus.textContent = 'No pudimos consultar los pedidos. Reintentaremos automáticamente.';
