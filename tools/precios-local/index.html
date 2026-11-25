@@ -46,12 +46,26 @@
             </div>
           </details>
         </div>
+        <div class="order-customer">
+          <label for="order-customer">Cliente / referencia</label>
+          <input id="order-customer" placeholder="Ej. Juan">
+          <label for="order-address">Dirección</label>
+          <input id="order-address" placeholder="Ej. San Martín 875, lote 9">
+          <label for="order-time">Horario / salida</label>
+          <input id="order-time" placeholder="Ej. 21:00 o apenas esté">
+          <label for="order-payment">Pago</label>
+          <select id="order-payment"><option value="">Sin definir</option><option>Efectivo</option><option>Transferencia</option><option>Mercado Pago</option><option>Tarjeta</option></select>
+          <label for="order-notes">Notas</label>
+          <input id="order-notes" placeholder="Aclaraciones del pedido">
+        </div>
         <p id="order-empty">Tocá Agregar al lado de un plato.</p>
         <ul id="order-items" aria-label="Platos del pedido"></ul>
         <div class="order-footer">
           <span>Total</span>
           <output id="order-total" aria-live="polite">$0</output>
         </div>
+        <button id="save-order" type="button" disabled>Crear pedido</button>
+        <p id="save-order-status" class="save-order-status" role="status"></p>
         <button id="clear-order" type="button" disabled>Vaciar pedido</button>
         <a class="order-jump" href="#lookup">Volver a los platos</a>
       </aside>
