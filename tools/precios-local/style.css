@@ -126,3 +126,5 @@ table:has(.order-actions) th:last-child { width: 8.25rem; }
 .order-customer input, .order-customer select { width:100%; min-height:42px; padding:.5rem; border:1px solid #80716e; border-radius:.4rem; background:white; font:inherit; }
 #save-order { width:100%; margin-bottom:.5rem; font-weight:800; background:#742323; }
 .save-order-status { min-height:1.2em; margin:.25rem 0 .6rem; font-size:.85rem; font-weight:700; color:#175528; }
+
+.ops-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0}.ops-nav a,.ops-nav button{display:inline-flex;align-items:center;min-height:44px;padding:.55rem .75rem;border-radius:.4rem;background:#742323;color:white;text-decoration:none;font-weight:700;border:0}.history-section{padding-bottom:.8rem}.history-section>p{padding:0 1rem}.history-order{margin:.5rem .8rem;border:1px solid #e4dbd5;border-radius:.45rem;padding:.65rem;background:#faf8f5}.history-order summary{cursor:pointer;font-weight:800;text-transform:capitalize}.history-order p{color:#625653}
