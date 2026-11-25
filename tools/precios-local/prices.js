@@ -8,6 +8,13 @@ const orderEmpty = document.querySelector('#order-empty');
 const orderCount = document.querySelector('#order-count');
 const orderTotal = document.querySelector('#order-total');
 const clearOrder = document.querySelector('#clear-order');
+const saveOrder = document.querySelector('#save-order');
+const saveOrderStatus = document.querySelector('#save-order-status');
+const orderCustomer = document.querySelector('#order-customer');
+const orderAddress = document.querySelector('#order-address');
+const orderTime = document.querySelector('#order-time');
+const orderPayment = document.querySelector('#order-payment');
+const orderNotes = document.querySelector('#order-notes');
 const order = new Map();
 const pesos = new Intl.NumberFormat('es-AR', {
   style: 'currency', currency: 'ARS', maximumFractionDigits: 0,
@@ -145,9 +152,35 @@ function renderOrder() {
   }
   orderEmpty.hidden = order.size > 0;
   clearOrder.disabled = order.size === 0;
+  saveOrder.disabled = order.size === 0;
   orderCount.textContent = `· ${units}`;
   orderTotal.textContent = pesos.format(total);
 }
+
+async function createOperationalOrder() {
+  if (!order.size) return;
+  const cliente = orderCustomer.value.trim();
+  if (!cliente) { orderCustomer.focus(); window.alert('Poné un cliente o referencia para identificar el pedido.'); return; }
+  saveOrder.disabled = true; saveOrder.textContent = 'Creando…'; saveOrderStatus.textContent = '';
+  try {
+    const items = [...order.values()].map(item => ({ cantidad: item.quantity, descripcion: item.name, precio_unitario: item.price }));
+    const response = await fetch(SUPABASE_URL + '/functions/v1/la-colorada-crear-pedido', {
+      method: 'POST', headers: { 'Content-Type':'application/json', apikey: SUPABASE_KEY },
+      body: JSON.stringify({ cliente, direccion: orderAddress.value, horario_entrega: orderTime.value, forma_pago: orderPayment.value, notas: orderNotes.value, items }),
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'No se pudo crear.');
+    order.clear();
+    for (const field of [orderCustomer, orderAddress, orderTime, orderNotes]) field.value = '';
+    orderPayment.value = '';
+    renderOrder();
+    saveOrderStatus.textContent = 'Pedido #' + result.id + ' creado · ' + pesos.format(result.total);
+    await loadActiveOrders();
+    document.querySelector('.active-orders')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (e) { saveOrderStatus.textContent = 'Error al crear el pedido.'; window.alert(e.message); }
+  finally { saveOrder.textContent = 'Crear pedido'; saveOrder.disabled = order.size === 0; }
+}
+saveOrder.addEventListener('click', createOperationalOrder);
 
 clearOrder.addEventListener('click', () => {
   if (!window.confirm('¿Vaciar el pedido de mostrador?')) return;
