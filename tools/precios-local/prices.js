@@ -307,3 +307,53 @@ setInterval(() => {
   if (!document.hidden) loadPrices();
 }, 300_000);
 loadPrices();
+
+
+// Pedidos en curso — prueba operativa La Colorada / Supabase.
+const ordersList = document.querySelector('#active-orders-list');
+const ordersCount = document.querySelector('#active-orders-count');
+const ordersStatus = document.querySelector('#active-orders-status');
+const SUPABASE_URL = 'https://gwvaixuymtctmzrfoewl.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_7N_w5yr54EyyPzs5nwfkqA_h8I5vbvl';
+
+async function loadActiveOrders() {
+  if (!ordersList) return;
+  try {
+    const headers = { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY };
+    const [ordersResponse, itemsResponse] = await Promise.all([
+      fetch(SUPABASE_URL + '/rest/v1/la_colorada_pedidos?select=id,cliente,direccion,horario_entrega,estado,total&estado=not.in.(entregado,cancelado)&order=created_at.asc', { headers, cache: 'no-store' }),
+      fetch(SUPABASE_URL + '/rest/v1/la_colorada_pedido_items?select=pedido_id,cantidad,descripcion&order=id.asc', { headers, cache: 'no-store' }),
+    ]);
+    if (!ordersResponse.ok || !itemsResponse.ok) throw new Error('No se pudieron consultar los pedidos.');
+    const [orders, items] = await Promise.all([ordersResponse.json(), itemsResponse.json()]);
+    ordersList.replaceChildren();
+    ordersCount.textContent = '· ' + orders.length;
+    ordersStatus.textContent = orders.length ? 'Actualizado en vivo desde la base de pedidos.' : 'No hay pedidos en curso.';
+    for (const orderData of orders) {
+      const card = element('article', '');
+      card.className = 'active-order-card';
+      const head = element('div', '');
+      head.className = 'active-order-head';
+      head.append(element('strong', orderData.cliente), element('span', orderData.horario_entrega || 'Sin horario'));
+      head.lastChild.className = 'order-time';
+      card.append(head);
+      if (orderData.direccion && orderData.direccion !== orderData.cliente) {
+        const address = element('p', orderData.direccion); address.className = 'active-order-address'; card.append(address);
+      }
+      const list = element('ul', '');
+      for (const item of items.filter((line) => line.pedido_id === orderData.id)) {
+        list.append(element('li', item.cantidad + ' ' + item.descripcion));
+      }
+      card.append(list);
+      const total = element('div', ''); total.className = 'active-order-total';
+      total.append(element('span', 'A cobrar'), element('strong', pesos.format(orderData.total)));
+      card.append(total);
+      const state = element('p', orderData.estado.replaceAll('_', ' ')); state.className = 'order-state'; card.append(state);
+      ordersList.append(card);
+    }
+  } catch {
+    ordersStatus.textContent = 'No pudimos consultar los pedidos. Reintentaremos automáticamente.';
+  }
+}
+loadActiveOrders();
+setInterval(() => { if (!document.hidden) loadActiveOrders(); }, 30000);
