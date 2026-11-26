@@ -145,3 +145,6 @@ table:has(.order-actions) th:last-child { width: 8.25rem; }
 .history-state{font-size:.78rem;font-weight:700;text-transform:uppercase;padding:.22rem .4rem;border-radius:.3rem;background:#eee8e4}.history-state-entregado{background:#e4efe5}.history-state-cancelado{background:#f3dfdf}
 .history-timeline{grid-column:1/-1;font-size:.76rem;color:#766a65;white-space:nowrap;overflow-x:auto}
 @media(max-width:650px){.history-row{grid-template-columns:1fr}.history-row-main,.history-row-right{justify-content:space-between}.history-timeline{grid-column:1}}
+
+.delivery-box{display:flex;flex-direction:column;gap:.3rem;margin:.55rem 0;padding:.55rem .65rem;background:#f3eee9;border-left:4px solid #8b2723;border-radius:.25rem}
+.delivery-box a{font-weight:700;color:#7d201d;text-decoration:underline}.delivery-box span{font-size:.84rem;color:#625653}
