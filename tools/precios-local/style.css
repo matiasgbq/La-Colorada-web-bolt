@@ -136,3 +136,12 @@ table:has(.order-actions) th:last-child { width: 8.25rem; }
 .order-lane-stack{padding:.55rem}.order-lane-stack .active-order-card{margin-bottom:.55rem;background:white}
 .lane-empty{padding:.8rem;color:#625653;text-align:center}.cancel-order{background:#f5f1eb!important;color:#702424!important;border:1px solid #cfaeaa!important}
 @media(max-width:900px){.active-order-board{grid-template-columns:repeat(4,minmax(18rem,1fr))}}
+
+/* Historial operativo simple, estilo lista de plataforma de delivery. */
+.history-section{padding:1rem}.history-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
+.history-simple-list{display:flex;flex-direction:column;gap:.45rem}.history-day{margin:1rem 0 .2rem;padding-bottom:.35rem;border-bottom:1px solid #d8cec8;font-size:1rem}
+.history-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.4rem 1rem;padding:.75rem;background:#fff;border:1px solid #e1d8d2;border-radius:.45rem}
+.history-row-main,.history-row-right{display:flex;align-items:center;gap:.7rem}.history-row-main{min-width:0}.history-row-main span{font-size:.86rem;color:#675c58}.history-row-right{justify-content:flex-end}
+.history-state{font-size:.78rem;font-weight:700;text-transform:uppercase;padding:.22rem .4rem;border-radius:.3rem;background:#eee8e4}.history-state-entregado{background:#e4efe5}.history-state-cancelado{background:#f3dfdf}
+.history-timeline{grid-column:1/-1;font-size:.76rem;color:#766a65;white-space:nowrap;overflow-x:auto}
+@media(max-width:650px){.history-row{grid-template-columns:1fr}.history-row-main,.history-row-right{justify-content:space-between}.history-timeline{grid-column:1}}
