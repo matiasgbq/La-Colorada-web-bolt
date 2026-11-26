@@ -379,7 +379,7 @@ async function loadActiveOrders() {
     const headers = { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY };
     const [ordersResponse, itemsResponse] = await Promise.all([
       fetch(SUPABASE_URL + '/rest/v1/la_colorada_pedidos?select=id,cliente,direccion,horario_entrega,estado,total,forma_pago,notas,created_at,updated_at&estado=not.in.(entregado,cancelado)&order=created_at.asc', { headers, cache: 'no-store' }),
-      fetch(SUPABASE_URL + '/rest/v1/la_colorada_pedido_items?select=pedido_id,cantidad,descripcion,notas&order=id.asc', { headers, cache: 'no-store' }),
+      fetch(SUPABASE_URL + '/rest/v1/la_colorada_pedido_items?select=pedido_id,cantidad,descripcion,precio_unitario,notas&order=id.asc', { headers, cache: 'no-store' }),
     ]);
     if (!ordersResponse.ok) throw new Error('No se pudieron consultar los pedidos.');
     const orders = await ordersResponse.json();
@@ -403,7 +403,7 @@ async function loadActiveOrders() {
         if(orderData.direccion){const p=element('p',orderData.direccion);p.className='active-order-address';card.append(p)}
         const list=element('ul','');
         const lines=items.filter(x=>x.pedido_id===orderData.id);
-        if(lines.length) for(const line of lines) list.append(element('li',line.cantidad+' × '+line.descripcion+(line.notas?' · '+line.notas:'')));
+        if(lines.length) for(const line of lines) list.append(element('li',line.cantidad+' × '+line.descripcion+' · '+pesos.format(line.precio_unitario)+' c/u · '+pesos.format(line.cantidad*line.precio_unitario)+(line.notas?' · '+line.notas:'')));
         else list.append(element('li','Sin detalle cargado'));
         card.append(list);
         if(orderData.notas){const n=element('p','Nota: '+orderData.notas);n.className='active-order-address';card.append(n)}
