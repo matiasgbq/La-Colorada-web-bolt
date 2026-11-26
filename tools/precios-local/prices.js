@@ -426,5 +426,40 @@ loadActiveOrders();
 setInterval(() => { if (!document.hidden) loadActiveOrders(); }, 30000);
 
 const historyToggle=document.querySelector('#toggle-history'),historySection=document.querySelector('#history-section'),historyList=document.querySelector('#history-list'),historyStatus=document.querySelector('#history-status');
-async function loadHistory(){try{const headers={apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY};const [a,b]=await Promise.all([fetch(SUPABASE_URL+'/rest/v1/la_colorada_pedidos?select=id,cliente,direccion,horario_entrega,estado,total,created_at,updated_at&order=created_at.desc&limit=100',{headers,cache:'no-store'}),fetch(SUPABASE_URL+'/rest/v1/la_colorada_pedido_items?select=pedido_id,cantidad,descripcion&order=id.asc',{headers,cache:'no-store'})]);const [orders,items]=await Promise.all([a.json(),b.json()]);historyList.replaceChildren();historyStatus.textContent=orders.length?orders.length+' pedidos registrados':'Sin historial';for(const o of orders){const d=element('details','');d.className='history-order';const s=element('summary',o.cliente+' · '+pesos.format(o.total)+' · '+o.estado.replaceAll('_',' '));d.append(s);const ul=element('ul','');for(const i of items.filter(x=>x.pedido_id===o.id))ul.append(element('li',i.cantidad+' × '+i.descripcion));d.append(ul);if(o.direccion)d.append(element('p',o.direccion+(o.horario_entrega?' · '+o.horario_entrega:'')));historyList.append(d)}}catch{historyStatus.textContent='No se pudo cargar el historial'}}
+async function loadHistory(){
+  try{
+    const headers={apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY};
+    const [a,b]=await Promise.all([
+      fetch(SUPABASE_URL+'/rest/v1/la_colorada_pedidos?select=id,cliente,direccion,horario_entrega,estado,total,created_at,updated_at&order=created_at.desc&limit=200',{headers,cache:'no-store'}),
+      fetch(SUPABASE_URL+'/rest/v1/la_colorada_pedido_eventos?select=pedido_id,estado,actor,created_at&order=created_at.asc',{headers,cache:'no-store'})
+    ]);
+    if(!a.ok) throw new Error('pedidos');
+    const orders=await a.json(), events=b.ok?await b.json():[];
+    historyList.replaceChildren();
+    historyStatus.textContent=orders.length?orders.length+' pedidos registrados':'Sin historial';
+    const fmtDate=d=>new Intl.DateTimeFormat('es-AR',{timeZone:'America/Argentina/Buenos_Aires',day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date(d));
+    const fmtTime=d=>new Intl.DateTimeFormat('es-AR',{timeZone:'America/Argentina/Buenos_Aires',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(d));
+    const labels={recibido:'Recibido',en_preparacion:'Preparando',listo:'Listo',salio:'En camino',entregado:'Entregado',cancelado:'Cancelado'};
+    let lastDate='';
+    for(const o of orders){
+      const date=fmtDate(o.created_at);
+      if(date!==lastDate){const day=element('h3',date);day.className='history-day';historyList.append(day);lastDate=date}
+      const row=element('article','');row.className='history-row';
+      const main=element('div','');main.className='history-row-main';
+      const title=element('strong',o.cliente);const meta=element('span',fmtTime(o.created_at)+(o.horario_entrega?' · entrega '+o.horario_entrega:''));
+      main.append(title,meta);
+      const right=element('div','');right.className='history-row-right';
+      const state=element('span',labels[o.estado]||o.estado);state.className='history-state history-state-'+o.estado;
+      right.append(state,element('strong',pesos.format(o.total)));
+      row.append(main,right);
+      const timeline=events.filter(e=>e.pedido_id===o.id);
+      if(timeline.length){
+        const detail=element('div','');detail.className='history-timeline';
+        detail.textContent=timeline.map(e=>(labels[e.estado]||e.estado)+' '+fmtTime(e.created_at)).join(' → ');
+        row.append(detail);
+      }
+      historyList.append(row);
+    }
+  }catch{historyStatus.textContent='No se pudo cargar el historial'}
+}
 historyToggle?.addEventListener('click',()=>{historySection.hidden=!historySection.hidden;if(!historySection.hidden)loadHistory()});
