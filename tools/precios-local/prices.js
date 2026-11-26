@@ -407,6 +407,16 @@ async function loadActiveOrders() {
         else list.append(element('li','Sin detalle cargado'));
         card.append(list);
         if(orderData.notas){const n=element('p','Nota: '+orderData.notas);n.className='active-order-address';card.append(n)}
+        const delivery=element('div','');delivery.className='delivery-box';
+        const deliveryTitle=element('strong','🛵 Repartidor');delivery.append(deliveryTitle);
+        if(orderData.direccion){
+          const route=document.createElement('a');
+          route.href='https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent('Blanco Encalada 2229, Beccar, Buenos Aires')+'&destination='+encodeURIComponent(orderData.direccion+', Buenos Aires')+'&travelmode=driving';
+          route.target='_blank';route.rel='noopener';route.textContent='📍 '+orderData.direccion+' · Abrir ruta';
+          delivery.append(route);
+        } else delivery.append(element('span','Sin dirección cargada'));
+        const deliveryTime=element('span',orderData.horario_entrega?'Entrega: '+orderData.horario_entrega:'Sin horario de entrega');delivery.append(deliveryTime);
+        card.append(delivery);
         const total=element('div','');total.className='active-order-total';
         total.append(element('span',orderData.forma_pago||'A cobrar'),element('strong',pesos.format(orderData.total)));card.append(total);
         const controls=element('div','');controls.className='order-state-controls';
