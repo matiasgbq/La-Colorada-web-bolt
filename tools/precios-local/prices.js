@@ -163,7 +163,7 @@ async function createOperationalOrder() {
   if (!cliente) { orderCustomer.focus(); window.alert('Poné un cliente o referencia para identificar el pedido.'); return; }
   saveOrder.disabled = true; saveOrder.textContent = 'Creando…'; saveOrderStatus.textContent = '';
   try {
-    const items = [...order.values()].map(item => ({ cantidad: item.quantity, descripcion: item.name, precio_unitario: item.price }));
+    const items = [...order.values()].map(item => ({ cantidad: item.quantity, descripcion: item.name, precio_unitario: Number.isFinite(item.price) ? item.price : 0 }));
     const response = await fetch(SUPABASE_URL + '/functions/v1/la-colorada-crear-pedido', {
       method: 'POST', headers: { 'Content-Type':'application/json', apikey: SUPABASE_KEY },
       body: JSON.stringify({ cliente, direccion: orderAddress.value, horario_entrega: orderTime.value, forma_pago: orderPayment.value, notas: orderNotes.value, items }),
